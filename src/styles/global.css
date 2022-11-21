@@ -1,0 +1,68 @@
+@font-face {
+  font-family: "Roboto";
+  src: url(./fonts/Roboto_Mono/static/RobotoMono-Light.ttf);
+}
+
+button {
+  background-color: var(--color-background-secondary);
+  color: var(--color-text-secondary);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--radius-m);
+  padding: var(--space-m);
+  padding-inline: var(--space-xl);
+  font-family: "Roboto";
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--color-interaction-hover);
+}
+
+button:active {
+  background-color: var(--color-interaction-active);
+  color: var(--color-text-light);
+}
+
+header {
+  display: grid;
+  grid-template-columns: auto auto;
+  background-color: var(--color-background);
+  width: 100vw;
+  padding-top: var(--space-m);
+  padding-bottom: var(--space-m);
+}
+
+header > * > *:first-child {
+  padding-left: var(--space-m);
+}
+
+header > *:nth-child(2) {
+  display: flex;
+  justify-content: right;
+  padding-right: var(--space-m);
+}
+
+.app {
+  background-color: var(--color-background);
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 100%;
+  width: 100vw;
+}
+
+.page {
+  overflow: hidden;
+  height: 100%;
+  overflow-y: scroll;
+  background-color: var(--color-background);
+}
+
+.page > * {
+  width: min(calc(100%), 1200px);
+  margin-inline: auto;
+}
+
+body {
+  color: var(--color-text);
+}
