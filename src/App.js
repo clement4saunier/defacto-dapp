@@ -1,6 +1,6 @@
-import "./styles/global.css";
 import "./styles/theme.css";
-import ThemeProvider from "./components/context/ThemeProvider";
+import "./styles/global.css";
+import {ThemeProvider} from "./components/context/ThemeProvider";
 import { Route, BrowserRouter as Router, Routes, useNavigate } from "react-router-dom";
 import Header from "./components/layout/Header";
 import Page from "./components/layout/Page";

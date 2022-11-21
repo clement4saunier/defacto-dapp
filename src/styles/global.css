@@ -3,11 +3,19 @@
   src: url(./fonts/Roboto_Mono/static/RobotoMono-Light.ttf);
 }
 
+button, select, textarea, input, option {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  border-radius: var(--radius-m);
+  border: var(--border-width) solid var(--border-color);
+  padding: var(--space-m);
+  margin: var(--space-s);
+}
+
 button {
   background-color: var(--color-background-secondary);
   color: var(--color-text-secondary);
   border: var(--border-width) solid var(--border-color);
-  border-radius: var(--radius-m);
   padding: var(--space-m);
   padding-inline: var(--space-xl);
   font-family: "Roboto";
@@ -24,45 +32,52 @@ button:active {
   color: var(--color-text-light);
 }
 
+h1, h2, h3, h4, h5, h6, button {
+  color: var(--color-text);
+}
+
+p {
+  color: var(--color-text-light);
+}
+
 header {
   display: grid;
   grid-template-columns: auto auto;
   background-color: var(--color-background);
   width: 100vw;
-  padding-top: var(--space-m);
-  padding-bottom: var(--space-m);
-}
-
-header > * > *:first-child {
-  padding-left: var(--space-m);
+  padding: var(--space-l);
 }
 
 header > *:nth-child(2) {
   display: flex;
   justify-content: right;
-  padding-right: var(--space-m);
+}
+
+footer {
+  background-color: var(--color-background-secondary);
+  overflow: hidden;
+}
+
+footer > * {
+  color: var(--color-text-secondary);
 }
 
 .app {
   background-color: var(--color-background);
+  display: flex;
   height: 100vh;
   display: grid;
-  grid-template-rows: auto 100%;
   width: 100vw;
 }
 
 .page {
   overflow: hidden;
-  height: 100%;
   overflow-y: scroll;
   background-color: var(--color-background);
+  max-height: 100%;
 }
 
-.page > * {
-  width: min(calc(100%), 1200px);
+.page > *:not(footer), footer>* {
+  width: min(calc(100% - var(--space-l) * 2), 1200px);
   margin-inline: auto;
-}
-
-body {
-  color: var(--color-text);
 }

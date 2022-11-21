@@ -1,41 +1,62 @@
 :root {
-    /* primary */
-    --color-background: #16161a;
-    --color-text: #fffffe;
-    --color-text-light: #94a1b2;
+  /* primary */
+  --color-background: #eff0f3;
+  --color-text: #0d0d0d;
+  --color-text-light: #2a2a2a;
 
-    /* secondary */
-    --color-background-secondary: #7f5af0;
-    --color-text-secondary: var(--color-text);
-    --color-text-secondary-light: var(--color-text-secondary);
+  /* secondary */
+  --color-background-secondary: #ff8e3c;
+  --color-text-secondary: var(--color-text);
+  --color-text-secondary-light: var(--color-text-secondary);
 
-    /* interaction */
-    --color-interaction-hover: #8867eb;
-    --color-interaction-active: #5230b8;
-  
-    /* spacing */
-    --space-s: 2px;
-    --space-m: 4px;
-    --space-l: 8px;
-    --space-xl: 12px;
-  
-    /* shadow */
-    --shadow-color: rgba(0, 0, 0, 0.3);
-    --shadow-default: 0px 1px 2px 0 var(--shadow-color);
-    --shadow-inside: 0px 1px 1px 1px var(--shadow-color) inset;
-    --shadow-lifted: 0 2px 3px 0 var(--shadow-color);
-  
-    /* shapes */
-    --radius-s: 4px;
-    --radius-m: 8px;
-    --radius-l: 16px;
-    --radius-xl: 24px;
-    --border-width: 1px;
-    --border-color: rgba(0, 0, 0, 0.103);
-    --border-default: var(--border-width) solid var(--border-color);
-  
-    /* animation */
-    --duration-fast: 250ms;
-    --duration-slow: 500ms;
-    overflow: hidden;
-  }
+  /* interaction */
+  --color-interaction-hover: #fc9852;
+  --color-interaction-active: #e6782a;
+
+  /* spacing */
+  --space-s: 2px;
+  --space-m: 4px;
+  --space-l: 8px;
+  --space-xl: 12px;
+
+  /* shadow */
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-default: 0px 1px 2px 0 var(--shadow-color);
+  --shadow-inside: 0px 1px 1px 1px var(--shadow-color) inset;
+  --shadow-lifted: 0 2px 3px 0 var(--shadow-color);
+
+  /* shapes */
+  --radius-s: 4px;
+  --radius-m: 8px;
+  --radius-l: 16px;
+  --radius-xl: 24px;
+  --border-width: 1px;
+  --border-color: rgba(0, 0, 0, 0.103);
+  --border-default: var(--border-width) solid var(--border-color);
+
+  /* animation */
+  --duration-fast: 250ms;
+  --duration-slow: 500ms;
+  overflow: hidden;
+}
+
+.dark {
+  /* primary */
+  --color-background: #16161a;
+  --color-text: #fffffe;
+  --color-text-light: #94a1b2;
+
+  /* secondary */
+  --color-background-secondary: #7f5af0;
+  --color-text-secondary: #fffffe;
+  --color-text-secondary-light: #fffffe;
+
+  /* shapes */
+  --border-color: rgba(255, 255, 255, 0.103);
+  --border-default: var(--border-width) solid var(--border-color);
+
+  /* interaction */
+  --color-interaction-hover: #8867eb;
+  --color-interaction-active: #5230b8;
+  overflow: hidden;
+}
