@@ -51,6 +51,10 @@
   --color-text-secondary: #fffffe;
   --color-text-secondary-light: #fffffe;
 
+  /* shapes */
+  --border-color: rgba(255, 255, 255, 0.103);
+  --border-default: var(--border-width) solid var(--border-color);
+
   /* interaction */
   --color-interaction-hover: #8867eb;
   --color-interaction-active: #5230b8;

@@ -3,11 +3,19 @@
   src: url(./fonts/Roboto_Mono/static/RobotoMono-Light.ttf);
 }
 
+button, select, textarea, input, option {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  border-radius: var(--radius-m);
+  border: var(--border-width) solid var(--border-color);
+  padding: var(--space-m);
+  margin: var(--space-s);
+}
+
 button {
   background-color: var(--color-background-secondary);
   color: var(--color-text-secondary);
   border: var(--border-width) solid var(--border-color);
-  border-radius: var(--radius-m);
   padding: var(--space-m);
   padding-inline: var(--space-xl);
   font-family: "Roboto";
