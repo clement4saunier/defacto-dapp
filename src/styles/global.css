@@ -25,22 +25,17 @@ button:active {
 }
 
 header {
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: auto auto;
   background-color: var(--color-background);
   width: 100vw;
-  padding-top: var(--space-m);
-  padding-bottom: var(--space-m);
-}
-
-header > * > *:first-child {
-  padding-left: var(--space-m);
+  padding: var(--space-l);
 }
 
 header > *:nth-child(2) {
   display: flex;
   justify-content: right;
-  padding-right: var(--space-m);
 }
 
 .app {
