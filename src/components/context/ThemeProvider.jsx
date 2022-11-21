@@ -6,7 +6,7 @@ export const useThemeContext = () => {
   return useContext(ThemeContext);
 };
 
-export default function ThemeProvider({ children }) {
+export function ThemeProvider({ children }) {
   const [themes] = useState([
     { name: "Light", className: "" },
     { name: "Dark", className: "dark" }
@@ -32,9 +32,13 @@ export default function ThemeProvider({ children }) {
     window.localStorage.setItem("theme", _theme.name);
   }
 
+  console.log("PROVIDER", theme.name, theme.className);
+
   return (
-    <ThemeContext.Provider value={{ setAndStoreTheme, theme }}>
+    <ThemeContext.Provider value={{ setAndStoreTheme, theme, themes }}>
+      <div className={theme.className}>
       {children}
+      </div>
     </ThemeContext.Provider>
   );
 }

@@ -24,6 +24,14 @@ button:active {
   color: var(--color-text-light);
 }
 
+h1, h2, h3, h4, h5, h6, button {
+  color: var(--color-text);
+}
+
+p {
+  color: var(--color-text-light);
+}
+
 header {
   display: grid;
   grid-template-columns: auto auto;
@@ -40,6 +48,10 @@ header > *:nth-child(2) {
 footer {
   background-color: var(--color-background-secondary);
   overflow: hidden;
+}
+
+footer > * {
+  color: var(--color-text-secondary);
 }
 
 .app {
@@ -60,8 +72,4 @@ footer {
 .page > *:not(footer), footer>* {
   width: min(calc(100% - var(--space-l) * 2), 1200px);
   margin-inline: auto;
-}
-
-body {
-  color: var(--color-text);
 }
