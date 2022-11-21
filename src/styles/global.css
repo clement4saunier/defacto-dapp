@@ -3,7 +3,11 @@
   src: url(./fonts/Roboto_Mono/static/RobotoMono-Light.ttf);
 }
 
-button, select, textarea, input, option {
+button,
+select,
+textarea,
+input,
+option {
   background-color: var(--color-background);
   color: var(--color-text);
   border-radius: var(--radius-m);
@@ -32,7 +36,13 @@ button:active {
   color: var(--color-text-light);
 }
 
-h1, h2, h3, h4, h5, h6, button {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button {
   color: var(--color-text);
 }
 
@@ -65,8 +75,8 @@ footer > * {
 .app {
   background-color: var(--color-background);
   display: flex;
+  flex-direction: column;
   height: 100vh;
-  display: grid;
   width: 100vw;
 }
 
@@ -74,10 +84,15 @@ footer > * {
   overflow: hidden;
   overflow-y: scroll;
   background-color: var(--color-background);
-  max-height: 100%;
+  flex: 1;
 }
 
-.page > *:not(footer), footer>* {
+.page > *:first-child {
+  min-height: 100%;
+}
+
+.page > *:not(footer),
+footer > * {
   width: min(calc(100% - var(--space-l) * 2), 1200px);
   margin-inline: auto;
 }

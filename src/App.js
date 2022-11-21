@@ -5,6 +5,7 @@ import { Route, BrowserRouter as Router, Routes, useNavigate } from "react-route
 import Header from "./components/layout/Header";
 import Page from "./components/layout/Page";
 import Home from "./components/page/Home";
+import List from "./components/page/List";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Page>
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="/list" element={<List />} />
             </Routes>
           </Page>
         </div>
