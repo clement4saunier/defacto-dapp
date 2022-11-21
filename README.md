@@ -24,6 +24,17 @@ To start the project do the following commands:
 docker compose build
 docker compose up
 ``` 
+# The team
+We are DeFacto
+
+## Members
+Alexandre Schaffner, Clément Saunier, Mickael Riess, Maxime Noel
+
+## What we learned
+
+# Features
+
+# Demo
 
 [0]: git@github.com:clement4saunier/defacto-dapp.git
 [1]: https://docs.docker.com/engine/install/
