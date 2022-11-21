@@ -1,3 +1,4 @@
+import Icon from "../content/Icon";
 import { useThemeContext } from "../context/ThemeProvider";
 
 export default function Header() {
@@ -10,10 +11,10 @@ export default function Header() {
   return (
     <header>
       <div>
-        <h3 style={{ margin: 0 }}>dAppFoundation</h3>
+        <h3 style={{ margin: 0 }}><Icon crypto="list"/> Defacto</h3>
       </div>
       <div>
-        <select value={theme.name} name="language" onChange={onThemeSet}>
+        <select value={theme.name} name="theme" onChange={onThemeSet}>
           {themes.map((_theme, idx) => (
             <option key={idx}>{_theme.name}</option>
           ))}
