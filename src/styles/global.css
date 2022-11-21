@@ -37,6 +37,11 @@ header > *:nth-child(2) {
   justify-content: right;
 }
 
+footer {
+  background-color: var(--color-background-secondary);
+  overflow: hidden;
+}
+
 .app {
   background-color: var(--color-background);
   display: flex;
@@ -52,7 +57,7 @@ header > *:nth-child(2) {
   max-height: 100%;
 }
 
-.page > * {
+.page > *:not(footer), footer>* {
   width: min(calc(100% - var(--space-l) * 2), 1200px);
   margin-inline: auto;
 }
