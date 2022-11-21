@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Icon from "../content/Icon";
 
 export default function Home() {
-  const [text, setText] = useState(
+  let navigate = useNavigate();
+  const [text] = useState(
     <p>
       Lorem Ipsum is simply dummy text of the printing and typesetting industry.
       Lorem Ipsum has been the industry's standard dummy text ever since the
@@ -17,8 +20,10 @@ export default function Home() {
 
   return (
     <>
-      <h1>Hello</h1>
+      <h1>Decentralized fact-checking and journalism platform</h1>
       {text}
+      <button onClick={() => navigate('/list')}>List <Icon crypto="send-in"/></button>
+      <button onClick={() => navigate('/create')}>Create <Icon crypto="send-in"/></button>
       <h2>What is it about ?</h2>
       {Array(3).fill(text)}
       <h2>How does it work ?</h2>

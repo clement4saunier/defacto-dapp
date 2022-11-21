@@ -7,6 +7,7 @@ import Page from "./components/layout/Page";
 import Home from "./components/page/Home";
 import Create from "./components/page/Create";
 import List from "./components/page/List";
+import Team from "./components/page/Team";
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/list" element={<List />} />
-              <Route path="/Create" element={<Create />} />
+              <Route path="/create" element={<Create />} />
+              <Route path="/team" element={<Team />} />
             </Routes>
           </Page>
         </div>

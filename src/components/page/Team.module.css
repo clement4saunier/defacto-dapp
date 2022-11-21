@@ -1,0 +1,11 @@
+.members {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+}
+
+.members > * {
+  padding-inline: var(--space-l);
+  border: var(--border-default);
+  border-radius: var(--radius-m);
+}
