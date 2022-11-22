@@ -127,3 +127,20 @@ footer > * {
   width: min(calc(100% - var(--space-l) * 2), 1200px);
   margin-inline: auto;
 }
+
+::-webkit-scrollbar {
+  width: var(--space-l);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: var(--radius-m);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-background-secondary);
+}
