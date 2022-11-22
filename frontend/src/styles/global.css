@@ -83,15 +83,20 @@ p > i {
 
 header {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
   background-color: var(--color-background);
   width: 100vw;
   padding: var(--space-l);
 }
 
-header > *:nth-child(2) {
+header > *:last-child {
   display: flex;
   justify-content: right;
+}
+
+header > *:nth-child(2) {
+  display: flex;
+  justify-content: center;
 }
 
 footer {
