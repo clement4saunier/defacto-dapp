@@ -45,7 +45,7 @@ textarea {
 
 button {
   background-color: var(--color-background-secondary);
-  color: var(--color-text-secondary);
+  color: var(--color-text-secondary) !important;
   border: var(--border-width) solid var(--border-color);
   padding: var(--space-m);
   padding-inline: var(--space-xl);
