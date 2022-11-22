@@ -6,8 +6,13 @@
   grid-template-columns: auto auto;
 }
 
+.card:hover {
+    border-color: var(--color-background-secondary);
+    cursor: pointer;
+}
+
 .card > *:nth-child(2) {
-    display: flex;
-    justify-content: right;
-    text-align: right;
+  display: flex;
+  justify-content: right;
+  text-align: right;
 }

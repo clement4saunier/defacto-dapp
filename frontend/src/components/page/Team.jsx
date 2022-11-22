@@ -28,7 +28,7 @@ export default function Team() {
       <p>Our team includes 4 {"{EPITECH.}"} students</p>
       <div className={styles.members}>
         {members.map(({ name, title, mail }) => (
-          <div>
+          <div className="card">
             <h3>{name}</h3>
             <p>{title}<br/>{mail}</p>
           </div>

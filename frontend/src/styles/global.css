@@ -3,6 +3,10 @@
   src: url(./fonts/Roboto_Mono/static/RobotoMono-Light.ttf);
 }
 
+* {
+  color: var(--color-text);
+}
+
 button,
 select,
 textarea,
@@ -83,15 +87,20 @@ p > i {
 
 header {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: auto auto auto;
   background-color: var(--color-background);
   width: 100vw;
   padding: var(--space-l);
 }
 
-header > *:nth-child(2) {
+header > *:last-child {
   display: flex;
   justify-content: right;
+}
+
+header > *:nth-child(2) {
+  display: flex;
+  justify-content: center;
 }
 
 footer {
@@ -130,4 +139,31 @@ footer > * {
 
 li {
   color: var(--color-text-light);
+}
+::-webkit-scrollbar {
+  width: var(--space-l);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: var(--radius-m);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-background-secondary);
+}
+
+.divider {
+  width: 100%;
+  border-bottom: 1px solid var(--color-text-light);
+}
+
+.card {
+  padding-inline: var(--space-l);
+  border: var(--border-default);
+  border-radius: var(--radius-m);
 }
