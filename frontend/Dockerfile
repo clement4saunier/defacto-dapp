@@ -1,11 +1,10 @@
 FROM node:latest
 
-RUN mkdir /app
-WORKDIR /app
-
+WORKDIR /usr/app
 
 COPY package*.json ./
 RUN npm install
+
 COPY . .
 
 EXPOSE 3000
