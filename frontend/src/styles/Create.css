@@ -11,8 +11,7 @@
 }
 
 #textAreaBody {
-    width: 100%;
-    height: 20em;
+    min-height: 20em;
 }
 
 .questionForm {

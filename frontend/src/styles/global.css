@@ -18,6 +18,25 @@ option {
 
 textarea {
   resize: vertical;
+  width: 100%;
+  padding: var(--space-l);
+}
+
+::-moz-selection {
+  /* Code for Firefox */
+  color: var(--color-text-secondary);
+  background: var(--color-background-secondary);
+}
+
+::selection {
+  color: var(--color-text-secondary);
+  background: var(--color-background-secondary);
+}
+
+*:focus,
+*:focus-visible {
+  border-color: var(--color-background-secondary);
+  outline: none;
 }
 
 button {
@@ -58,7 +77,7 @@ p {
   color: var(--color-text-light);
 }
 
-p> i {
+p > i {
   font-variant: unicase;
 }
 
