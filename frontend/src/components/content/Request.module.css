@@ -1,0 +1,13 @@
+.card {
+  padding-inline: var(--space-l);
+  border: var(--border-default);
+  border-radius: var(--radius-m);
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.card > *:nth-child(2) {
+    display: flex;
+    justify-content: right;
+    text-align: right;
+}
