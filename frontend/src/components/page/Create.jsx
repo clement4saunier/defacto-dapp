@@ -18,8 +18,6 @@ export default function Create() {
 
   return (
     <div>
-      <button onClick={() => navigate("/")}>Home</button>
-
       <h1>Create a request</h1>
       <div>
         <form onSubmit={sendForm} id="createForm">
