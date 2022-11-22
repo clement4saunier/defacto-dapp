@@ -17,8 +17,8 @@ export default function Header() {
   return (
     <header>
       <div>
-        <h3 style={{ margin: 0 }} onClick={() => navigate("/")}>
-          <Icon crypto="list" onClick={() => navigate("/")}/> Defacto
+        <h3 style={{ margin: 0, cursor: 'pointer'}} onClick={() => navigate("/")}>
+          <Icon crypto="list" /> Defacto
         </h3>
       </div>
       <div>
