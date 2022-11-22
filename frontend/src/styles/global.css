@@ -16,6 +16,10 @@ option {
   margin: var(--space-s);
 }
 
+textarea {
+  resize: vertical;
+}
+
 button {
   background-color: var(--color-background-secondary);
   color: var(--color-text-secondary);
