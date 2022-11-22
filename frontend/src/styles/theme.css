@@ -13,6 +13,9 @@
   --color-interaction-hover: #fc9852;
   --color-interaction-active: #e6782a;
 
+  /* special */
+  --color-error: red;
+
   /* spacing */
   --space-s: 2px;
   --space-m: 4px;
