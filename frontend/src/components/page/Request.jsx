@@ -1,7 +1,14 @@
+import { useState } from "react";
+import Icon from "../content/Icon";
 import Response from "../content/Response";
+import { useWeb3Context } from "../context/Web3Provider";
 import styles from "./List.module.css";
 
 export default function Request() {
+  const [publishing, setPublishing] = useState(false);
+  const [uploaded, setUploaded] = useState(false);
+  const {account} = useWeb3Context();
+
   return (
     <>
       <h1>Title of the request</h1>
@@ -20,8 +27,32 @@ export default function Request() {
         with desktop publishing software like Aldus PageMaker including versions
         of Lorem Ipsum.
       </p>
-      <h2>3 Responses</h2>
-      <div className={styles.grid}>{Array(3).fill(<Response />)}</div>
+      {publishing ? (
+        <button onClick={() => setPublishing(false)}>
+          Show responses <Icon crypto="list" />
+        </button>
+      ) : (
+        <button onClick={() => setPublishing(true)}>
+          Publish a response <Icon crypto="receive" />
+        </button>
+      )}
+      {!publishing ? (
+        <>
+          {" "}
+          <h2>3 Responses</h2>
+          <div className={styles.grid}>{Array(3).fill(<Response />)}</div>
+        </>
+      ) : (
+        <>
+          <h2>Respond {account && "as " + account.substring(0, 7)}</h2>
+          <textarea style={{ minHeight: "10em" }} onChange={() => setUploaded(false)}/>
+          {uploaded ? (
+            <button>Publish</button>
+          ) : (
+            <button onClick={() => setUploaded(true)}>Confirm</button>
+          )}
+        </>
+      )}
     </>
   );
 }
