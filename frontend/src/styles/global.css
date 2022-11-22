@@ -137,6 +137,9 @@ footer > * {
   margin-inline: auto;
 }
 
+li {
+  color: var(--color-text-light);
+}
 ::-webkit-scrollbar {
   width: var(--space-l);
 }
