@@ -127,3 +127,7 @@ footer > * {
   width: min(calc(100% - var(--space-l) * 2), 1200px);
   margin-inline: auto;
 }
+
+li {
+  color: var(--color-text-light);
+}
