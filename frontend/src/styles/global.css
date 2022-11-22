@@ -144,3 +144,14 @@ footer > * {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-background-secondary);
 }
+
+.divider {
+  width: 100%;
+  border-bottom: 1px solid var(--color-text-light);
+}
+
+.card {
+  padding-inline: var(--space-l);
+  border: var(--border-default);
+  border-radius: var(--radius-m);
+}

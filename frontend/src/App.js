@@ -8,6 +8,7 @@ import Home from "./components/page/Home";
 import Create from "./components/page/Create";
 import List from "./components/page/List";
 import Team from "./components/page/Team";
+import Request from "./components/page/Request";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route path="/list" element={<List />} />
               <Route path="/create" element={<Create />} />
               <Route path="/team" element={<Team />} />
+              <Route path="/request" element={<Request />} />
             </Routes>
           </Page>
         </div>
