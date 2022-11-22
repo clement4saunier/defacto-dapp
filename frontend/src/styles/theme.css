@@ -60,3 +60,35 @@
   --color-interaction-active: #5230b8;
   overflow: hidden;
 }
+
+.starton {
+  /* primary */
+  --color-background: #151a1f;
+  --color-text: #fffffe;
+  --color-text-light: #94a1b2;
+
+  /* secondary */
+  --color-background-secondary: #00e6cd;
+  --color-text-secondary: #0d0d0d;
+  --color-text-secondary-light: #2a2a2a;
+
+  /* shapes */
+  --border-color: rgb(62, 78, 92);
+  --border-default: var(--border-width) solid var(--border-color);
+
+  --radius-s: 1px;
+  --radius-m: 2px;
+  --radius-l: 4px;
+  --radius-xl: 8px;
+
+  --space-s: 2px;
+  --space-m: 6px;
+  --space-l: 12px;
+  --space-xl: 24px;
+
+  /* interaction */
+  --color-interaction-hover: rgb(1, 178, 158);
+  --color-interaction-active: rgb(1, 178, 158);
+  overflow: hidden;
+}
+

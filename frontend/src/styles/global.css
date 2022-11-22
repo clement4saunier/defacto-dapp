@@ -3,9 +3,9 @@
   src: url(./fonts/Roboto_Mono/static/RobotoMono-Light.ttf);
 }
 
-* {
+/* * {
   color: var(--color-text);
-}
+} */
 
 button,
 select,
@@ -37,9 +37,13 @@ textarea {
   background: var(--color-background-secondary);
 }
 
-*:focus,
-*:focus-visible {
+*:active {
   border-color: var(--color-background-secondary);
+  color: var(--color-background-secondary);
+  outline: none;
+}
+
+*:focus, *:focus-within {
   outline: none;
 }
 

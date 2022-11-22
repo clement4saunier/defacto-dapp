@@ -9,7 +9,8 @@ export const useThemeContext = () => {
 export function ThemeProvider({ children }) {
   const [themes] = useState([
     { name: "Light", className: "" },
-    { name: "Dark", className: "dark" }
+    { name: "Dark", className: "dark" },
+    { name: "Starton", className: "starton" }
   ]);
   const [theme, setTheme] = useState(themes[0]);
 
