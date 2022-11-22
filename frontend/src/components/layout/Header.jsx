@@ -1,10 +1,14 @@
 import Icon from "../content/Icon";
 import { useThemeContext } from "../context/ThemeProvider";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import useWalletRequest from "../hooks/useWalletRequest";
+import { useWeb3Context } from "../context/Web3Provider";
 
 export default function Header() {
   let navigate = useNavigate();
   const { theme, themes, setAndStoreTheme } = useThemeContext();
+  const { requestAccounts } = useWalletRequest();
+  const { account } = useWeb3Context();
 
   function onThemeSet(v) {
     setAndStoreTheme(themes.find(({ name }) => name === v.target.value));
@@ -13,12 +17,20 @@ export default function Header() {
   return (
     <header>
       <div>
-        <h3 style={{ margin: 0 }}><Icon crypto="list"/> Defacto</h3>
+        <h3 style={{ margin: 0 }}>
+          <Icon crypto="list" /> Defacto
+        </h3>
       </div>
       <div>
-        <button onClick={() => navigate("/")}>Home <Icon crypto="info"/></button>
-        <button onClick={() => navigate("/list")}>List <Icon crypto="search"/></button>
-        <button onClick={() => navigate("/create")}>Create <Icon crypto="send-in"/></button>
+        <button onClick={() => navigate("/")}>
+          Home <Icon crypto="info" />
+        </button>
+        <button onClick={() => navigate("/list")}>
+          List <Icon crypto="search" />
+        </button>
+        <button onClick={() => navigate("/create")}>
+          Create <Icon crypto="send-in" />
+        </button>
       </div>
       <div>
         <select value={theme.name} name="theme" onChange={onThemeSet}>
@@ -26,7 +38,11 @@ export default function Header() {
             <option key={idx}>{_theme.name}</option>
           ))}
         </select>
-        <button>connect wallet</button>
+        {!account ? (
+          <button onClick={requestAccounts}>connect wallet</button>
+        ) : (
+          <button>{account.substring(0, 7)}</button>
+        )}
       </div>
     </header>
   );
