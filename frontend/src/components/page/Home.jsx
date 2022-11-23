@@ -6,10 +6,26 @@ export default function Home() {
   let navigate = useNavigate();
   const [text] = useState(
     <p>
+      You are not sure if something is true?<br/>
+      You want to have more data on a subject ?<br/>
+
+      We´ve got you covered.<br/>
+      Simply place a bounty on your task, and the internet will do the rest.<br/>
+      And best of all, its uncensored <br/>
+
+      
+
+
       DeFacts was designed in an attempt to increase trust in the journalism world. We aim to bring a Decentralized Information Verification 
       Protocol that provides a wide net of information gatherers to confirm or infirm information in the most unbiased way.
       The platform incentivises journalistic work of all sorts (fact-checking, data research..) by pairing up three types of profiles and creating
       a collaborative work dynamic between them.
+      <br/><br/>
+
+      News outlets of all sizes, independent journalists, newsletter writers or any other individual can leverage
+      the vast network of the internet by simply offering a bounty of their choice on a data verification or gathering task.
+
+
     </p>
   );
 
