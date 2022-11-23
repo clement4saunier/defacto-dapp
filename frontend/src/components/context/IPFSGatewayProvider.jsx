@@ -37,7 +37,7 @@ export default function IPFSGatewayProvider({ children }) {
   const [ipfsUploadGateways] = useState([
     {
       name: "Starton API",
-      upload: async (cid) =>
+      upload: async (file) =>
         "1"
     },
     {
