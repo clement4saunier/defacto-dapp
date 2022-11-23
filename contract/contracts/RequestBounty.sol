@@ -22,10 +22,10 @@ contract RequestBounty {
     event Respond(uint256 indexed requestId, uint256 indexed responseId);
 
     //Mapping from requestId to Request
-    mapping(uint256 => Request) request;
+    mapping(uint256 => Request) public request;
 
     //Mapping from requestId to responseId to Response
-    mapping(uint256 => mapping(uint256 => Response)) response;
+    mapping(uint256 => mapping(uint256 => Response)) public response;
 
     function _mintRequest(
         uint256 id,
