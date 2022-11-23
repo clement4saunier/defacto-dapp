@@ -4,10 +4,10 @@ import { useWeb3Context } from "../../context/Web3Provider";
 import useRequestBountyContract from "../../hooks/useRequestBountyContract";
 import { useCreationContext } from "../Create";
 import { create } from "ipfs-http-client";
-import {Buffer} from 'buffer';
 import Currency from "../../content/Currency";
 import { Contract } from "ethers";
 import erc20abi from "../../../contracts/abi/erc20.json"
+import { useIPFSGatewayContext } from "../../context/IPFSGatewayProvider";
 
 export default function Mint() {
   const {
@@ -38,46 +38,7 @@ export default function Mint() {
   );
 
   const [selectedGatewayIndex, setSelectedGatewayIndex] = useState(0);
-  const [ipfsUploadGateways] = useState([
-    {
-      name: "Starton API",
-      upload: async (cid) =>
-        "1"
-    },
-    {
-      name: "Infura",
-      upload: async (file) => {
-        // /!\ Trash api secrets, these won't go beyond free package
-        const projectId = "2DKn2VvZwVq1UvT9fOSUIOatVXZ";
-        const infura = "a870dea9a4a3c50b9dc7021b671fbaed";
-
-        const client = create({
-          host: "ipfs.infura.io",
-          port: 5001,
-          protocol: "https",
-          headers: {
-            authorization:
-              "Basic " +
-              Buffer.from(projectId + ":" + infura).toString("base64")
-          }
-        });
-
-        if (!file) return undefined;
-
-        try {
-          const cid = await client.add(file);
-          return cid.path;
-        } catch (error) {
-          console.log("Error uploading file: ", error);
-          return undefined;
-        }
-      }
-    }
-  ]);
-  const gateway = useMemo(
-    () => ipfsUploadGateways[selectedGatewayIndex],
-    [selectedGatewayIndex]
-  );
+  const {ipfsUploadGateway: gateway, ipfsUploadGatewaySelector} = useIPFSGatewayContext();
 
   function onMintButton() {
     const args = [cid, token, bounty, 1903123123];
@@ -121,15 +82,7 @@ export default function Mint() {
       <h3>IPFS Upload gateway</h3>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>
-          {ipfsUploadGateways.map(({ name }, index) => (
-            <button
-              className={index !== selectedGatewayIndex && "unselected"}
-              key={index}
-              onClick={() => setSelectedGatewayIndex(index)}
-            >
-              {name}
-            </button>
-          ))}
+        {ipfsUploadGatewaySelector}
         </div>
         <button onClick={onUploadButton}>
           {cid === null ? <>Upload <Icon crypto="send-in" /></> : cid === undefined ? "Loading..." : <>{cid} <Icon crypto="receive" /></>}{" "}

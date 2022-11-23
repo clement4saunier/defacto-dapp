@@ -1,8 +1,6 @@
 import { createContext, useContext, useMemo, useState } from "react";
-import { BrowserWalletRequestProvider } from "../context/on-chain/BrowserWalletRequestProvider";
-import { HardcodedRequestProvider } from "../context/on-chain/HardcodedRequestProvider";
-import { NodeRealRequestProvider } from "../context/on-chain/NodeRealRequestProvider";
-import { StartonRequestProvider } from "../context/on-chain/StartonRequestProvider";
+import { create } from "ipfs-http-client";
+import {Buffer} from 'buffer';
 
 export const IPFSGatewayContext = createContext(null);
 
@@ -36,17 +34,61 @@ export default function IPFSGatewayProvider({ children }) {
     { name: "Censored Gateway", fetch: async (cid) => defaultRequestMetadata },
     { name: "Hardcoded Gateway", fetch: async (cid) => defaultRequestMetadata }
   ]);
+  const [ipfsUploadGateways] = useState([
+    {
+      name: "Starton API",
+      upload: async (cid) =>
+        "1"
+    },
+    {
+      name: "Infura",
+      upload: async (file) => {
+        // /!\ Trash api secrets, these won't go beyond free package
+        const projectId = "2DKn2VvZwVq1UvT9fOSUIOatVXZ";
+        const infura = "a870dea9a4a3c50b9dc7021b671fbaed";
+
+        const client = create({
+          host: "ipfs.infura.io",
+          port: 5001,
+          protocol: "https",
+          headers: {
+            authorization:
+              "Basic " +
+              Buffer.from(projectId + ":" + infura).toString("base64")
+          }
+        });
+
+        if (!file) return undefined;
+
+        try {
+          const cid = await client.add(file);
+          return cid.path;
+        } catch (error) {
+          console.log("Error uploading file: ", error);
+          return undefined;
+        }
+      }
+    }
+  ]);
   const [selectedGatewayIndex, setSelectedGatewayIndex] = useState(0);
+  const [selectedUploadGatewayIndex, setSelectedUploadGatewayIndex] = useState(0);
 
   const ipfsGateway = useMemo(
     () => ipfsGateways[selectedGatewayIndex],
     [selectedGatewayIndex]
   );
 
+
+  const ipfsUploadGateway = useMemo(
+    () => ipfsUploadGateways[selectedUploadGatewayIndex],
+    [selectedUploadGatewayIndex]
+  );
+
   return (
     <IPFSGatewayContext.Provider
       value={{
         ipfsGateway,
+        ipfsUploadGateway,
         ipfsGatewaySelector: ipfsGateways.map(({ name }, index) => (
           <button
             className={index !== selectedGatewayIndex && "unselected"}
@@ -55,7 +97,16 @@ export default function IPFSGatewayProvider({ children }) {
           >
             {name}
           </button>
-        ))
+        )),
+        ipfsUploadGatewaySelector: ipfsUploadGateways.map(({ name }, index) => (
+            <button
+              className={index !== selectedUploadGatewayIndex && "unselected"}
+              key={index}
+              onClick={() => setSelectedUploadGatewayIndex(index)}
+            >
+              {name}
+            </button>
+          ))
       }}
     >
       {children}
