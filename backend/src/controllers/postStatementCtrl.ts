@@ -3,15 +3,9 @@ import { postStatement } from '../services/statements'
 
 export default async (req: Request, res: Response, next: NextFunction): Promise <void> => {
   try {
-    const {
-      askerAddress,
-      statement,
-      bounty,
-      delegates,
-      expiryBlock
-    } = req.body
+    const { title, statement } = req.body
 
-    const id: string = await postStatement(askerAddress, statement, bounty, delegates, expiryBlock)
+    const id: string = await postStatement(title, statement)
 
     res.send({
       success: true,
