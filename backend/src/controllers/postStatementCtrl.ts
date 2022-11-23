@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import axios from 'axios'
+import { postStatement } from '../services/statements'
 
 export default async (req: Request, res: Response, next: NextFunction): Promise <void> => {
   try {
@@ -10,26 +10,12 @@ export default async (req: Request, res: Response, next: NextFunction): Promise 
       delegates,
       expiryBlock
     } = req.body
-    const response = await axios.post('https://api.starton.io/v3/ipfs/json', {
-      name: statement,
-      content: {
-        askerAddress,
-        statement,
-        bounty,
-        delegates,
-        expiryBlock
-      },
-      metadata: {}
-    }, {
-      headers: {
-        'x-api-key': process.env.STARTON_API_KEY
-      }
-    })
+
+    const id: string = await postStatement(askerAddress, statement, bounty, delegates, expiryBlock)
 
     res.send({
       success: true,
-      id: response.data.id,
-      cid: response.data.cid
+      id
     })
   } catch (err: unknown) {
     next(err)
