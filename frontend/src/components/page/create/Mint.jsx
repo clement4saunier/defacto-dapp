@@ -115,8 +115,7 @@ export default function Mint() {
           ))}
         </div>
         <button onClick={onUploadButton}>
-          {cid === null ? "Upload" : cid === undefined ? "Loading..." : cid}{" "}
-          <Icon crypto="send-in" />
+          {cid === null ? <>Upload <Icon crypto="send-in" /></> : cid === undefined ? "Loading..." : <>{cid} <Icon crypto="receive" /></>}{" "}
         </button>
       </div>
       <p>

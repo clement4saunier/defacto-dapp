@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useCreationContext } from "../Create";
+import currencies from "../../../contracts/currencies.json";
+import { useWeb3Context } from "../../context/Web3Provider";
+import { useEffect } from "react";
 
 export default function Fill() {
   const {
@@ -28,6 +31,15 @@ export default function Fill() {
     { label: "Delegate5", value: "Delegate_5" }
   ];
   const [delegatesChoosen, setDelegatesChoosen] = useState("");
+  const [tokenName, setTokenName] = useState();
+  const { chainId } = useWeb3Context();
+
+  useEffect(() => {
+    tokenName &&
+      setToken(
+        currencies.chain[chainId].find(({ name }) => name === tokenName).address
+      );
+  }, [tokenName]);
 
   const sendForm = (e) => {
     e.preventDefault();
@@ -68,21 +80,18 @@ export default function Fill() {
               value={bounty}
               required
               onChange={(e) => setBounty(e.target.value)}
-            />
-            <input
-              name="bounty"
-              value={token}
-              required
-              onChange={(e) => setToken(e.target.value)}
-            />
-            {/* <select
-              value={token}
-              onChange={(e) => setToken(e.target.value)}
+            />{" "}
+            {token && token.substring(0, 7)}{" "}
+            <select
+              value={tokenName}
+              onChange={(e) => setTokenName(e.target.value)}
               required
             >
-              <option value="BTC">BTC</option>
-              <option value="ETH">ETH</option>
-            </select> */}
+              {currencies.chain[chainId] &&
+                currencies.chain[chainId].map(({ name, address }, idx) => (
+                  <option key={idx}>{name}</option>
+                ))}
+            </select>
           </span>
         </div>
         <div className="questionForm">
@@ -137,9 +146,12 @@ export default function Fill() {
             </select>
           ))}
         </div>
-        <button id="buttonSendForm" title="Submit" type="submit">
-          Add to verify
-        </button>
+        <div style={{ display: "flex", justifyContent: "right" }}>
+          <button title="Submit" type="submit">
+            Add to verify
+          </button>
+        </div>
+        <br/>
       </form>
     </>
   );
