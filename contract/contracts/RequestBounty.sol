@@ -3,6 +3,8 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract RequestBounty {
+    constructor() {}
+
     struct Request {
         address owner;
         string content;
@@ -49,7 +51,10 @@ contract RequestBounty {
         uint deadline
     ) external returns (uint256 requestId) {
         requestId = uint256(keccak256(abi.encodePacked(content)));
-        require (request[requestId].owner == address(0), "Request already posted");
+        require(
+            request[requestId].owner == address(0),
+            "Request already posted"
+        );
 
         _mintRequest(
             requestId,
@@ -62,7 +67,7 @@ contract RequestBounty {
     }
 
     function requestURI(uint256 requestId) public view returns (string memory) {
-        return request[requestId].content; //ipfs://QMMLI3120SDFMKLSDJFJE
+        return string(abi.encodePacked("ipfs://", request[requestId].content));
     }
 
     function publishResponse(uint256 requestId, string memory content)

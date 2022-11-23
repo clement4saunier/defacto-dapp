@@ -7,20 +7,26 @@
 const hre = require("hardhat");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-  const unlockTime = currentTimestampInSeconds + ONE_YEAR_IN_SECS;
+  const requestBountyArgs = [];
+  const RequestBounty = await hre.ethers.getContractFactory("RequestBounty");
+  const Token = await hre.ethers.getContractFactory("DefactoToken");
+  const token = await Token.deploy();
+  const requestBounty = await RequestBounty.deploy(...requestBountyArgs);
 
-  const lockedAmount = hre.ethers.utils.parseEther("1");
-
-  const Lock = await hre.ethers.getContractFactory("Lock");
-  const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
-
-  await lock.deployed();
+  await requestBounty.deployed();
+  await token.deployed();
 
   console.log(
-    `Lock with 1 ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
+    `Request Bounty Contract(${[...requestBountyArgs].join(', ')}) deployed to ${requestBounty.address}`
   );
+  console.log(
+    `Defacto Token Contract() deployed to ${token.address}`
+  );
+
+  /* Debug Base Data*/
+  await token.approve(requestBounty.address, 2000);
+  await requestBounty.publishRequest("QmaasREid7vEwZFTwEEzEm2gu7LEs1DEcS6cJhjgDZ4r2V", token.address, 1000, 1669813452);
+  await requestBounty.publishRequest("QmPCLnA6Q3WMiDcMhAstQBaiqMb1rtfVDKiNqfeBer1aRm", token.address, 1000, 1669813452);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

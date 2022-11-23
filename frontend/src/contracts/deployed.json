@@ -1,0 +1,11 @@
+{
+    "chain": {
+      "1": { "name": "Mainnet", "certificate": "", "stamp": "", "swap": "" },
+      "5": {
+        "name": "Goerli",
+        "requests": "0x7B17e2C9124EFf7C757eD9ee1A1E13ae0aDD30F2",
+        "token": "0x87068510a9e13B0DDA73e42E2447DD0B70B38e7C"
+      }
+    }
+  }
+  

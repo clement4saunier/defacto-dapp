@@ -15,6 +15,7 @@ import List from "./components/page/List";
 import Team from "./components/page/Team";
 import Request from "./components/page/Request";
 import Web3Provider from "./components/context/Web3Provider";
+import Listing from "./components/page/Listing";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/list" element={<List />} />
+                <Route path="/listing" element={<Listing />} />
                 <Route path="/create" element={<Create />} />
                 <Route path="/team" element={<Team />} />
                 <Route path="/request" element={<Request />} />

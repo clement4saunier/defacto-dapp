@@ -1,9 +1,11 @@
-import { useMemo } from "react";
-import { useEffect } from "react";
+import React, { useMemo } from "react";
 import { useState } from "react";
-import Icon from "../content/Icon";
-import Request from "../content/Request";
-import styles from "./List.module.css";
+import RequestList from "../content/RequestList";
+import { BrowserWalletRequestProvider } from "../context/on-chain/BrowserWalletRequestProvider";
+import { HardcodedRequestProvider } from "../context/on-chain/HardcodedRequestProvider";
+import { NodeRealRequestProvider } from "../context/on-chain/NodeRealRequestProvider";
+import { StartonRequestProvider } from "../context/on-chain/StartonRequestProvider";
+import useRequestBountyContract from "../hooks/useRequestBountyContract";
 
 const defaultRequestMetadata = {
   name: "Title of the request",
@@ -15,28 +17,40 @@ export default function List() {
   const [sources] = useState([
     {
       name: "Wallet",
-      fetch: async () => {
-        throw undefined;
-      }
+      requestProvider: <BrowserWalletRequestProvider />
     },
     {
       name: "Starton API",
-      fetch: async () => {
-        throw undefined;
-      }
+      requestProvider: <StartonRequestProvider />
     },
     {
       name: "NodeReal API",
-      fetch: async () => {
-        throw undefined;
-      }
+      requestProvider: <NodeRealRequestProvider />
     },
-    { name: "Hardcoded Set", fetch: async () => [0, 1, 2, 3] }
+    {
+      name: "Hardcoded Set",
+      requestProvider: <HardcodedRequestProvider />
+    }
   ]);
+
   const [ipfsGateways] = useState([
-    { name: "Ipfs.io", fetch: async (cid) => await fetch("https://ipfs.io/ipfs/" + cid).then(async (file) => file.json())},
-    { name: "Ipns.co", fetch: async (cid) => await fetch("https://ipns.co/ipfs/" + cid).then(async (file) => file.json()) },
-    { name: "Starton API", fetch: async (cid) => defaultRequestMetadata }
+    {
+      name: "Ipfs.io",
+      fetch: async (cid) =>
+        await fetch("https://ipfs.io/ipfs/" + cid).then(async (file) =>
+          file.json()
+        )
+    },
+    {
+      name: "Ipns.co",
+      fetch: async (cid) =>
+        await fetch("https://ipns.co/ipfs/" + cid).then(async (file) =>
+          file.json()
+        )
+    },
+    { name: "Starton API", fetch: async (cid) => defaultRequestMetadata },
+    { name: "Censored Gateway", fetch: async (cid) => defaultRequestMetadata },
+    { name: "Hardcoded Gateway", fetch: async (cid) => defaultRequestMetadata }
   ]);
 
   const [selectedSourceIndex, setSelectedSourceIndex] = useState(0);
@@ -50,27 +64,6 @@ export default function List() {
     () => ipfsGateways[selectedGatewayIndex],
     [selectedGatewayIndex]
   );
-
-  console.log("IPFS", ipfsGateway);
-  const [requestIds, setRequestIds] = useState();
-
-  useEffect(() => {
-    async function fetchRequestIds() {
-      setRequestIds(undefined);
-      setTimeout(async () => {
-        try {
-          const ids = await source.fetch();
-          console.log("IDS", ids);
-          setRequestIds(ids);
-        } catch (err) {
-          console.log("Couldn't retrieve requests ids", err);
-          setRequestIds(null);
-        }
-      }, 150);
-    }
-
-    fetchRequestIds();
-  }, [source]);
 
   return (
     <>
@@ -98,20 +91,9 @@ export default function List() {
       ))}
       <br />
       <br />
-      <div className={styles.grid}>
-        {requestIds === null && <span className="error"><Icon crypto="denied"/> Could not load requests from this provider"</span>}
-        {requestIds !== null &&
-          (requestIds === undefined
-            ? "Loading..."
-            : requestIds.map((id, idx) => (
-                <Request
-                  address={""}
-                  requestId={id}
-                  fetchCid={ipfsGateway.fetch}
-                  key={idx}
-                />
-              )))}
-      </div>
+      {React.cloneElement(source.requestProvider, {
+        children: <RequestList fetchCid={ipfsGateway.fetch} />
+      })}
     </>
   );
 }

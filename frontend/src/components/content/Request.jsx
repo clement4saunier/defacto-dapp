@@ -9,6 +9,7 @@ export default function Request({ address, chainId, requestId, fetchCid }) {
   let navigate = useNavigate();
   const [cid, setCid] = useState();
   const [metadata, setMetadata] = useState({});
+  const [showDetails, setShowDetails] = useState(false);
 
   useEffect(() => {
     async function fetchRequestMetadata() {
@@ -33,7 +34,10 @@ export default function Request({ address, chainId, requestId, fetchCid }) {
   return (
     <div
       className={[styles.card, "card"].join(" ")}
-      onClick={() => navigate("/request")}
+      onClick={(e) => {
+        navigate("/request");
+        e.stopPropagation();
+      }}
     >
       <div>
         <h3>
@@ -51,10 +55,17 @@ export default function Request({ address, chainId, requestId, fetchCid }) {
           Submitted by <a>0x012389</a>
         </p>
       </div>
-      <div>
+      <div className={[styles.details, showDetails && "show"].join(' ')}>
         <p>
           active <br />1 BTC
+          <br />
+          <button onClick={(e) => {setShowDetails(show => !show); e.stopPropagation()}}>
+            <Icon crypto="info" />
+          </button>
         </p>
+        <div className={[styles.chain, showDetails && styles.show].join(" ")}>
+          <p>contract: 0x212393</p>
+        </div>
       </div>
     </div>
   );
