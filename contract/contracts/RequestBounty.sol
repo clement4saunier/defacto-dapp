@@ -74,6 +74,13 @@ contract RequestBounty {
         external
         returns (uint256 responseId)
     {
-        emit Respond(requestId, 0);
+        responseId = uint256(keccak256(abi.encodePacked(content)));
+        require(
+            response[requestId][responseId].sender == address(0),
+            "Response already posted"
+        );
+
+        response[requestId][responseId] = Response(msg.sender, content);
+        emit Respond(requestId, responseId);
     }
 }
