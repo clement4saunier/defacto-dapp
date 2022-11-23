@@ -1,9 +1,14 @@
 .card {
-  padding-inline: var(--space-l);
   border: var(--border-default);
   border-radius: var(--radius-m);
   display: grid;
   grid-template-columns: auto auto;
+  pointer-events: fill;
+  padding: 0;
+}
+
+.card > * > * {
+  padding-inline: var(--space-l);
 }
 
 .card:hover {
@@ -15,4 +20,25 @@
   display: flex;
   justify-content: right;
   text-align: right;
+}
+
+.details {
+}
+
+.chain {
+  border-left: var(--border-default);
+  transition-duration: 500ms;
+  width: 20ch;
+  overflow: hidden;
+}
+
+.chain:not(.show) {
+  width: 0px;
+  color: transparent;
+  white-space: nowrap;
+}
+
+.chain:not(.show) * {
+  color: transparent;
+  white-space: nowrap;
 }
