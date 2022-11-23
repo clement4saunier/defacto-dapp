@@ -4,8 +4,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Icon from "./Icon";
 import { useMemo } from "react";
+import Currency from "./Currency";
 
-export default function Request({ address, chainId, requestId, cid, fetchCid }) {
+export default function Request({ address, chainId, id, cid, fetchCid, owner, amount, symbol}) {
   let navigate = useNavigate();
   const [metadata, setMetadata] = useState({});
   const [showDetails, setShowDetails] = useState(false);
@@ -34,7 +35,7 @@ export default function Request({ address, chainId, requestId, cid, fetchCid }) 
     <div
       className={[styles.card, "card"].join(" ")}
       onClick={(e) => {
-        navigate("/request");
+        navigate("/request/" + id);
         e.stopPropagation();
       }}
     >
@@ -51,19 +52,19 @@ export default function Request({ address, chainId, requestId, cid, fetchCid }) 
           )}
         </h3>
         <p>
-          Submitted by <a>0x012389</a>
+          Submitted by <a>{(owner && owner.substring(0, 7)) ?? "Loading..."}</a>
         </p>
       </div>
       <div className={[styles.details, showDetails && "show"].join(' ')}>
         <p>
-          active <br />1 BTC
+          active <br />{(amount && amount.toNumber()) ?? "..."} <Currency symbol={symbol}/>
           <br />
           <button onClick={(e) => {setShowDetails(show => !show); e.stopPropagation()}}>
             <Icon crypto="info" />
           </button>
         </p>
         <div className={[styles.chain, showDetails && styles.show].join(" ")}>
-          <p>contract: 0x212393</p>
+          <p>contract: {address}</p>
         </div>
       </div>
     </div>

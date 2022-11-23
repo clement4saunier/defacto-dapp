@@ -10,7 +10,7 @@ async function main() {
   const requestBountyArgs = [];
   const RequestBounty = await hre.ethers.getContractFactory("RequestBounty");
   const Token = await hre.ethers.getContractFactory("DefactoToken");
-  const token = await Token.deploy("Defacto", "FACT");
+  const token = await Token.deploy();
   const requestBounty = await RequestBounty.deploy(...requestBountyArgs);
 
   await requestBounty.deployed();
@@ -25,9 +25,8 @@ async function main() {
 
   /* Debug Base Data*/
   await token.approve(requestBounty.address, 2000);
-  const {value} = await requestBounty.publishRequest("QmaasREid7vEwZFTwEEzEm2gu7LEs1DEcS6cJhjgDZ4r2V", token.address, 0, 1669813452);
-  console.log("ID?", value);
-  await requestBounty.publishResponse(value, "QmaasREid7vEwZFTwEEzEm2gu7LEs1DEcS6cJhjgDZ4r2V");
+  await requestBounty.publishRequest("QmaasREid7vEwZFTwEEzEm2gu7LEs1DEcS6cJhjgDZ4r2V", token.address, 1000, 1669813452);
+  await requestBounty.publishRequest("QmPCLnA6Q3WMiDcMhAstQBaiqMb1rtfVDKiNqfeBer1aRm", token.address, 1000, 1669813452);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

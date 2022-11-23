@@ -26,10 +26,10 @@ export default function Header() {
           Home <Icon crypto="info" />
         </button> */}
         <button onClick={() => navigate("/list")}>
-          Statement list <Icon crypto="search" />
+          View request list <Icon crypto="search" />
         </button>
         <button onClick={() => navigate("/create")}>
-          Place a bounty <Icon crypto="send-in" />
+          Submit a request <Icon crypto="send-in" />
         </button>
       </div>
       <div>

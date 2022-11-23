@@ -81,7 +81,7 @@ button:active {
   color: var(--color-text-light);
 }
 
-button.unselected {
+button.unselected, button:disabled {
   background-color: var(--color-background);
   border: var(--border-default);
   color: var(--color-text-light) !important;
@@ -107,6 +107,13 @@ p {
 
 p > i {
   font-variant: unicase;
+}
+
+span.highlight {
+  background-color: var(--color-background-secondary);
+  padding-inline: var(--space-s);
+  color: var(--color-text);
+  border-radius: var(--radius-s);
 }
 
 header {

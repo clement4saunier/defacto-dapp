@@ -22,9 +22,6 @@
   text-align: right;
 }
 
-.details {
-}
-
 .chain {
   border-left: var(--border-default);
   transition-duration: 500ms;

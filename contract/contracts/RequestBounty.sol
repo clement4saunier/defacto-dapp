@@ -22,10 +22,10 @@ contract RequestBounty {
     event Respond(uint256 indexed requestId, uint256 indexed responseId);
 
     //Mapping from requestId to Request
-    mapping(uint256 => Request) request;
+    mapping(uint256 => Request) public request;
 
     //Mapping from requestId to responseId to Response
-    mapping(uint256 => mapping(uint256 => Response)) response;
+    mapping(uint256 => mapping(uint256 => Response)) public response;
 
     function _mintRequest(
         uint256 id,
@@ -74,6 +74,13 @@ contract RequestBounty {
         external
         returns (uint256 responseId)
     {
-        emit Respond(requestId, 0);
+        responseId = uint256(keccak256(abi.encodePacked(content)));
+        require(
+            response[requestId][responseId].sender == address(0),
+            "Response already posted"
+        );
+
+        response[requestId][responseId] = Response(msg.sender, content);
+        emit Respond(requestId, responseId);
     }
 }
