@@ -28,5 +28,6 @@ export async function getStatement (id: string): Promise<any> {
 }
 
 export default {
-  postStatement
+  get: getStatement,
+  post: postStatement
 }
