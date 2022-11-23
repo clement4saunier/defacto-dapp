@@ -2,47 +2,16 @@ import { useState } from "react";
 import { CreateStyle } from "../../styles/Create.css";
 
 export default function Create() {
-
-  function getNbSelectDelegate(nbDelegates) {
-    return ([...Array(nbDelegates)].map((elementInArray, index) => ( 
-        // <div className={elementInArray} key={index}> Whatever needs to be rendered repeatedly </div> 
-        <select>
-          <option value="delegate1">delegate1</option>
-          <option value="delegate2">delegate2</option>
-          <option value="delegate3">delegate3</option>
-          <option value="delegate4">delegate4</option>
-          <option value="delegate5">delegate5</option>
-        </select>
-    )));
-  }
-
-
   const [body, setbody] = useState("");
   const [bounty, setbounty] = useState(0);
   const [token, setToken] = useState("BTC");
   const [timer, setTimer] = useState("72H");
   const [nbDelegates, setNbDelegates] = useState(2);
-
-  
-
-  const [selectDelegate, setSelectDelegate] = useState(getNbSelectDelegate(nbDelegates));
-
-  // const selectDelegate = [...Array(nbDelegates)].map((elementInArray, index) => ( 
-  //   <div className={elementInArray} key={index}> Whatever needs to be rendered repeatedly </div> 
-  // ))
-
-    // <select>
-    //   <option value="delegate1">delegate1</option>
-    //   <option value="delegate2">delegate2</option>
-    //   <option value="delegate3">delegate3</option>
-    //   <option value="delegate4">delegate4</option>
-    //   <option value="delegate5">delegate5</option>
-    // </select>
-
+  const [delegates, setDelegates] = useState([...Array(2).keys()]);
 
   const sendForm = (e) => {
     e.preventDefault();
-    const info = { body, bounty, token, timer, nbDelegates };
+    const info = { body, bounty, token, timer, nbDelegates, delegates };
     console.log(info);
   };
 
@@ -99,10 +68,10 @@ export default function Create() {
             <p>How many delegates do you want ?</p>
             <select
               value={nbDelegates}
-              onChange={function(e) {
+              onChange={function (e) {
                 setNbDelegates(e.target.value)
-                setSelectDelegate(getNbSelectDelegate(e.target.value))
-              }}
+                const len = Number(e.target.value);
+                setDelegates([...Array(len).keys()]);}}
               required
             >
               <option value="1">1</option>
@@ -113,7 +82,15 @@ export default function Create() {
             </select>
           </div>
           <div>
-            {selectDelegate}
+            {delegates.map((delegate, index) => (
+              <select key={index}>
+                <option value="delegate1">delegate1</option>
+                <option value="delegate2">delegate2</option>
+                <option value="delegate3">delegate3</option>
+                <option value="delegate4">delegate4</option>
+                <option value="delegate5">delegate5</option>
+              </select>
+            ))}
           </div>
           <button id="buttonSendForm" title="Submit" type="submit">
             Add to verify
