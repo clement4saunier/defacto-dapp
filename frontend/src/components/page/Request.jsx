@@ -13,6 +13,7 @@ import styles from "./List.module.css";
 import Content from "./request/Content";
 import ChainData from "./request/ChainData";
 import Respond from "./request/Respond";
+import Responses from "./request/Responses";
 
 export default function Request() {
   const [publishing, setPublishing] = useState(false);
@@ -39,15 +40,7 @@ export default function Request() {
             Publish a response <Icon crypto="receive" />
           </button>
         )}
-        {!publishing ? (
-          <>
-            {" "}
-            <h2>3 Responses</h2>
-            <div className={styles.grid}>{Array(3).fill(<Response />)}</div>
-          </>
-        ) : (
-          <Respond />
-        )}
+        {!publishing ? <Responses /> : <Respond requestId={requestId} />}
       </BrowserWalletRequestProvider>
     </>
   );

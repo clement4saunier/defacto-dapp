@@ -6,15 +6,29 @@ import { useWeb3Context } from "../Web3Provider";
 import { Contract } from "ethers";
 
 export function BrowserWalletRequestProvider({ children, onlyId }) {
-  const { address, instance, getAllRequestIds } = useRequestBountyContract();
+  const { address, instance, getAllRequestIds, getAllResponseIds } =
+    useRequestBountyContract();
   const { provider } = useWeb3Context();
+
   const [requestIds, setRequestIds] = useState();
   const [requestCids, setRequestCids] = useState();
   const [requestChainData, setRequestChainData] = useState();
 
+  const [responseIds, setResponseIds] = useState();
+  const [responseChainData, setResponseChainData] = useState();
+
   useEffect(() => {
     if (onlyId) {
-      setRequestIds([{_hex: onlyId, _isBigNumber: true}]);
+      setRequestIds([{ _hex: onlyId, _isBigNumber: true }]);
+      setTimeout(async () => {
+        try {
+          const ids = await getAllResponseIds(onlyId);
+          setResponseIds(ids);
+        } catch (err) {
+          console.log("Couldn't retrieve response ids", err);
+          setResponseIds(null);
+        }
+      }, 1);
       return;
     }
     if (!address || !instance) return;
@@ -59,6 +73,25 @@ export function BrowserWalletRequestProvider({ children, onlyId }) {
     requestIds === null && setRequestChainData(null);
   }, [requestIds]);
 
+  useEffect(() => {
+    async function fetchAllResponseChainData() {
+      setResponseChainData(
+        await Promise.all(
+          responseIds.map(async (responseId) => {
+            const { sender, content: cid } = await instance.response(
+              onlyId,
+              responseId
+            );
+
+            return { sender, cid, id: responseId };
+          })
+        )
+      );
+    }
+
+    onlyId && responseIds && fetchAllResponseChainData();
+  }, [onlyId, responseIds]);
+
   async function getRequestChainData(requestId) {
     const loaded =
       requestChainData && requestChainData.find(({ id }) => id === requestId);
@@ -69,7 +102,7 @@ export function BrowserWalletRequestProvider({ children, onlyId }) {
 
   return (
     <RequestSourceContext.Provider
-      value={{ requestIds, requestCids, requestChainData, getRequestChainData }}
+      value={{ requestIds, requestCids, requestChainData, getRequestChainData, responseChainData }}
     >
       {children}
     </RequestSourceContext.Provider>

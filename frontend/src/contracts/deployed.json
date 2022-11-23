@@ -3,8 +3,7 @@
       "1": { "name": "Mainnet", "certificate": "", "stamp": "", "swap": "" },
       "5": {
         "name": "Goerli",
-        "requests": "0x38BCA9EC0Ca54A5081126491E12aBa7a696745ec",
-        "token": "0xBAfe1dA303D31a6d99d16F8eC598248a25263d48"
+        "requests": "0x9334E4d48Ce4d56D931FE6AB9458AabCD5116Af9"
       }
     }
   }
