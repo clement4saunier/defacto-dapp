@@ -1,5 +1,5 @@
 import axios from 'axios'
-import request from '../interfaces/request'
+import Request from '../interfaces/request'
 
 export async function postStatement (title: string, statement: string): Promise<string> {
   const response = await axios.post('https://api.starton.io/v3/ipfs/json', {
@@ -28,7 +28,7 @@ export async function getStatement (id: string): Promise<any> {
   return response.data
 }
 
-export async function listRequests (): Promise<request[]> {
+export async function listRequests (): Promise<Request[]> {
   return []
 }
 

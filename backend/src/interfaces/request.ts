@@ -1,4 +1,4 @@
-export default interface request {
+export default interface Request {
   askerAddress: string
   cid: string
   bounty: {
