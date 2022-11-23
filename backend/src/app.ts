@@ -11,7 +11,7 @@ function main (): void {
   app.use(router)
 
   app.listen(process.env.PORT, () => {
-    console.log('DeFacto server online on port ', String(process.env.PORT))
+    console.log('DeFacts server is online on port ', String(process.env.PORT))
   })
 }
 
