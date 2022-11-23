@@ -16,25 +16,31 @@ import Team from "./components/page/Team";
 import Request from "./components/page/Request";
 import Web3Provider from "./components/context/Web3Provider";
 import Listing from "./components/page/Listing";
+import OnChainProvider from "./components/context/OnChainProvider";
+import IPFSGatewayProvider from "./components/context/IPFSGatewayProvider";
 
 function App() {
   return (
     <Router>
       <ThemeProvider>
         <Web3Provider>
-          <div className="app">
-            <Header />
-            <Page>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/list" element={<List />} />
-                <Route path="/listing" element={<Listing />} />
-                <Route path="/create" element={<Create />} />
-                <Route path="/team" element={<Team />} />
-                <Route path="/request/:requestId" element={<Request />} />
-              </Routes>
-            </Page>
-          </div>
+          <IPFSGatewayProvider>
+            <OnChainProvider>
+              <div className="app">
+                <Header />
+                <Page>
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/list" element={<List />} />
+                    <Route path="/listing" element={<Listing />} />
+                    <Route path="/create" element={<Create />} />
+                    <Route path="/team" element={<Team />} />
+                    <Route path="/request/:requestId" element={<Request />} />
+                  </Routes>
+                </Page>
+              </div>
+            </OnChainProvider>
+          </IPFSGatewayProvider>
         </Web3Provider>
       </ThemeProvider>
     </Router>
