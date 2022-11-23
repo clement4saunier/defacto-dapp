@@ -6,8 +6,8 @@ export default function Create() {
   const [bounty, setbounty] = useState(0);
   const [token, setToken] = useState("BTC");
   const [timer, setTimer] = useState("72H");
-  const [nbDelegates, setNbDelegates] = useState(2);
-  const [delegates, setDelegates] = useState([...Array(2).keys()]);
+  const [nbDelegates, setNbDelegates] = useState(1);
+  const [delegates, setDelegates] = useState([...Array(1).keys()]);
   const delegatesList = [
     {label: 'Delegate1', value: 'Delegate_1'},
     {label: 'Delegate2', value: 'Delegate_2'},
@@ -15,9 +15,10 @@ export default function Create() {
     {label: 'Delegate4', value: 'Delegate_4'},
     {label: 'Delegate5', value: 'Delegate_5'},
   ]
-  const [delegatesChoosen, setDelegatesChoosen] = useState("");
+  const [delegatesChoosen, setDelegatesChoosen] = useState([]);
 
   const sendForm = (e) => {
+    setDelegatesChoosen([...new Set(delegatesChoosen)]);
     e.preventDefault();
     const info = { body, bounty, token, timer, nbDelegates, delegatesChoosen };
     console.log(info);
@@ -78,7 +79,9 @@ export default function Create() {
               value={nbDelegates}
               onChange={function (e) {
                 setNbDelegates(e.target.value)
-                setDelegates([...Array(Number(e.target.value)).keys()]);}}
+                setDelegates([...Array(Number(e.target.value)).keys()])
+                setDelegatesChoosen("");
+              }}
               required
             >
               <option value="1">1</option>
@@ -91,7 +94,7 @@ export default function Create() {
           <div>
             {delegatesChoosen}
             {delegates.map((delegate, index) => (
-              <select key={index} onChange={(e) => setDelegatesChoosen(delegatesChoosen + e.target.value)}>
+              <select key={index} onChange={(e) => setDelegatesChoosen([...delegatesChoosen, e.target.value])}>
                 {delegatesList.map((delegate, index) => (
                   <option key={index} value={delegate.value}>{delegate.label}</option>
                 ))}
