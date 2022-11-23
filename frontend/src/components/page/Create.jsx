@@ -18,8 +18,8 @@ export default function Create() {
   const [token, setToken] = useState();
   const [symbol, setSymbol] = useState();
   const [timer, setTimer] = useState("72H");
-  const [nbDelegates, setNbDelegates] = useState(2);
-  const [delegates, setDelegates] = useState([...Array(2).keys()]);
+  const [nbDelegates, setNbDelegates] = useState(1);
+  const [delegates, setDelegates] = useState([...Array(1).keys()]);
   const delegatesList = [
     { label: "Delegate1", value: "Delegate_1" },
     { label: "Delegate2", value: "Delegate_2" },
