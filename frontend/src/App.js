@@ -31,7 +31,7 @@ function App() {
                 <Route path="/listing" element={<Listing />} />
                 <Route path="/create" element={<Create />} />
                 <Route path="/team" element={<Team />} />
-                <Route path="/request" element={<Request />} />
+                <Route path="/request/:requestId" element={<Request />} />
               </Routes>
             </Page>
           </div>

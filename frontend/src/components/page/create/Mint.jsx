@@ -6,6 +6,8 @@ import { useCreationContext } from "../Create";
 import { create } from "ipfs-http-client";
 import {Buffer} from 'buffer';
 import Currency from "../../content/Currency";
+import { Contract } from "ethers";
+import erc20abi from "../../../contracts/abi/erc20.json"
 
 export default function Mint() {
   const {
@@ -26,9 +28,10 @@ export default function Mint() {
     setDelegates,
     setConfirmed
   } = useCreationContext();
-  const { account } = useWeb3Context();
+  const { account, provider } = useWeb3Context();
   const { instance } = useRequestBountyContract();
   const [cid, setCid] = useState(null);
+  const [approved, setApproved] = useState(false);
   const file = useMemo(
     () => JSON.stringify({ name: title, description: body }),
     [title, body]
@@ -44,8 +47,6 @@ export default function Mint() {
     {
       name: "Infura",
       upload: async (file) => {
-
-        console.log("GEE");
         // /!\ Trash api secrets, these won't go beyond free package
         const projectId = "2DKn2VvZwVq1UvT9fOSUIOatVXZ";
         const infura = "a870dea9a4a3c50b9dc7021b671fbaed";
@@ -82,6 +83,20 @@ export default function Mint() {
     const args = [cid, token, bounty, 1903123123];
     console.log(`publishRequest(${[...args]})`);
     instance.publishRequest(...args);
+  }
+
+  async function onApproveButton() {
+    const erc20 = new Contract(token, erc20abi, provider.getSigner());
+    const currentAllowance = await erc20.allowance(account, instance.address);
+
+    console.log("allowance", currentAllowance);
+    if (currentAllowance.toNumber() >= bounty) {
+        setApproved(true);
+    } else {
+        const txn = await erc20.approve(instance.address, bounty);
+        await txn.wait();
+        setApproved(true);
+    }
   }
 
   function onUploadButton() {
@@ -125,7 +140,10 @@ export default function Mint() {
       </p>
       <p>The request will end in {timer}</p>
       <button onClick={() => setConfirmed(false)}>Back</button>
-      <button disabled={!cid} onClick={onMintButton}>
+      <button onClick={onApproveButton}>
+        Approve {bounty} {symbol}
+      </button>
+      <button disabled={!cid || !approved} onClick={onMintButton}>
         Mint
       </button>
     </>

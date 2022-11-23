@@ -6,7 +6,7 @@ import Icon from "./Icon";
 import { useMemo } from "react";
 import Currency from "./Currency";
 
-export default function Request({ address, chainId, requestId, cid, fetchCid, owner, amount, symbol}) {
+export default function Request({ address, chainId, id, cid, fetchCid, owner, amount, symbol}) {
   let navigate = useNavigate();
   const [metadata, setMetadata] = useState({});
   const [showDetails, setShowDetails] = useState(false);
@@ -35,7 +35,7 @@ export default function Request({ address, chainId, requestId, cid, fetchCid, ow
     <div
       className={[styles.card, "card"].join(" ")}
       onClick={(e) => {
-        navigate("/request");
+        navigate("/request/" + id);
         e.stopPropagation();
       }}
     >
