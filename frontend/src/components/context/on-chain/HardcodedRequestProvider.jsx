@@ -4,7 +4,7 @@ import { RequestSourceContext } from "./RequestSourceContext";
 
 export function HardcodedRequestProvider({ children }) {
   return (
-    <RequestSourceContext.Provider value={{requestIds: [0, 1, 2]}}>
+    <RequestSourceContext.Provider value={{requestIds: null, requestCids: null}}>
       {children}
     </RequestSourceContext.Provider>
   );

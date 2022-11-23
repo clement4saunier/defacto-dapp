@@ -4,7 +4,7 @@ import { RequestSourceContext } from "./RequestSourceContext";
 
 export function NodeRealRequestProvider({ children }) {
   return (
-    <RequestSourceContext.Provider value={{requestIds: null}}>
+    <RequestSourceContext.Provider value={{requestIds: null, requestCids: null}}>
       {children}
     </RequestSourceContext.Provider>
   );

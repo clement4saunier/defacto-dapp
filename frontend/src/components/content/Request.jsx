@@ -5,9 +5,8 @@ import { useEffect } from "react";
 import Icon from "./Icon";
 import { useMemo } from "react";
 
-export default function Request({ address, chainId, requestId, fetchCid }) {
+export default function Request({ address, chainId, requestId, cid, fetchCid }) {
   let navigate = useNavigate();
-  const [cid, setCid] = useState();
   const [metadata, setMetadata] = useState({});
   const [showDetails, setShowDetails] = useState(false);
 
@@ -27,9 +26,9 @@ export default function Request({ address, chainId, requestId, fetchCid }) {
     cid && fetchRequestMetadata();
   }, [cid, fetchCid]);
 
-  useEffect(() => {
-    setCid("QmaasREid7vEwZFTwEEzEm2gu7LEs1DEcS6cJhjgDZ4r2V");
-  }, [address, chainId, requestId]);
+  // useEffect(() => {
+  //   setCid(requestCid);
+  // }, [address, chainId, requestId, requestCid]);
 
   return (
     <div

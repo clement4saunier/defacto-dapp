@@ -29,8 +29,7 @@ export default function useRequestBountyContract() {
       topics: [ethers.utils.id("Publish(uint256)")]
     });
 
-    console.log("publish", publishTransaction);
-    return [0];
+    return publishTransaction.map(({args}) => args[0]._hex);
   }
 
   return {

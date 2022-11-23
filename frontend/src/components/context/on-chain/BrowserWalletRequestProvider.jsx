@@ -5,6 +5,7 @@ import { RequestSourceContext } from "./RequestSourceContext";
 export function BrowserWalletRequestProvider({ children }) {
   const { address, instance, getAllRequestIds } = useRequestBountyContract();
   const [requestIds, setRequestIds] = useState();
+  const [requestCids, setRequestCids] = useState();
 
   useEffect(() => {
     if (!address || !instance) return;
@@ -21,8 +22,24 @@ export function BrowserWalletRequestProvider({ children }) {
     }, 100);
   }, [address, instance]);
 
+  useEffect(() => {
+    async function fetchRequestCIDs() {
+      setRequestCids(
+        await Promise.all(
+          requestIds.map(async (id) => {
+            const uri = await instance.requestURI(id);
+            console.log("uri", uri);
+            return uri.substring("ipfs://".length);
+          })
+        )
+      );
+    }
+    requestIds && fetchRequestCIDs();
+    requestIds === null && setRequestCids(null);
+  }, [requestIds]);
+
   return (
-    <RequestSourceContext.Provider value={{requestIds}}>
+    <RequestSourceContext.Provider value={{ requestIds, requestCids }}>
       {children}
     </RequestSourceContext.Provider>
   );
