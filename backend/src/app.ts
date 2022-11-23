@@ -1,17 +1,18 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import * as dotenv from 'dotenv'
+import express, { Application } from 'express'
+import router from './router'
 dotenv.config()
-import express, { Application, Request, Response } from 'express'
 
-function main () {
-    const app: Application = express()
+function main (): void {
+  const app: Application = express()
 
-    app.get('/', (req: Request, res: Response) => {
-        res.send({ success: true })
-    })
+  app.use(express.json())
+  app.use(router)
 
-    app.listen(process.env.PORT, () => {
-        console.log('DeFacto server online on port ', String(process.env.PORT))
-    })
+  app.listen(process.env.PORT, () => {
+    console.log('DeFacto server online on port ', String(process.env.PORT))
+  })
 }
 
 main()

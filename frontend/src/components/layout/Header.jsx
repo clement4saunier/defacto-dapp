@@ -22,14 +22,14 @@ export default function Header() {
         </h3>
       </div>
       <div>
-        <button onClick={() => navigate("/")}>
+        {/* <button onClick={() => navigate("/")}>
           Home <Icon crypto="info" />
-        </button>
+        </button> */}
         <button onClick={() => navigate("/list")}>
-          List <Icon crypto="search" />
+          Statement list <Icon crypto="search" />
         </button>
         <button onClick={() => navigate("/create")}>
-          Create <Icon crypto="send-in" />
+          Place a bounty <Icon crypto="send-in" />
         </button>
       </div>
       <div>
