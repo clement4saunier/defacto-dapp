@@ -4,7 +4,7 @@ import { RequestSourceContext } from "./RequestSourceContext";
 
 export function StartonRequestProvider({ children }) {
   return (
-    <RequestSourceContext.Provider value={{requestIds: null, requestCids: null}}>
+    <RequestSourceContext.Provider value={{requestIds: null, requestCids: null, requestChainData: null}}>
       {children}
     </RequestSourceContext.Provider>
   );

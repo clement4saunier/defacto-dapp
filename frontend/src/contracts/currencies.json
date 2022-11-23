@@ -1,0 +1,23 @@
+{
+  "chain": {
+    "1": [],
+    "5": [
+      {
+        "name": "BTC",
+        "address": "0xB6807A4cbF7efd7dBcA026651f90f950A3D7dA90"
+      },
+      {
+        "name": "wETH",
+        "address": "0xFb8BdfAD2C8EDD6dDD01Cb56B812b83f76D69dB7"
+      },
+      {
+        "name": "USDC",
+        "address": "0x0E8AeBFBE9E5a2a33337C670b5aE18C715E12D80"
+      },
+      {
+        "name": "USDT",
+        "address": "0x1724bD63D859F45ba2a49Ebc91104b07385c9cd0"
+      }
+    ]
+  }
+}

@@ -4,23 +4,21 @@ import Request from "./Request";
 import styles from "./RequestList.module.css";
 
 export default function RequestList({ fetchCid }) {
-  const { requestIds, requestCids } = useRequestSourceContext();
+  const { requestIds, requestChainData } = useRequestSourceContext();
 
   return (
       <div className={styles.grid}>
-        {requestIds === null && (
+        {requestChainData === null && (
           <span className="error">
             <Icon crypto="denied" /> Could not load requests from this provider"
           </span>
         )}
-        {requestCids !== null &&
-          (requestCids === undefined
+        {requestChainData !== null &&
+          (requestChainData === undefined
             ? "Loading..."
-            : requestCids.map((id, idx) => (
+            : requestChainData.map((chainData, idx) => (
                 <Request
-                  address={""}
-                  requestId={id}
-                  cid={id}
+                  {...chainData}
                   fetchCid={fetchCid}
                   key={idx}
                 />
