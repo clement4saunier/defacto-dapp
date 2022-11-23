@@ -1,15 +1,11 @@
 import axios from 'axios'
-import Bounty from '../interfaces/Bounty'
 
-export async function postStatement (askerAddress: string, statement: string, bounty: Bounty, delegates: String[], expiryBlock: number): Promise<string> {
+export async function postStatement (title: string, statement: string): Promise<string> {
   const response = await axios.post('https://api.starton.io/v3/ipfs/json', {
     name: statement,
     content: {
-      askerAddress,
-      statement,
-      bounty,
-      delegates,
-      expiryBlock
+      title,
+      statement
     },
     metadata: {}
   }, {
