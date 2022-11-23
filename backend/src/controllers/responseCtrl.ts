@@ -1,6 +1,6 @@
 
 import { Request, Response, NextFunction } from 'express'
-import responseService from '../services/responseService'
+import responseService from '../services/responseServices'
 
 export async function listResponseCtrl (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
