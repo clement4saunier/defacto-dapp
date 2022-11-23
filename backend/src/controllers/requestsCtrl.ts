@@ -16,12 +16,11 @@ export async function listRequestsCtrl (req: Request, res: Response, next: NextF
 
 export async function postRequestCtrl (req: Request, res: Response, next: NextFunction): Promise <void> {
   try {
-    const { title, request } = req.body
-    const id: string = await requestsService.post(title, request)
+    const cid: string = await requestsService.post(req.body.file)
 
     res.send({
       success: true,
-      id
+      cid
     })
   } catch (err: unknown) {
     next(err)

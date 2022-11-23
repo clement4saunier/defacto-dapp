@@ -1,6 +1,7 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import { create } from "ipfs-http-client";
 import {Buffer} from 'buffer';
+import axios from 'axios'
 
 export const IPFSGatewayContext = createContext(null);
 
@@ -30,15 +31,19 @@ export default function IPFSGatewayProvider({ children }) {
           file.json()
         )
     },
-    { name: "Starton API", fetch: async (cid) => defaultRequestMetadata },
+    { name: "Starton API",
+    fetch: async (cid) =>
+        await fetch("https://ipfs.eu.starton.io/ipfs/" + cid).then(async (file) =>
+          file.json()
+        )
+      },
     { name: "Censored Gateway", fetch: async (cid) => defaultRequestMetadata },
     { name: "Hardcoded Gateway", fetch: async (cid) => defaultRequestMetadata }
   ]);
   const [ipfsUploadGateways] = useState([
     {
       name: "Starton API",
-      upload: async (cid) =>
-        "1"
+      upload: async (file) => (await axios.post('http://localhost:8080/requests', { file })).data.cid
     },
     {
       name: "Infura",
