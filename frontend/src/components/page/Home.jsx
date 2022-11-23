@@ -6,15 +6,10 @@ export default function Home() {
   let navigate = useNavigate();
   const [text] = useState(
     <p>
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-      Lorem Ipsum has been the industry's standard dummy text ever since the
-      1500s, when an unknown printer took a galley of type and scrambled it to
-      make a type specimen book. It has survived not only five centuries, but
-      also the leap into electronic typesetting, remaining essentially
-      unchanged. It was popularised in the 1960s with the release of Letraset
-      sheets containing Lorem Ipsum passages, and more recently with desktop
-      publishing software like Aldus PageMaker including versions of Lorem
-      Ipsum.
+      DeFacts was designed in an attempt to increase trust in the journalism world. We aim to bring a Decentralized Information Verification 
+      Protocol that provides a wide net of information gatherers to confirm or infirm information in the most unbiased way.
+      The platform incentivises journalistic work of all sorts (fact-checking, data research..) by pairing up three types of profiles and creating
+      a collaborative work dynamic between them.
     </p>
   );
 
