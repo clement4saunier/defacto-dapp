@@ -33,8 +33,6 @@ export function ThemeProvider({ children }) {
     window.localStorage.setItem("theme", _theme.name);
   }
 
-  console.log("PROVIDER", theme.name, theme.className);
-
   return (
     <ThemeContext.Provider value={{ setAndStoreTheme, theme, themes }}>
       <div className={theme.className}>
