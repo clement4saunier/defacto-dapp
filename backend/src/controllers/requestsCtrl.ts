@@ -3,9 +3,9 @@ import requestsService from '../services/requestsServices'
 
 export async function getIPFSFileByIdCtrl (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const statement = await requestsService.get(req.params.id)
+    const request = await requestsService.get(req.params.id)
 
-    res.send({ success: true, statement })
+    res.send({ success: true, request })
   } catch (err: unknown) {
     next(err)
   }
@@ -26,8 +26,8 @@ export async function listRequestsCtrl (req: Request, res: Response, next: NextF
 
 export async function postRequestCtrl (req: Request, res: Response, next: NextFunction): Promise <void> {
   try {
-    const { title, statement } = req.body
-    const id: string = await requestsService.post(title, statement)
+    const { title, request } = req.body
+    const id: string = await requestsService.post(title, request)
 
     res.send({
       success: true,

@@ -1,12 +1,12 @@
 import axios from 'axios'
-import Request from '../interfaces/request'
+import Request from '../interfaces/Request'
 
-export async function postStatement (title: string, statement: string): Promise<string> {
+export async function postRequest (title: string, request: string): Promise<string> {
   const response = await axios.post('https://api.starton.io/v3/ipfs/json', {
-    name: statement,
+    name: request,
     content: {
       title,
-      statement
+      request
     },
     metadata: {}
   }, {
@@ -18,7 +18,7 @@ export async function postStatement (title: string, statement: string): Promise<
   return response.data.id
 }
 
-export async function getStatement (id: string): Promise<any> {
+export async function getRequest (id: string): Promise<any> {
   const response = await axios.get('https://api.starton.io/v3/ipfs/pin/' + id, {
     headers: {
       'x-api-key': process.env.STARTON_API_KEY
@@ -33,7 +33,7 @@ export async function listRequests (): Promise<Request[]> {
 }
 
 export default {
-  get: getStatement,
-  post: postStatement,
+  get: getRequest,
+  post: postRequest,
   list: listRequests
 }

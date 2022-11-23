@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Router } from 'express'
-import { getIPFSFileByIdCtrl, listRequestsCtrl, postRequestCtrl } from './controllers/statementsCtrl'
+import { getIPFSFileByIdCtrl, listRequestsCtrl, postRequestCtrl } from './controllers/requestsCtrl'
 import { listResponseCtrl } from './controllers/responseCtrl'
 
 export default Router()

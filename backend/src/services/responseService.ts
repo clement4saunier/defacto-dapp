@@ -1,3 +1,5 @@
+import Response from '../interfaces/Response'
+
 export async function listResponses (): Promise<Response[]> {
   return []
 }
