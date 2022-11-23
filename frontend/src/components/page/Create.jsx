@@ -4,17 +4,18 @@ import { CreateStyle } from "../../styles/Create.css";
 export default function Create() {
   const [body, setbody] = useState("");
   const [bounty, setbounty] = useState(0);
+  const [title, setTitle] = useState("");
   const [token, setToken] = useState("BTC");
   const [timer, setTimer] = useState("72H");
   const [nbDelegates, setNbDelegates] = useState(2);
   const [delegates, setDelegates] = useState([...Array(2).keys()]);
   const delegatesList = [
-    {label: 'Delegate1', value: 'Delegate_1'},
-    {label: 'Delegate2', value: 'Delegate_2'},
-    {label: 'Delegate3', value: 'Delegate_3'},
-    {label: 'Delegate4', value: 'Delegate_4'},
-    {label: 'Delegate5', value: 'Delegate_5'},
-  ]
+    { label: "Delegate1", value: "Delegate_1" },
+    { label: "Delegate2", value: "Delegate_2" },
+    { label: "Delegate3", value: "Delegate_3" },
+    { label: "Delegate4", value: "Delegate_4" },
+    { label: "Delegate5", value: "Delegate_5" }
+  ];
   const [delegatesChoosen, setDelegatesChoosen] = useState("");
 
   const sendForm = (e) => {
@@ -29,6 +30,12 @@ export default function Create() {
       <div>
         <form onSubmit={sendForm} id="createForm">
           <p>is it true ? don't wait...ask! (add more details you can):</p>
+          <textarea
+            name="title"
+            required
+            onChange={(e) => setbody(e.target.value)}
+            id="textAreaBody"
+          />
           <textarea
             name="body"
             required
@@ -77,8 +84,9 @@ export default function Create() {
             <select
               value={nbDelegates}
               onChange={function (e) {
-                setNbDelegates(e.target.value)
-                setDelegates([...Array(Number(e.target.value)).keys()]);}}
+                setNbDelegates(e.target.value);
+                setDelegates([...Array(Number(e.target.value)).keys()]);
+              }}
               required
             >
               <option value="1">1</option>
@@ -91,11 +99,18 @@ export default function Create() {
           <div>
             {delegatesChoosen}
             {delegates.map((delegate, index) => (
-              <select key={index} onChange={(e) => setDelegatesChoosen(delegatesChoosen + e.target.value)}>
+              <select
+                key={index}
+                onChange={(e) =>
+                  setDelegatesChoosen(delegatesChoosen + e.target.value)
+                }
+              >
                 {delegatesList.map((delegate, index) => (
-                  <option key={index} value={delegate.value}>{delegate.label}</option>
+                  <option key={index} value={delegate.value}>
+                    {delegate.label}
+                  </option>
                 ))}
-                </select>
+              </select>
             ))}
           </div>
           <button id="buttonSendForm" title="Submit" type="submit">

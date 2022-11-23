@@ -1,11 +1,16 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import useRequestBountyContract from "../../hooks/useRequestBountyContract";
 import { RequestSourceContext } from "./RequestSourceContext";
+import erc20Abi from "../../../contracts/abi/erc20.json";
+import { useWeb3Context } from "../Web3Provider";
+import { Contract } from "ethers";
 
 export function BrowserWalletRequestProvider({ children }) {
   const { address, instance, getAllRequestIds } = useRequestBountyContract();
+  const {provider} = useWeb3Context();
   const [requestIds, setRequestIds] = useState();
   const [requestCids, setRequestCids] = useState();
+  const [requestChainData, setRequestChainData] = useState();
 
   useEffect(() => {
     if (!address || !instance) return;
@@ -23,23 +28,24 @@ export function BrowserWalletRequestProvider({ children }) {
   }, [address, instance]);
 
   useEffect(() => {
-    async function fetchRequestCIDs() {
-      setRequestCids(
+    async function fetchRequestChainData() {
+        setRequestChainData(
         await Promise.all(
           requestIds.map(async (id) => {
-            const uri = await instance.requestURI(id);
-            console.log("uri", uri);
-            return uri.substring("ipfs://".length);
+            const {owner, token, amount, deadline, content } = await instance.request(id);
+            const symbol = await new Contract(token, erc20Abi, provider).symbol();
+
+            return {cid: content, owner, token, amount, deadline, id, symbol, address};
           })
         )
       );
     }
-    requestIds && fetchRequestCIDs();
-    requestIds === null && setRequestCids(null);
+    requestIds && fetchRequestChainData();
+    requestIds === null && setRequestChainData(null);
   }, [requestIds]);
 
   return (
-    <RequestSourceContext.Provider value={{ requestIds, requestCids }}>
+    <RequestSourceContext.Provider value={{ requestIds, requestCids, requestChainData }}>
       {children}
     </RequestSourceContext.Provider>
   );
