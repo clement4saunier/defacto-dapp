@@ -81,11 +81,16 @@ button:active {
   color: var(--color-text-light);
 }
 
-button.unselected {
+button.unselected, button:disabled {
   background-color: var(--color-background);
   border: var(--border-default);
   color: var(--color-text-light) !important;
 }
+/* 
+button:disabled {
+  color: var(--color-text-light) !important;
+  background-color: ;
+} */
 
 h1,
 h2,
