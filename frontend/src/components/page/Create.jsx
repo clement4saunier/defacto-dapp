@@ -16,7 +16,7 @@ export default function Create() {
   
   const [bounty, setBounty] = useState(0);
   const [token, setToken] = useState();
-  const [amount, setAmount] = useState(0);
+  const [symbol, setSymbol] = useState();
   const [timer, setTimer] = useState("72H");
   const [nbDelegates, setNbDelegates] = useState(2);
   const [delegates, setDelegates] = useState([...Array(2).keys()]);
@@ -43,6 +43,8 @@ export default function Create() {
           setTitle,
           token,
           setToken,
+          symbol,
+          setSymbol,
           timer,
           setTimer,
           nbDelegates,

@@ -5,6 +5,7 @@ import useRequestBountyContract from "../../hooks/useRequestBountyContract";
 import { useCreationContext } from "../Create";
 import { create } from "ipfs-http-client";
 import {Buffer} from 'buffer';
+import Currency from "../../content/Currency";
 
 export default function Mint() {
   const {
@@ -15,6 +16,7 @@ export default function Mint() {
     title,
     setTitle,
     token,
+    symbol,
     setToken,
     timer,
     setTimer,
@@ -77,7 +79,7 @@ export default function Mint() {
   );
 
   function onMintButton() {
-    const args = [cid, token, "0", 1903123123];
+    const args = [cid, token, bounty, 1903123123];
     console.log(`publishRequest(${[...args]})`);
     instance.publishRequest(...args);
   }
@@ -119,8 +121,7 @@ export default function Mint() {
         </button>
       </div>
       <p>
-        Will be subimitted by <a>{account.substring(0, 7)}</a> for {bounty} of{" "}
-        {token}
+        Will be subimitted by <a>{account.substring(0, 7)}</a> for {bounty} <Currency symbol={symbol}/>
       </p>
       <p>The request will end in {timer}</p>
       <button onClick={() => setConfirmed(false)}>Back</button>

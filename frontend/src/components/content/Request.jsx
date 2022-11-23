@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Icon from "./Icon";
 import { useMemo } from "react";
+import Currency from "./Currency";
 
 export default function Request({ address, chainId, requestId, cid, fetchCid, owner, amount, symbol}) {
   let navigate = useNavigate();
@@ -56,7 +57,7 @@ export default function Request({ address, chainId, requestId, cid, fetchCid, ow
       </div>
       <div className={[styles.details, showDetails && "show"].join(' ')}>
         <p>
-          active <br />{(amount && amount.toNumber()) ?? "..."} {symbol}
+          active <br />{(amount && amount.toNumber()) ?? "..."} <Currency symbol={symbol}/>
           <br />
           <button onClick={(e) => {setShowDetails(show => !show); e.stopPropagation()}}>
             <Icon crypto="info" />

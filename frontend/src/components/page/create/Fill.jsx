@@ -14,6 +14,8 @@ export default function Fill() {
     setTitle,
     token,
     setToken,
+    symbol,
+    setSymbol,
     timer,
     setTimer,
     nbDelegates,
@@ -31,15 +33,20 @@ export default function Fill() {
     { label: "Delegate5", value: "Delegate_5" }
   ];
   const [delegatesChoosen, setDelegatesChoosen] = useState("");
-  const [tokenName, setTokenName] = useState();
   const { chainId } = useWeb3Context();
 
   useEffect(() => {
-    tokenName &&
+    if (!(currencies && currencies.chain[chainId])) return;
+    if (!symbol) {
+      const defaultCurrency = currencies.chain[chainId][0];
+      setToken(defaultCurrency.address);
+      setSymbol(defaultCurrency.name);
+    } else {
       setToken(
-        currencies.chain[chainId].find(({ name }) => name === tokenName).address
+        currencies.chain[chainId].find(({ name }) => name === symbol).address
       );
-  }, [tokenName]);
+    }
+  }, [symbol, currencies, chainId]);
 
   const sendForm = (e) => {
     e.preventDefault();
@@ -83,8 +90,8 @@ export default function Fill() {
             />{" "}
             {token && token.substring(0, 7)}{" "}
             <select
-              value={tokenName}
-              onChange={(e) => setTokenName(e.target.value)}
+              value={symbol}
+              onChange={(e) => setSymbol(e.target.value)}
               required
             >
               {currencies.chain[chainId] &&
@@ -151,7 +158,7 @@ export default function Fill() {
             Add to verify
           </button>
         </div>
-        <br/>
+        <br />
       </form>
     </>
   );
