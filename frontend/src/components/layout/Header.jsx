@@ -3,12 +3,15 @@ import { useThemeContext } from "../context/ThemeProvider";
 import { useNavigate } from "react-router-dom";
 import useWalletRequest from "../hooks/useWalletRequest";
 import { useWeb3Context } from "../context/Web3Provider";
+import { explorers } from "../../contracts/explorers";
+import { useMemo } from "react";
 
 export default function Header() {
   let navigate = useNavigate();
   const { theme, themes, setAndStoreTheme } = useThemeContext();
   const { requestAccounts } = useWalletRequest();
-  const { account } = useWeb3Context();
+  const { account, chainId } = useWeb3Context();
+  const chainName = useMemo(() => explorers.get(chainId) ? explorers.get(chainId).name : "Unknown", [chainId, explorers]);
 
   function onThemeSet(v) {
     setAndStoreTheme(themes.find(({ name }) => name === v.target.value));
@@ -38,6 +41,7 @@ export default function Header() {
             <option key={idx}>{_theme.name}</option>
           ))}
         </select>
+        <button className="unselected">{chainName}</button>
         {!account ? (
           <button onClick={requestAccounts}>connect wallet</button>
         ) : (
