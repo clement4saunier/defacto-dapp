@@ -26,8 +26,6 @@ export default function useRequestBountyContract() {
   async function getRequestTxn(id = null) {
     const addr = contracts.chain[chainId].requests;
     const inst = new Contract(addr, requestAbi, provider);
-    const block = await provider.getBlockNumber();
-    const minBlock = block - 4000;
 
     let publishTransaction = await inst.queryFilter({
       address,
@@ -40,8 +38,6 @@ export default function useRequestBountyContract() {
   async function getResponseTxn(requestId, responseId = null) {
     const addr = contracts.chain[chainId].requests;
     const inst = new Contract(addr, requestAbi, provider);
-    const block = await provider.getBlockNumber();
-    const minBlock = block - 4000;
 
     let publishTransaction = await inst.queryFilter({
       address,

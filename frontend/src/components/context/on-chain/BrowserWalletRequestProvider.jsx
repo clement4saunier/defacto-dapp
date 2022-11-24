@@ -8,7 +8,7 @@ import { Contract } from "ethers";
 export function BrowserWalletRequestProvider({ children, onlyId }) {
   const { address, instance, getAllRequestIds, getAllResponseIds, getRequestTxn } =
     useRequestBountyContract();
-  const { provider } = useWeb3Context();
+  const { provider, chainId } = useWeb3Context();
 
   const [requestIds, setRequestIds] = useState();
   const [requestCids, setRequestCids] = useState();
@@ -43,7 +43,7 @@ export function BrowserWalletRequestProvider({ children, onlyId }) {
         setRequestIds(null);
       }
     }, 100);
-  }, [address, instance, onlyId]);
+  }, [address, instance, onlyId, chainId]);
 
   const fetchRequestChainData = async (id) => {
     const { owner, token, amount, deadline, content } = await instance.request(
