@@ -31,20 +31,24 @@ export default function useRequestBountyContract() {
     return publishTransaction;
   }
 
-  async function getAllRequestIds() {
-    return (await getRequestTxn()).map(({ args }) => args[0]._hex);
-  }
-
-  async function getAllResponseIds(id) {
+  async function getResponseTxn(requestId, responseId = null) {
     const addr = contracts.chain[chainId].requests;
     const inst = new Contract(addr, requestAbi, provider.getSigner());
 
     let publishTransaction = await inst.queryFilter({
       address,
-      topics: [ethers.utils.id("Respond(uint256,uint256)"), id, null]
+      topics: [ethers.utils.id("Respond(uint256,uint256)"), requestId, responseId]
     });
 
-    return publishTransaction.map(({ args }) => args[1]._hex);
+    return publishTransaction;
+  }
+
+  async function getAllRequestIds() {
+    return (await getRequestTxn()).map(({ args }) => args[0]._hex);
+  }
+
+  async function getAllResponseIds(id) {
+    return (await getResponseTxn(id)).map(({ args }) => args[1]._hex);
   }
 
   return {
@@ -52,6 +56,7 @@ export default function useRequestBountyContract() {
     instance,
     getAllRequestIds,
     getAllResponseIds,
-    getRequestTxn
+    getRequestTxn,
+    getResponseTxn
   };
 }

@@ -49,7 +49,7 @@ export function BrowserWalletRequestProvider({ children, onlyId }) {
     const { owner, token, amount, deadline, content } = await instance.request(
       id
     );
-    const txn = await getRequestTxn(id);
+    const txn = await getRequestTxn(id._isBigNumber ? id._hex : id);
     const symbol = await new Contract(token, erc20Abi, provider).symbol();
 
     return {
@@ -84,8 +84,10 @@ export function BrowserWalletRequestProvider({ children, onlyId }) {
               onlyId,
               responseId
             );
+            const txn = await getRequestTxn(onlyId, responseId);
 
-            return { sender, cid, id: responseId };
+
+            return { sender, cid, id: responseId, origin: (await txn[0].getBlock()).timestamp,};
           })
         )
       );
