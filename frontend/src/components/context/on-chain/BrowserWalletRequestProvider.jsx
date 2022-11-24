@@ -6,7 +6,7 @@ import { useWeb3Context } from "../Web3Provider";
 import { Contract } from "ethers";
 
 export function BrowserWalletRequestProvider({ children, onlyId }) {
-  const { address, instance, getAllRequestIds, getAllResponseIds } =
+  const { address, instance, getAllRequestIds, getAllResponseIds, getRequestTxn } =
     useRequestBountyContract();
   const { provider } = useWeb3Context();
 
@@ -49,6 +49,7 @@ export function BrowserWalletRequestProvider({ children, onlyId }) {
     const { owner, token, amount, deadline, content } = await instance.request(
       id
     );
+    const txn = await getRequestTxn(id);
     const symbol = await new Contract(token, erc20Abi, provider).symbol();
 
     return {
@@ -56,6 +57,7 @@ export function BrowserWalletRequestProvider({ children, onlyId }) {
       owner,
       token,
       amount,
+      origin: (await txn[0].getBlock()).timestamp,
       deadline,
       id,
       symbol,

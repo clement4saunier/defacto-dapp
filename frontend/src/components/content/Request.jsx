@@ -12,6 +12,7 @@ export default function Request({
   id,
   cid,
   fetchCid,
+  origin,
   owner,
   amount,
   symbol
@@ -19,6 +20,15 @@ export default function Request({
   let navigate = useNavigate();
   const [metadata, setMetadata] = useState({});
   const [showDetails, setShowDetails] = useState(false);
+  const originDate = useMemo(() => {
+    const date = new Date(origin * 1000);
+    return origin
+      ? `${date.getDate()}/${date.getMonth()}/${date
+          .getFullYear()
+          .toString()
+          .substring(2, 4)}`
+      : "...";
+  }, [origin]);
 
   useEffect(() => {
     async function fetchRequestMetadata() {
@@ -83,7 +93,11 @@ export default function Request({
           <Icon crypto="receive" />
         </div>
         <div className={[styles.chain, showDetails && styles.show].join(" ")}>
-          <p>@<a>{address.substring(0, 8)}</a><br/>#<a>{id.substring(0, 8)}</a><br/>t<a>XX/XX/XX</a></p>
+          <p>
+            @<a>{address.substring(0, 8)}</a>
+            <br />#<a>{id.substring(0, 8)}</a>
+            <br />t<a>{originDate}</a>
+          </p>
         </div>
       </div>
     </div>
