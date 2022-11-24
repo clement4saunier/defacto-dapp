@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useIPFSGatewayContext } from "../context/IPFSGatewayProvider";
+import { useSettleContext } from "../page/Request";
 
 export default function Response({ sender, id, cid, origin }) {
   const { ipfsGateway } = useIPFSGatewayContext();
   const [{ name, description }, setContent] = useState({});
+  const {responseChoosen, setResponseChoosen} = useSettleContext();
   const originDate = useMemo(() => {
     const date = new Date(origin * 1000);
     return origin
@@ -23,7 +25,11 @@ export default function Response({ sender, id, cid, origin }) {
   }, [cid]);
 
   return (
-    <div className="card">
+    <div className="card" onClick={function() {
+      let arr = [...responseChoosen, id]
+      console.log("arr = ", arr)
+      setResponseChoosen(arr); console.log(responseChoosen)
+      }} >
       <div style={{display: "flex", justifyContent: "space-between", width: "100%"}}>
         <h3>{name}</h3>
         <p>
