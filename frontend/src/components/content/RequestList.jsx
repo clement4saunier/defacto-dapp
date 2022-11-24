@@ -10,7 +10,7 @@ export default function RequestList({ fetchCid }) {
       <div className={styles.grid}>
         {requestChainData === null && (
           <span className="error">
-            <Icon crypto="denied" /> Could not load requests from this provider"
+            <Icon crypto="denied" /> Could not load requests from this provider
           </span>
         )}
         {requestChainData !== null &&

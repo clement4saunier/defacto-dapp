@@ -18,6 +18,7 @@ option {
   border: var(--border-width) solid var(--border-color);
   padding: var(--space-m);
   margin: var(--space-s);
+  font-family: 'Roboto';
 }
 
 textarea {

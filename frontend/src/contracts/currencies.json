@@ -18,6 +18,12 @@
         "name": "USDT",
         "address": "0x1724bD63D859F45ba2a49Ebc91104b07385c9cd0"
       }
+    ],
+    "97": [
+      {
+        "name": "FACT",
+        "address": "0xf8014E12d9D1Eb6E243AD70c15A839Ea5bE99316"
+      }
     ]
   }
 }

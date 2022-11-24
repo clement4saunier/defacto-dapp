@@ -4,6 +4,10 @@
       "5": {
         "name": "Goerli",
         "requests": "0x9334E4d48Ce4d56D931FE6AB9458AabCD5116Af9"
+      },
+      "97": {
+        "name": "BNB Testnet",
+        "requests": "0x92fF7d467c7489f7d642231b5aE2E3b5d8d3d332"
       }
     }
   }

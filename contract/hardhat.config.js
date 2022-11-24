@@ -1,9 +1,10 @@
 require("@nomicfoundation/hardhat-toolbox");
 
-//Trash free tier api keys
+//Trash free tier api keys, do not use for anything but testnet deployment
 const ALCHEMY_API_KEY = "eR2zP7Ou8AtJ3q_B8_Nc-TsycRwq3MAO";
+const NODE_REAL_KEY = "97074dcb99374df280739365234d65b8";
 
-//Trash Testnet Addresses
+//Trash Testnet Addresses, do not use for anything but testnet deployment
 const DEV_PRIVATE_KEYS = [
   "b821a380da8af997cb28a22eb673e789145d24b8a4c20bfbc85da2b172727a53", //0x4237c3Cd20D3b6702d25c13f1E6E70bEF1428d59
   "481209ecafa309eb9afd5c7e9e1ea2be562273ff332f8f5b09e25c4dbcbbc6bf", //0xa7667Ed1f93245be28FEF3A74A515116711e095e
@@ -16,6 +17,10 @@ module.exports = {
   networks: {
     goerli: {
       url: `https://eth-goerli.alchemyapi.io/v2/${ALCHEMY_API_KEY}`,
+      accounts: DEV_PRIVATE_KEYS
+    },
+    BNBtestnet: {
+      url: `https://bsc-testnet.nodereal.io/v1/${NODE_REAL_KEY}`,
       accounts: DEV_PRIVATE_KEYS
     },
   },

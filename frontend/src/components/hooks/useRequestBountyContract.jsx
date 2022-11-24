@@ -6,7 +6,7 @@ import { useWeb3Context } from "../context/Web3Provider";
 import requestAbi from "../../contracts/abi/requests.json";
 
 export default function useRequestBountyContract() {
-  const { chainId, provider } = useWeb3Context();
+  const { chainId, provider, readOnly } = useWeb3Context();
   const address = useMemo(
     () => (contracts.chain[chainId] ? contracts.chain[chainId].requests : null),
     [chainId, contracts]
@@ -14,7 +14,11 @@ export default function useRequestBountyContract() {
   const instance = useMemo(
     () =>
       provider && address
-        ? new Contract(address, requestAbi, provider)
+        ? new Contract(
+            address,
+            requestAbi,
+            readOnly ? provider : provider.getSigner()
+          )
         : null,
     [address, provider]
   );
@@ -22,11 +26,13 @@ export default function useRequestBountyContract() {
   async function getRequestTxn(id = null) {
     const addr = contracts.chain[chainId].requests;
     const inst = new Contract(addr, requestAbi, provider);
+    const block = await provider.getBlockNumber();
+    const minBlock = block - 4000;
 
     let publishTransaction = await inst.queryFilter({
       address,
       topics: [ethers.utils.id("Publish(uint256)"), id]
-    });
+    }, -4000);
 
     return publishTransaction;
   }
@@ -34,11 +40,19 @@ export default function useRequestBountyContract() {
   async function getResponseTxn(requestId, responseId = null) {
     const addr = contracts.chain[chainId].requests;
     const inst = new Contract(addr, requestAbi, provider);
+    const block = await provider.getBlockNumber();
+    const minBlock = block - 4000;
 
     let publishTransaction = await inst.queryFilter({
       address,
-      topics: [ethers.utils.id("Respond(uint256,uint256)"), requestId, responseId]
-    });
+      topics: [
+        ethers.utils.id("Respond(uint256,uint256)"),
+        requestId,
+        responseId
+      ]
+    },
+    -4000
+    );
 
     return publishTransaction;
   }
