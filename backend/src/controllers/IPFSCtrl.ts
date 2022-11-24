@@ -10,6 +10,10 @@ export async function postFileCtrl (req: Request, res: Response, next: NextFunct
         cid = await IPFSServices.post.starton(req.body.file)
         break
 
+      case 'infura':
+        cid = await IPFSServices.post.infura(req.body.file)
+        break
+
       default:
         throw new Error('Unknown provider.')
     }
