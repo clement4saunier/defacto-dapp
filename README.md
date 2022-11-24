@@ -25,6 +25,16 @@ News is just information that is factually correct and accurately represents eve
 
 The internet is an already established network that provides an vast amount of individual databases, skillsets and capabilities in each person.
 
+DeFacts allows the pairing of :
+
+ENTITY A : seeking to verify some kind of data and willing to pay a variable fee (the bounty) to get the job done. ENITITY A is a Requester.
+
+ENTITY B : seeking to earn compensation by doing research work. Knowing how and where to find information is the process the Fact-Checker does.
+
+ENTITY C : seeking to put their qualifications at work and in the process earn compensation. Reviewing responses of bounties and officially approving them is the role of the Delegate.
+
+
+
 
 
 # Facility
