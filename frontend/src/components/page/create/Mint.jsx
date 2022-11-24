@@ -13,20 +13,11 @@ import Transaction from "../../content/Transaction";
 export default function Mint() {
   const {
     body,
-    setBody,
     bounty,
-    setBounty,
     title,
-    setTitle,
     token,
     symbol,
-    setToken,
     timer,
-    setTimer,
-    nbDelegates,
-    setNbDelegates,
-    delegates,
-    setDelegates,
     setConfirmed
   } = useCreationContext();
   const { account, provider } = useWeb3Context();

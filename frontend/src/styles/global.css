@@ -100,7 +100,17 @@ button {
 
 a {
   color: var(--color-text);
+  text-decoration: none;
 }
+
+a:active {
+  color: var(--color-text-light) !important;
+}
+
+a:link:hover {
+  text-decoration: underline;
+}
+
 
 p {
   color: var(--color-text-light);
