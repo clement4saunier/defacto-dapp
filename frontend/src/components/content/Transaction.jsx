@@ -68,9 +68,14 @@ export default function Transaction({
         setTxnHash(hash);
         await wait();
         setStatus(
-          <>
-            <Icon crypto="sucess" />
-          </>
+            statusComponent(
+                "success",
+                <>
+                {`Transaction ${hash.substring(0, 7)} succeded`}
+                <br />
+                (click to open explorer)
+              </>
+              )
         );
       } catch (err) {
         console.log(err);

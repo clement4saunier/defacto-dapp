@@ -1,15 +1,16 @@
 import { useMemo } from "react";
 import { useState } from "react";
 import Icon from "../../content/Icon";
+import Transaction from "../../content/Transaction";
 import { useIPFSGatewayContext } from "../../context/IPFSGatewayProvider";
 import { useWeb3Context } from "../../context/Web3Provider";
 import useRequestBountyContract from "../../hooks/useRequestBountyContract";
 
-export default function Respond({requestId}) {
+export default function Respond({ requestId }) {
   const { ipfsUploadGateway, ipfsUploadGatewaySelector } =
     useIPFSGatewayContext();
   const { account } = useWeb3Context();
-  const {instance} = useRequestBountyContract();
+  const { instance } = useRequestBountyContract();
 
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
@@ -30,7 +31,10 @@ export default function Respond({requestId}) {
   }
 
   async function onMintButton() {
-    await instance.publishResponse({_hex: requestId, _isBigNumber: true}, cid);
+    await instance.publishResponse(
+      { _hex: requestId, _isBigNumber: true },
+      cid
+    );
   }
 
   return (
@@ -63,7 +67,14 @@ export default function Respond({requestId}) {
               </>
             )}{" "}
           </button>
-          <button onClick={onMintButton} disabled={!cid}>Mint</button>
+          <Transaction
+            disabled={!cid}
+            instance={instance}
+            functionName="publishResponse"
+            args={[{ _hex: requestId, _isBigNumber: true }, cid]}
+          >
+            Mint
+          </Transaction>
         </div>
       </div>
     </>
