@@ -1,11 +1,23 @@
 import { Request, Response, NextFunction } from 'express'
 import IPFSServices from '../services/IPFSServices'
 
-export async function getIPFSFileByIdCtrl (req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function postFileCtrl (req: Request, res: Response, next: NextFunction): Promise <void> {
   try {
-    const request = await IPFSServices.get(req.params.id)
+    let cid: string
 
-    res.send({ success: true, request })
+    switch (req.params.provider) {
+      case 'starton':
+        cid = await IPFSServices.post.starton(req.body.file)
+        break
+
+      default:
+        throw new Error('Unknown provider.')
+    }
+
+    res.send({
+      success: true,
+      cid
+    })
   } catch (err: unknown) {
     next(err)
   }
