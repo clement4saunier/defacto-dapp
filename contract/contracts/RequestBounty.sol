@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 contract RequestBounty {
     IERC721 public delegateRegistry;
+    uint256 DELEGATE_SHARE = 20;
 
     constructor(IERC721 _delegateRegistry) {
         delegateRegistry = _delegateRegistry;
@@ -101,14 +102,14 @@ contract RequestBounty {
             length == distribution.length,
             "Responses does not match distribution count"
         );
-        uint256 delegateAmount = (_request.amount * 20) / 100;
+        uint256 delegateAmount = (_request.amount * DELEGATE_SHARE) / 100;
         uint256 split = _request.amount - delegateAmount;
+        uint256 expense = split;
 
         for (uint i = 0; i < length; ) {
             uint256 amount = (split * distribution[i]) / 100;
             require(
-                token.transferFrom(
-                    address(this),
+                token.transfer(
                     response[requestId][responses[i]].sender,
                     amount
                 ),
@@ -116,22 +117,21 @@ contract RequestBounty {
             );
 
             unchecked {
-                split -= amount;
+                expense -= amount;
                 i++;
             }
         }
-        require(split >= 0, "Distribution overflow");
-        delegateAmount += split;
+        require(expense >= 0, "Distribution overflow");
+        delegateAmount += expense;
 
         require(
-            token.transferFrom(
-                address(this),
+            token.transfer(
                 delegateRegistry.ownerOf(
                     uint256(keccak256(abi.encodePacked(_request.delegate)))
                 ),
                 delegateAmount
             ),
-            "Token transfer failed"
+            "Delegate transfer failed"
         );
     }
 
