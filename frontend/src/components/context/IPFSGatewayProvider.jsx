@@ -42,7 +42,8 @@ export default function IPFSGatewayProvider({ children }) {
   const [ipfsUploadGateways] = useState([
     {
       name: "Starton API",
-      upload: async (file) => (await axios.post('http://localhost:8080/ipfs', { file })).data.cid
+      upload: async (file) =>
+        (await axios.post("http://localhost:8080/ipfs", { file })).data.cid
     },
     {
       name: "Infura",
@@ -66,6 +67,7 @@ export default function IPFSGatewayProvider({ children }) {
 
         try {
           const cid = await client.add(file);
+          console.log("UPLOAD", file, cid);
           return cid.path;
         } catch (error) {
           console.log("Error uploading file: ", error);

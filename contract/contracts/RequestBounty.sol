@@ -1,9 +1,14 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 contract RequestBounty {
-    constructor() {}
+    IERC721 public delegateRegistry;
+
+    constructor(IERC721 _delegateRegistry) {
+        delegateRegistry = _delegateRegistry;
+    }
 
     struct Request {
         address owner;
@@ -11,6 +16,7 @@ contract RequestBounty {
         IERC20 token;
         uint256 amount;
         uint deadline;
+        string delegate;
     }
 
     struct Response {
@@ -33,14 +39,29 @@ contract RequestBounty {
         string memory content,
         IERC20 bountyToken,
         uint256 bountyAmount,
-        uint deadline
+        uint deadline,
+        string memory delegate
     ) internal {
         require(
             bountyToken.allowance(to, address(this)) >= bountyAmount &&
                 bountyToken.transferFrom(to, address(this), bountyAmount),
             "Token deposit failed."
         );
-        request[id] = Request(to, content, bountyToken, bountyAmount, deadline);
+        require(
+            delegateRegistry.ownerOf(
+                uint256(keccak256(abi.encodePacked(delegate)))
+            ) != address(0),
+            "Delegate does not exist"
+        );
+
+        request[id] = Request(
+            to,
+            content,
+            bountyToken,
+            bountyAmount,
+            deadline,
+            delegate
+        );
         emit Publish(id);
     }
 
@@ -48,7 +69,8 @@ contract RequestBounty {
         string memory content,
         IERC20 bountyToken,
         uint256 bountyAmount,
-        uint deadline
+        uint deadline,
+        string memory delegate
     ) external returns (uint256 requestId) {
         requestId = uint256(keccak256(abi.encodePacked(content)));
         require(
@@ -62,7 +84,54 @@ contract RequestBounty {
             content,
             bountyToken,
             bountyAmount,
-            deadline
+            deadline,
+            delegate
+        );
+    }
+
+    function settleRequest(
+        uint256 requestId,
+        uint256[] memory responses,
+        uint256[] memory distribution
+    ) external {
+        Request memory _request = request[requestId];
+        IERC20 token = _request.token;
+        uint256 length = responses.length;
+        require(
+            length == distribution.length,
+            "Responses does not match distribution count"
+        );
+        uint256 delegateAmount = (_request.amount * 20) / 100;
+        uint256 split = _request.amount - delegateAmount;
+
+        for (uint i = 0; i < length; ) {
+            uint256 amount = (split * distribution[i]) / 100;
+            require(
+                token.transferFrom(
+                    address(this),
+                    response[requestId][responses[i]].sender,
+                    amount
+                ),
+                "Token transfer failed"
+            );
+
+            unchecked {
+                split -= amount;
+                i++;
+            }
+        }
+        require(split >= 0, "Distribution overflow");
+        delegateAmount += split;
+
+        require(
+            token.transferFrom(
+                address(this),
+                delegateRegistry.ownerOf(
+                    uint256(keccak256(abi.encodePacked(_request.delegate)))
+                ),
+                delegateAmount
+            ),
+            "Token transfer failed"
         );
     }
 
