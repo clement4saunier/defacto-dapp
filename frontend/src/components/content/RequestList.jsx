@@ -13,6 +13,7 @@ export default function RequestList({ fetchCid }) {
             <Icon crypto="denied" /> Could not load requests from this provider
           </span>
         )}
+        {requestChainData !== null && requestChainData !== undefined && requestChainData.length + " Requests found"}
         {requestChainData !== null &&
           (requestChainData === undefined
             ? "Loading..."

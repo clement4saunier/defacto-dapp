@@ -46,7 +46,7 @@ export function BrowserWalletRequestProvider({ children, onlyId }) {
   }, [address, instance, onlyId, chainId]);
 
   const fetchRequestChainData = async (id) => {
-    const { owner, token, amount, deadline, content } = await instance.request(
+    const { owner, token, amount, deadline, content, delegate } = await instance.request(
       id
     );
     const txn = await getRequestTxn(id._isBigNumber ? id._hex : id);
@@ -64,7 +64,8 @@ export function BrowserWalletRequestProvider({ children, onlyId }) {
       deadline,
       id,
       symbol,
-      address
+      address,
+      delegate
     };
   };
 

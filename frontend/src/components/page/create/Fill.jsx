@@ -18,21 +18,10 @@ export default function Fill() {
     setSymbol,
     timer,
     setTimer,
-    nbDelegates,
-    setNbDelegates,
-    delegates,
-    setDelegates,
+    delegate,
+    setDelegate,
     setConfirmed
   } = useCreationContext();
-
-  const delegatesList = [
-    { label: "Delegate1", value: "Delegate_1" },
-    { label: "Delegate2", value: "Delegate_2" },
-    { label: "Delegate3", value: "Delegate_3" },
-    { label: "Delegate4", value: "Delegate_4" },
-    { label: "Delegate5", value: "Delegate_5" }
-  ];
-  const [delegatesChoosen, setDelegatesChoosen] = useState("");
   const { chainId } = useWeb3Context();
 
   useEffect(() => {
@@ -50,8 +39,6 @@ export default function Fill() {
 
   const sendForm = (e) => {
     e.preventDefault();
-    const info = { body, bounty, token, timer, nbDelegates, delegatesChoosen };
-    console.log(info);
     setConfirmed(true);
   };
 
@@ -121,37 +108,11 @@ export default function Fill() {
         </div>
         <div className="questionForm">
           <p>How many delegates do you want ?</p>
-          <select
-            value={nbDelegates}
-            onChange={function (e) {
-              setNbDelegates(e.target.value);
-              setDelegates([...Array(Number(e.target.value)).keys()]);
-            }}
-            required
-          >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-          </select>
-        </div>
-        <div>
-          {delegatesChoosen}
-          {delegates.map((delegate, index) => (
-            <select
-              key={index}
-              onChange={(e) =>
-                setDelegatesChoosen(delegatesChoosen + e.target.value)
-              }
-            >
-              {delegatesList.map((delegate, index) => (
-                <option key={index} value={delegate.value}>
-                  {delegate.label}
-                </option>
-              ))}
-            </select>
-          ))}
+            <input
+              name="delegate"
+              value={delegate}
+              onChange={(e) => setDelegate(e.target.value)}
+            />
         </div>
         <div style={{ display: "flex", justifyContent: "right" }}>
           <button title="Submit" type="submit">
