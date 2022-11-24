@@ -3,7 +3,6 @@ import Icon from "../../content/Icon";
 import { useWeb3Context } from "../../context/Web3Provider";
 import useRequestBountyContract from "../../hooks/useRequestBountyContract";
 import { useCreationContext } from "../Create";
-import { create } from "ipfs-http-client";
 import Currency from "../../content/Currency";
 import { Contract } from "ethers";
 import erc20abi from "../../../contracts/abi/erc20.json";
@@ -17,6 +16,7 @@ export default function Mint() {
     title,
     token,
     symbol,
+    delegate,
     timer,
     setConfirmed
   } = useCreationContext();
@@ -29,15 +29,8 @@ export default function Mint() {
     [title, body]
   );
 
-  const [selectedGatewayIndex, setSelectedGatewayIndex] = useState(0);
   const { ipfsUploadGateway: gateway, ipfsUploadGatewaySelector } =
     useIPFSGatewayContext();
-
-//   function onMintButton() {
-//     const args = [cid, token, bounty, 1903123123];
-//     console.log(`publishRequest(${[...args]})`);
-//     instance.publishRequest(...args);
-//   }
 
   async function onApproveButton() {
     const erc20 = new Contract(token, erc20abi, provider.getSigner());
@@ -72,6 +65,7 @@ export default function Mint() {
       <h3>{title}</h3>
       <p>{body}</p>
       <div className="divider" />
+      <a>{delegate}</a> will be responsible for the settlement of your bounty
       <h3>IPFS Upload gateway</h3>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>{ipfsUploadGatewaySelector}</div>
@@ -98,10 +92,7 @@ export default function Mint() {
       <button onClick={onApproveButton}>
         Approve {bounty} {symbol}
       </button>
-      {/* <button disabled={!cid || !approved} onClick={onMintButton}>
-        Mint
-      </button> */}
-      <Transaction disabled={!cid || !approved} instance={instance} functionName="publishRequest" args={[cid, token, bounty, 1903123123]}>
+      <Transaction disabled={!cid || !approved} instance={instance} functionName="publishRequest" args={[cid, token, bounty, 1903123123, delegate]}>
         Mint
       </Transaction>
     </>

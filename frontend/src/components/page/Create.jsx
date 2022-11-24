@@ -13,23 +13,14 @@ export const useCreationContext = () => {
 export default function Create() {
   const [body, setBody] = useState("");
   const [title, setTitle] = useState("");
-  
+
   const [bounty, setBounty] = useState(0);
   const [token, setToken] = useState();
   const [symbol, setSymbol] = useState();
   const [timer, setTimer] = useState("72H");
-  const [nbDelegates, setNbDelegates] = useState(1);
-  const [delegates, setDelegates] = useState([...Array(1).keys()]);
-  const delegatesList = [
-    { label: "Delegate1", value: "Delegate_1" },
-    { label: "Delegate2", value: "Delegate_2" },
-    { label: "Delegate3", value: "Delegate_3" },
-    { label: "Delegate4", value: "Delegate_4" },
-    { label: "Delegate5", value: "Delegate_5" }
-  ];
-  const [delegatesChoosen, setDelegatesChoosen] = useState("");
+  const [delegate, setDelegate] = useState();
   const [confirmed, setConfirmed] = useState(false);
-  const step = useMemo(() => !confirmed ? <Fill/> : <Mint/>, [confirmed]);
+  const step = useMemo(() => (!confirmed ? <Fill /> : <Mint />), [confirmed]);
 
   return (
     <>
@@ -47,10 +38,8 @@ export default function Create() {
           setSymbol,
           timer,
           setTimer,
-          nbDelegates,
-          setNbDelegates,
-          delegates,
-          setDelegates,
+          delegate,
+          setDelegate,
           setConfirmed
         }}
       >

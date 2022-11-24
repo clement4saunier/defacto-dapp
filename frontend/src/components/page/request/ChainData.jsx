@@ -6,7 +6,7 @@ import { useRequestSourceContext } from "../../context/on-chain/RequestSourceCon
 export default function ChainData() {
 
     const { requestChainData } = useRequestSourceContext();
-    const [{ address, amount, owner, deadline, symbol, token }, setData] =
+    const [{ address, amount, owner, deadline, symbol, token, delegate }, setData] =
       useState({});
     const displayDate = useMemo(
       () => (deadline ? new Date(deadline * 1000).toLocaleDateString() : "..."),
@@ -24,6 +24,8 @@ export default function ChainData() {
           {amount && amount.toNumber()} <Currency symbol={symbol} />
           <br />
           Available until {displayDate}
+          <br/>
+          <a>{delegate}</a> is the settlement agent
         </p>
       </>
     );
