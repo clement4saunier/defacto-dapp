@@ -5,7 +5,9 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract DelegateRegistry is ERC721, Ownable {
 
-    uint256 currentSupply;
+    uint256 public minimumDonationValue = 0.1 ether;
+    uint256 public currentSupply;
+    uint256 public totalDonationsReceived;
     mapping(address =>  uint256) public delegateWallets;
 
     constructor() ERC721("DelegateRegistry", "DLGT") {
@@ -22,5 +24,14 @@ contract DelegateRegistry is ERC721, Ownable {
         increaseCurrentSupply();
         uint256 tokenId = currentSupply;
         _safeMint(to, tokenId);
+    }
+
+    function donate() external payable {
+        require(msg.value > minimumDonationValue, 'cant make an empty donation');
+        totalDonationsReceived += msg.value;
+    }
+
+    function withdrawDonations() external payable onlyOwner {
+        payable(msg.sender).transfer(address(this).balance);
     }
 }
