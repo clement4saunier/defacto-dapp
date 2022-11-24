@@ -1,6 +1,8 @@
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
+import fetch, { Response } from 'node-fetch'
 import RequestDetails from '../interfaces/RequestDetails'
 import { ethers } from 'ethers'
+import MeganodeRequestBody from '../interfaces/MeganodeRequestBody'
 
 export async function getAllRequestsStarton (network: string, address: string): Promise<string[]> {
   const allRequests: string[] = []
@@ -9,38 +11,41 @@ export async function getAllRequestsStarton (network: string, address: string): 
 
 export async function getAllRequestsNodeReal (network: number, address: string): Promise<string[]> {
   const allRequests: string[] = []
-  let response: AxiosResponse
+  let response: Response
+  let data: any
+  let body: MeganodeRequestBody
 
   switch (network) {
     case 5:
-      response = await axios.post('https://eth-goerli.nodereal.io/v1/' + String(process.env.MEGANODE_API_KEY_ETH),
-        {
-          id: network,
-          jsonrpc: '2.0',
-          method: 'eth_getLogs',
-          params: [
-            {
-              address: [address],
-              topics: [ethers.utils.id('Publish(uint256)')],
-              fromBlock: '0x7A2ECD',
-              toBlock: 'latest'
-            }
-          ]
-        },
-        {
-          headers: {
-            accept: 'application/json',
-            'Content-Type': 'application/json',
-            charset: 'UTF-8'
+      body = {
+        id: network,
+        jsonrpc: '2.0',
+        method: 'eth_getLogs',
+        params: [
+          {
+            address: [address],
+            topics: [ethers.utils.id('Publish(uint256)')],
+            fromBlock: '0x7A2ECD',
+            toBlock: 'latest'
           }
-        })
+        ]
+      }
+      response = await fetch('https://eth-goerli.nodereal.io/v1/' + String(process.env.MEGANODE_API_KEY_ETH), {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json;charset=UTF-8'
+        },
+        body: JSON.stringify(body)
+      })
+      data = JSON.parse(await response.text())
       break
 
     default:
       throw new Error('Unknown network.')
   }
 
-  for (const i of response.data.result) {
+  for (const i of data.result) {
     allRequests.push(i.topics[1])
   }
 
