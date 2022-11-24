@@ -25,7 +25,7 @@ export async function getAllRequestsNodeReal (network: number, address: string):
           {
             address: [address],
             topics: [ethers.utils.id('Publish(uint256)')],
-            fromBlock: '0x7A2ECD',
+            fromBlock: '-4000',
             toBlock: 'latest'
           }
         ]
