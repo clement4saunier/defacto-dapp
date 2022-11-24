@@ -1,25 +1,24 @@
-import axios from 'axios'
-import Request from '../interfaces/Request'
+import RequestDetails from '../interfaces/RequestDetails'
 
-export async function postRequest (file: string): Promise<string> {
-  const response = await axios.post('https://api.starton.io/v3/ipfs/json', {
-    name: JSON.parse(file).name,
-    content: JSON.parse(file),
-    metadata: { }
-  }, {
-    headers: {
-      'x-api-key': process.env.STARTON_API_KEY
-    }
-  })
-
-  return response.data.cid
-}
-
-export async function listRequests (): Promise<Request[]> {
+export async function getAllRequestsStarton (): Promise<string[]> {
   return []
 }
 
+export async function getRequestDetailsStarton (id: string): Promise<RequestDetails> {
+  return {
+    askerAddress: '0xAsker',
+    cid: 'cid',
+    tokenAddress: '0xToken',
+    amount: 42,
+    expiryBlock: 420
+  }
+}
+
 export default {
-  post: postRequest,
-  list: listRequests
+  getAll: {
+    starton: getAllRequestsStarton
+  },
+  details: {
+    starton: getRequestDetailsStarton
+  }
 }

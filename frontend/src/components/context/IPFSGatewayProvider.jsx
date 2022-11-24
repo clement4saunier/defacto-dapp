@@ -43,7 +43,7 @@ export default function IPFSGatewayProvider({ children }) {
   const [ipfsUploadGateways] = useState([
     {
       name: "Starton API",
-      upload: async (file) => (await axios.post('http://localhost:8080/requests', { file })).data.cid
+      upload: async (file) => (await axios.post('http://localhost:8080/ipfs', { file })).data.cid
     },
     {
       name: "Infura",
