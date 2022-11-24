@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "../content/Icon";
+import style from "./Home.css"
 
 export default function Home() {
   let navigate = useNavigate();
@@ -33,16 +34,24 @@ export default function Home() {
       {text}
       <h2>How does it work ?</h2>
       <p> There are 3 different roles on the platform.</p>
-      <ul>
-        <li>The <strong>Requester</strong> will post a request detailing the information to be verified, the bounty offered as a reward for completing the task, the time required to do so, amongst other things. Anybody can be a Requester without any restictions. </li>
-        <li>The <strong>Fact-Checker</strong> does the research and investigative work. Bringing pertinent information as a response to an open Request is the mission. 
+      <div className="roleCards" style={{display: 'flex', justifyContent: 'space-between'}}>
+        <div className="cardRole">
+          <p className="titleCard">The Requester</p>
+          <p className="descriptionCard">Will post a request detailing the information to be verified, the bounty offered as a reward for completing the task, the time required to do so, amongst other things. Anybody can be a Requester without any restictions.</p>
+        </div>
+        <div className="cardRole">
+          <p className="titleCard">The Fact-Checker</p>
+          <p className="descriptionCard"> Does the research and investigative work. Bringing pertinent information as a response to an open Request is the mission. 
         Any sources and records relevant to the subject should be brought to light in an attempt to claim the bounty. Time is of the essence, as open Requests have a timer running.
-        Anybody can be a Fact-Checker, without any restrictions.</li>
-        <li>The <strong>Deleguate</strong>. If the fact-checker will provide most of the works it's the delegate who has the most 
+        Anybody can be a Fact-Checker, without any restrictions.</p>
+        </div>
+        <div className="cardRole">
+          <p className="titleCard">The Deleguate</p>
+          <p className="descriptionCard">If the fact-checker will provide most of the works it's the delegate who has the most 
         tricky part, he will validates or not if the fact-checker is right or if it is a bad report. When the deleguate prononces the 
-        result the bounty is automatically share between the fact-checker and the delegaute.
-        </li>
-      </ul>
+        result the bounty is automatically share between the fact-checker and the delegaute.</p>
+        </div>
+      </div>
     </>
   );
 }
