@@ -1,7 +1,10 @@
 export default interface RequestDetails {
-  askerAddress: string
+  owner: string
   cid: string
-  tokenAddress: string
+  token: string
   amount: number
-  expiryBlock: number
+  deadline: number
+  id: string
+  symbol: string
+  address: string
 }
