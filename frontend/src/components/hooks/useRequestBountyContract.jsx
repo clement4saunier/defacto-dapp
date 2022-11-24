@@ -14,14 +14,14 @@ export default function useRequestBountyContract() {
   const instance = useMemo(
     () =>
       provider && address
-        ? new Contract(address, requestAbi, provider.getSigner())
+        ? new Contract(address, requestAbi, provider)
         : null,
     [address, provider]
   );
 
   async function getRequestTxn(id = null) {
     const addr = contracts.chain[chainId].requests;
-    const inst = new Contract(addr, requestAbi, provider.getSigner());
+    const inst = new Contract(addr, requestAbi, provider);
 
     let publishTransaction = await inst.queryFilter({
       address,
@@ -33,7 +33,7 @@ export default function useRequestBountyContract() {
 
   async function getResponseTxn(requestId, responseId = null) {
     const addr = contracts.chain[chainId].requests;
-    const inst = new Contract(addr, requestAbi, provider.getSigner());
+    const inst = new Contract(addr, requestAbi, provider);
 
     let publishTransaction = await inst.queryFilter({
       address,
