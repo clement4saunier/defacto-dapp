@@ -12,7 +12,7 @@ export default function Home() {
       the guarantee that is it true is of great value.<br/><br/>
       Being mis-informed sometimes comes at great cost.<br/><br/>
       We aim to bring a Decentralized Information Verification Protocol that provides 
-      a wide net of information gatherers to confirm or infirm information in the most unbiased way.
+      a wide net of information gatherers to confirm or infirm information in the least biased way.
       The platform incentivises journalistic work of all sorts (fact-checking, data research..) 
       by pairing up three types of profiles and creating a collaborative work dynamic between them.
       <br/><br/>

@@ -10,9 +10,11 @@ export async function getAllRequestsCtrl (req: Request, res: Response, next: Nex
       case 'starton':
         requests = await requestsServices.getAll.starton(req.params.network, req.params.address)
         break
+
       case 'nodereal':
         requests = await requestsServices.getAll.nodereal(Number(req.params.network), req.params.address)
         break
+
       default:
         throw new Error('Unknown provider.')
     }
