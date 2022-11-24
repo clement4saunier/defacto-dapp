@@ -26,27 +26,25 @@ export default function Home() {
 
   return (
     <>
-      <h1>Decentralized fact-checking and data verification platform</h1>
+      <h1 style={{fontSize: 50 + 'px'}}>Decentralized fact-checking and data verification platform</h1>
       <p>Verify information in an unbiased and censorship-resistant manner.</p>
-      <button onClick={() => navigate('/list')}>List <Icon crypto="send-in"/></button>
-      <button onClick={() => navigate('/create')}>Create <Icon crypto="send-in"/></button>
-      <h2>What is it about ?</h2>
+      <h2 style={{marginTop: '50px'}}>What is it about ?</h2>
       {text}
-      <h2>How does it work ?</h2>
+      <h2 style={{marginTop: '50px'}}>How does it work ?</h2>
       <p> There are 3 different roles on the platform.</p>
       <div className="roleCards" style={{display: 'flex', justifyContent: 'space-between'}}>
         <div className="cardRole">
-          <p className="titleCard">The Requester</p>
+          <p className="titleCard">The Requester 🤷</p>
           <p className="descriptionCard">Will post a request detailing the information to be verified, the bounty offered as a reward for completing the task, the time required to do so, amongst other things. Anybody can be a Requester without any restictions.</p>
         </div>
         <div className="cardRole">
-          <p className="titleCard">The Fact-Checker</p>
+          <p className="titleCard">The Fact-Checker 🕵️‍♂️</p>
           <p className="descriptionCard"> Does the research and investigative work. Bringing pertinent information as a response to an open Request is the mission. 
         Any sources and records relevant to the subject should be brought to light in an attempt to claim the bounty. Time is of the essence, as open Requests have a timer running.
         Anybody can be a Fact-Checker, without any restrictions.</p>
         </div>
         <div className="cardRole">
-          <p className="titleCard">The Deleguate</p>
+          <p className="titleCard">The Deleguate 👨🏻‍⚖️</p>
           <p className="descriptionCard">Provides a seal of approval to the response given by a Fact-Checker to a Requester, 
         if the information gathered is relevant and understandeable.
         The Delegate takes the role of the authority in this three-way transaction and bears the most responsibility, but does little work.

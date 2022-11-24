@@ -6,6 +6,7 @@
     border-style: solid;
     flex-direction: column;
     border-radius: 10px;
+    margin-bottom: 50px;
 }
 
 .titleCard
@@ -14,11 +15,15 @@
     justify-content: center;
     font-size: large;
     font-weight: bold;
+    color: white;
+    font-size: 25px;
+    border-bottom: solid var(--border-color);
 }
 
 .descriptionCard {
     display: flex;
-    text-align: center;
+    /* text-align: center; */
+    text-align: justify;
     padding-left: 10px;
     padding-right: 10px;
 }
