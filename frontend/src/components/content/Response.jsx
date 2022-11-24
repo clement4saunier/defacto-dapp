@@ -5,6 +5,7 @@ import { useSettleContext } from "../page/Request";
 export default function Response({ sender, id, cid, origin }) {
   const { ipfsGateway } = useIPFSGatewayContext();
   const [{ name, description }, setContent] = useState({});
+  const [selected, setSelected] = useState(false);
   const {responseChoosen, setResponseChoosen} = useSettleContext();
   const originDate = useMemo(() => {
     const date = new Date(origin * 1000);
@@ -25,8 +26,9 @@ export default function Response({ sender, id, cid, origin }) {
   }, [cid]);
 
   return (
-    <div className="card" onClick={function() {
-      let arr = [...responseChoosen, id]
+    <div className="card" style={{borderColor: selected ?  'red' : '' }} onClick={function() {
+      setSelected(true)
+      let arr = [...responseChoosen, name]
       console.log("arr = ", arr)
       setResponseChoosen(arr); console.log(responseChoosen)
       }} >
