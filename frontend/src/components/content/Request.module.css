@@ -1,11 +1,14 @@
 .card {
   border: var(--border-default);
   border-radius: var(--radius-m);
-  display: grid;
-  grid-template-columns: auto auto;
+  display: flex;
   pointer-events: fill;
   padding: 0;
   overflow: hidden;
+}
+
+.card > *:first-child {
+  flex: 1;
 }
 
 .card > * > * {
@@ -64,4 +67,14 @@
 .chain:not(.show) * {
   color: transparent;
   white-space: nowrap;
+}
+
+.innerCard {
+  position: relative;
+}
+
+.status {
+  position: absolute;
+  top: var(--space-l);
+  right: 0;
 }
