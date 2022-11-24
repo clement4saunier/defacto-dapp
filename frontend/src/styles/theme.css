@@ -14,7 +14,7 @@
   --color-interaction-active: #385479;
 
   /* special */
-  --color-error: red;
+  --color-error: rgb(221, 79, 79);
   --color-success: rgb(105, 172, 105);
 
   /* spacing */
@@ -55,9 +55,8 @@
   --color-text-secondary: #fffffe;
   --color-text-secondary-light: #fffffe;
 
-    /* special */
-    --color-error: red;
-    --color-success: green;
+  /* special */
+  --color-success: green;
 
   /* shapes */
   --border-color: rgba(255, 255, 255, 0.103);
@@ -80,6 +79,9 @@
   --color-text-secondary: #0d0d0d;
   --color-text-secondary-light: #2a2a2a;
 
+  /* special */
+  --color-success: rgb(48, 129, 48);
+
   /* shapes */
   --border-color: rgb(62, 78, 92);
   --border-default: var(--border-width) solid var(--border-color);
@@ -99,4 +101,3 @@
   --color-interaction-active: rgb(1, 178, 158);
   overflow: hidden;
 }
-
