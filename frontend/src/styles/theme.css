@@ -5,17 +5,17 @@
   --color-text-light: #2a2a2a;
 
   /* secondary */
-  --color-background-secondary: #ff8e3c;
-  --color-text-secondary: var(--color-text);
-  --color-text-secondary-light: var(--color-text-secondary);
+  --color-background-secondary: #4d6c95;
+  --color-text-secondary: white;
+  --color-text-secondary-light: rgb(187, 187, 187);
 
   /* interaction */
-  --color-interaction-hover: #fc9852;
-  --color-interaction-active: #e6782a;
+  --color-interaction-hover: #698ab6;
+  --color-interaction-active: #385479;
 
   /* special */
   --color-error: red;
-  --color-success: green;
+  --color-success: rgb(105, 172, 105);
 
   /* spacing */
   --space-s: 2px;
@@ -54,6 +54,10 @@
   --color-background-secondary: #7f5af0;
   --color-text-secondary: #fffffe;
   --color-text-secondary-light: #fffffe;
+
+    /* special */
+    --color-error: red;
+    --color-success: green;
 
   /* shapes */
   --border-color: rgba(255, 255, 255, 0.103);
