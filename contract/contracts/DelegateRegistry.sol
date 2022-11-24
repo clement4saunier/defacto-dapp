@@ -4,47 +4,56 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract DelegateRegistry is ERC721, Ownable {
-
-
     uint256 public minimumDonationValue = 0.1 ether;
-    uint256 public currentSupply;
     uint256 public totalDonationsReceived;
-    mapping(address =>  uint256) public delegateWallets;
+    mapping(address => uint256) public delegateWallets;
 
     mapping(uint256 => string) private _tokenURIs;
+    mapping (uint256 => string) private _identifiers;
 
     constructor() ERC721("DelegateRegistry", "DLGT") {
-        currentSupply = 0;
-    }
-
-    function increaseCurrentSupply() internal {
-        currentSupply += 1;
     }
 
     function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal {
-        require(_exists(tokenId), "ERC721URIStorage: URI set of nonexistent token");
+        require(
+            _exists(tokenId),
+            "ERC721URIStorage: URI set of nonexistent token"
+        );
         _tokenURIs[tokenId] = _tokenURI;
     }
-    
-    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
-        require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
 
-        string memory _tokenURI = _tokenURIs[tokenId];
-        return _tokenURI;
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        virtual
+        override
+        returns (string memory)
+    {
+        require(
+            _exists(tokenId),
+            "ERC721Metadata: URI query for nonexistent token"
+        );
+
+        return _tokenURIs[tokenId];
     }
-    
 
-    function mint(address to, string memory tokenURI_) external onlyOwner {
-        require(delegateWallets[to] < 1, 'Only one delegate badge per wallet');
-        delegateWallets[to]++;
-        increaseCurrentSupply();
-        uint256 newItemId = currentSupply;
+    function lookup(uint256 tokenId) public view returns (string memory){
+        return _identifiers[tokenId];
+    }
+
+    function mint(address to, string memory delegate, string memory content) external onlyOwner {
+        uint256 newItemId = uint256(keccak256(abi.encodePacked(delegate)));
+
+        _identifiers[newItemId] = delegate;
         _mint(to, newItemId);
-        _setTokenURI(newItemId, tokenURI_);
+        _setTokenURI(newItemId, content);
     }
 
     function donate() external payable {
-        require(msg.value > minimumDonationValue, 'cant make an empty donation');
+        require(
+            msg.value > minimumDonationValue,
+            "cant make an empty donation"
+        );
         totalDonationsReceived += msg.value;
     }
 

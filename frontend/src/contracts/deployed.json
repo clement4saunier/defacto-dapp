@@ -3,11 +3,13 @@
       "1": { "name": "Mainnet", "certificate": "", "stamp": "", "swap": "" },
       "5": {
         "name": "Goerli",
-        "requests": "0x9334E4d48Ce4d56D931FE6AB9458AabCD5116Af9"
+        "requests": "0x9334E4d48Ce4d56D931FE6AB9458AabCD5116Af9",
+        "registry": "0xCDcaaE4123132d7D5a788840dA3F12ea43F05bc1"
       },
       "97": {
         "name": "BNB Testnet",
-        "requests": "0x92fF7d467c7489f7d642231b5aE2E3b5d8d3d332"
+        "requests": "0x92fF7d467c7489f7d642231b5aE2E3b5d8d3d332",
+        "registry": "0xE445cb06267D788137062E767DDc030e9e47B570"
       }
     }
   }
