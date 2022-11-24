@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import { useState } from "react";
+import {  createContext, useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import Currency from "../content/Currency";
 import Icon from "../content/Icon";
@@ -14,6 +14,14 @@ import Content from "./request/Content";
 import ChainData from "./request/ChainData";
 import Respond from "./request/Respond";
 import Responses from "./request/Responses";
+import Choose from "./request/Choose";
+import Settle from "./request/Settle";
+
+export const SettleContext = createContext(null);
+
+export const useSettleContext = () => {
+  return useContext(SettleContext);
+};
 
 export default function Request() {
   const [publishing, setPublishing] = useState(false);
@@ -22,6 +30,10 @@ export default function Request() {
   const { sourceSelector } = useOnChainContext();
   const { ipfsGateway, ipfsGatewaySelector, ipfsUploadGatewaySelector } =
     useIPFSGatewayContext();
+
+  const [confirmed, setConfirmed] = useState(false);
+  const step = useMemo(() => !confirmed ? <Choose /> : <Settle />, [confirmed]);
+  const [responseChoosen, setResponseChoosen] = useState();
 
   return (
     <>
@@ -40,7 +52,11 @@ export default function Request() {
             Publish a response <Icon crypto="receive" />
           </button>
         )}
-        {!publishing ? <Responses /> : <Respond requestId={requestId} />}
+        <button onClick={() => {setConfirmed(true)}}>Settle</button>
+        <SettleContext.Provider value={{responseChoosen, setResponseChoosen}}>
+          {step}
+          {!publishing ? <Responses /> : <Respond requestId={requestId} />}
+        </SettleContext.Provider>
       </BrowserWalletRequestProvider>
     </>
   );

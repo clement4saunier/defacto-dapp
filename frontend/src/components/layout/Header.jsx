@@ -21,7 +21,7 @@ export default function Header() {
     <header>
       <div>
         <h3 style={{ margin: 0, cursor: 'pointer'}} onClick={() => navigate("/")}>
-          <Icon crypto="list" /> DeFacts
+          <Icon crypto="list" /> DeFacto
         </h3>
       </div>
       <div>
