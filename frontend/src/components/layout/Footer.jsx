@@ -5,7 +5,7 @@ export default function Footer() {
     <footer>
       <p>
         Made with <Icon style={{ color: "#c62944" }} crypto="like" /> by the{" "}
-        <a href="/team">DeFacto team</a> @StartonHackathon2022
+        <a href="/team">DeFacts team</a> @StartonHackathon2022
       </p>
     </footer>
   );

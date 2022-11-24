@@ -36,11 +36,12 @@ export default function Home() {
       <ul>
         <li>The <strong>Requester</strong> will post a request detailing the information to be verified, the bounty offered as a reward for completing the task, the time required to do so, amongst other things. Anybody can be a Requester without any restictions. </li>
         <li>The <strong>Fact-Checker</strong> does the research and investigative work. Bringing pertinent information as a response to an open Request is the mission. 
-        Any sources and records relevant to the subject should be brought to light in an attempt to claim the bounty. Time is of the essence, as open Requests have a timer running.
-        Anybody can be a Fact-Checker, without any restrictions.</li>
-        <li>The <strong>Deleguate</strong>. If the fact-checker will provide most of the works it's the delegate who has the most 
-        tricky part, he will validates or not if the fact-checker is right or if it is a bad report. When the deleguate prononces the 
-        result the bounty is automatically share between the fact-checker and the delegaute.
+        Any sources and records relevant to the subject should be brought to light in an attempt to claim part of the bounty. Time is of the essence, as open Requests have a timer running.
+        Anybody can be a Fact-Checker, without any restrictions, and get compensated for the work.</li>
+        <li>The <strong>Delegate</strong> provides a seal of approval to the response given by a Fact-Checker to a Requester, 
+        if the information gathered is relevant and understandeable. Anyone can be a Delegate, with restrictions, to claim part of the bounty.
+        The Delegate takes the role of the authority in this three-way transaction and bears the most responsibility, but does little work.
+        To have authority, one must have expertise, credentials, or more generally quantifiable qualities relevant to a field.
         </li>
       </ul>
     </>
