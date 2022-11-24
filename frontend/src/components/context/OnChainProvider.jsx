@@ -30,10 +30,6 @@ export default function OnChainProvider({ children }) {
       name: "NodeReal API",
       requestProvider: <NodeRealRequestProvider />
     },
-    {
-      name: "Hardcoded Set",
-      requestProvider: <HardcodedRequestProvider />
-    }
   ]);
 
   const [ipfsGateways] = useState([

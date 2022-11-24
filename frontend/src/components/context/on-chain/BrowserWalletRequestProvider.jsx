@@ -102,7 +102,13 @@ export function BrowserWalletRequestProvider({ children, onlyId }) {
 
   return (
     <RequestSourceContext.Provider
-      value={{ requestIds, requestCids, requestChainData, getRequestChainData, responseChainData }}
+      value={{
+        requestIds,
+        requestCids,
+        requestChainData,
+        getRequestChainData,
+        responseChainData
+      }}
     >
       {children}
     </RequestSourceContext.Provider>

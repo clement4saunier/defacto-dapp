@@ -1,7 +1,7 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import { create } from "ipfs-http-client";
-import {Buffer} from 'buffer';
-import axios from 'axios'
+import { Buffer } from "buffer";
+import axios from "axios";
 
 export const IPFSGatewayContext = createContext(null);
 
@@ -31,14 +31,13 @@ export default function IPFSGatewayProvider({ children }) {
           file.json()
         )
     },
-    { name: "Starton API",
-    fetch: async (cid) =>
-        await fetch("https://ipfs.eu.starton.io/ipfs/" + cid).then(async (file) =>
-          file.json()
+    {
+      name: "Starton API",
+      fetch: async (cid) =>
+        await fetch("https://ipfs.eu.starton.io/ipfs/" + cid).then(
+          async (file) => file.json()
         )
-      },
-    { name: "Censored Gateway", fetch: async (cid) => defaultRequestMetadata },
-    { name: "Hardcoded Gateway", fetch: async (cid) => defaultRequestMetadata }
+    }
   ]);
   const [ipfsUploadGateways] = useState([
     {
@@ -76,13 +75,13 @@ export default function IPFSGatewayProvider({ children }) {
     }
   ]);
   const [selectedGatewayIndex, setSelectedGatewayIndex] = useState(0);
-  const [selectedUploadGatewayIndex, setSelectedUploadGatewayIndex] = useState(0);
+  const [selectedUploadGatewayIndex, setSelectedUploadGatewayIndex] =
+    useState(0);
 
   const ipfsGateway = useMemo(
     () => ipfsGateways[selectedGatewayIndex],
     [selectedGatewayIndex]
   );
-
 
   const ipfsUploadGateway = useMemo(
     () => ipfsUploadGateways[selectedUploadGatewayIndex],
@@ -104,14 +103,14 @@ export default function IPFSGatewayProvider({ children }) {
           </button>
         )),
         ipfsUploadGatewaySelector: ipfsUploadGateways.map(({ name }, index) => (
-            <button
-              className={index !== selectedUploadGatewayIndex && "unselected"}
-              key={index}
-              onClick={() => setSelectedUploadGatewayIndex(index)}
-            >
-              {name}
-            </button>
-          ))
+          <button
+            className={index !== selectedUploadGatewayIndex && "unselected"}
+            key={index}
+            onClick={() => setSelectedUploadGatewayIndex(index)}
+          >
+            {name}
+          </button>
+        ))
       }}
     >
       {children}
