@@ -9,7 +9,7 @@ export default function List() {
 
   return (
     <>
-      <h1>A là une</h1>
+      <h1>Request List</h1>
       <p>The most recent open bounties</p>
       <h4>On-chain source</h4>
       {sourceSelector}

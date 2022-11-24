@@ -45,10 +45,9 @@ export default function Fill() {
   return (
     <>
       <h1>Create a request</h1>
-      <p>Lorem ipsum</p>
       <div className="divider" />
       <form onSubmit={sendForm} id="createForm">
-        <p>is it true ? don't wait...ask! (add more details you can):</p>
+        <p>Fill out this form to submit your request through DeFacts. Be as accurate as possible in your inquiry.</p>
         <h3>Title</h3>
         <textarea
           name="title"
@@ -67,7 +66,7 @@ export default function Fill() {
         />
         <h3>Bounty</h3>
         <div className="questionForm">
-          <p>how can you pay to find out if it's true?</p>
+          <p>Enter the currency and amount you offer as bounty for your request</p>
           <span>
             <input
               name="bounty"
@@ -90,9 +89,7 @@ export default function Fill() {
         </div>
         <div className="questionForm">
           <p>
-            how long do the fact-checkers have to verify the information?
-            <br />
-            (small delay implies big gas)
+            Enter the duration of your bounty.
           </p>
           <select
             value={timer}
@@ -107,7 +104,7 @@ export default function Fill() {
           </select>
         </div>
         <div className="questionForm">
-          <p>How many delegates do you want ?</p>
+          <p>Enter the name of your delegate of choice</p>
             <input
               name="delegate"
               value={delegate}

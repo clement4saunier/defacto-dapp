@@ -13,8 +13,19 @@ Decentralized platform for incentivized journalism and fact-checking.
 *The backend runs on http://localhost:8080/*
 
 # Problem
+The internet makes it easy for billions of people to access information with a few simple keystrokes. However, it also makes it easy to spread false information.
+The best way to counter fake news is to conduct your own research.
+Unfortunately, this requires learning  how to evaluate sources of information, where to find reputable information, and where to look for fact-checking tools. A process which can be time consuming.
+
+
 
 # Solution
+
+News is just information that is factually correct and accurately represents events. Gathering that information is part of the task, but evaluating if it is factually correct is another. And those two tasks can be "outsourced" for a fee.
+
+The internet is an already established network that provides an vast amount of individual databases, skillsets and capabilities in each person.
+
+
 
 # Facility
 The project use docker. Make sure you have [Docker][1] installed on your machine.
@@ -25,7 +36,7 @@ docker compose build
 docker compose up
 ``` 
 # The team
-We are DeFacto
+We are DeFacts
 
 ## Members
 Alexandre Schaffner, Clément Saunier, Mickael Riess, Maxime Noel
