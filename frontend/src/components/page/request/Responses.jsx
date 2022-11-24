@@ -4,21 +4,25 @@ import { useRequestSourceContext } from "../../context/on-chain/RequestSourceCon
 import styles from "../List.module.css";
 import { useSettleContext } from "../Request";
 
-export default function Responses() {
+export default function Responses({ selected, onSelect }) {
   const { responseChainData } = useRequestSourceContext();
-  const {responseChoosen, setResponseChoosen} = useSettleContext();
-  console.log("resp", responseChainData);
 
   return (
     <>
-    {responseChoosen.map(data => <p>{data}</p>)}
-      {" "}
       <h2>{responseChainData && responseChainData.length} Responses</h2>
       <div className={styles.grid}>
         {responseChainData &&
           responseChainData.map((data, key) => {
-            console.log(data);
-            return <Response key={key} {...data} />;
+            return (
+              <Response
+                highlight={
+                  selected ? selected.find((id) => data.id === id) : false
+                }
+                key={key}
+                onClick={onSelect && (() => onSelect(data.id))}
+                {...data}
+              />
+            );
           })}
       </div>
     </>
