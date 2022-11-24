@@ -47,9 +47,11 @@ export default function Home() {
         </div>
         <div className="cardRole">
           <p className="titleCard">The Deleguate</p>
-          <p className="descriptionCard">If the fact-checker will provide most of the works it's the delegate who has the most 
-        tricky part, he will validates or not if the fact-checker is right or if it is a bad report. When the deleguate prononces the 
-        result the bounty is automatically share between the fact-checker and the delegaute.</p>
+          <p className="descriptionCard">Provides a seal of approval to the response given by a Fact-Checker to a Requester, 
+        if the information gathered is relevant and understandeable.
+        The Delegate takes the role of the authority in this three-way transaction and bears the most responsibility, but does little work.
+        To have authority, one must have expertise, credentials, or more generally quantifiable qualities relevant to a field.
+        Anyone can be a Delegate, with restrictions, to claim part of the bounty.</p>
         </div>
       </div>
     </>
