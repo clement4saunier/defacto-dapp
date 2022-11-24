@@ -5,6 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 contract RequestBounty {
     IERC721 public delegateRegistry;
+    uint256 DELEGATE_SHARE = 20;
 
     constructor(IERC721 _delegateRegistry) {
         delegateRegistry = _delegateRegistry;
@@ -26,12 +27,21 @@ contract RequestBounty {
 
     event Publish(uint256 indexed requestId);
     event Respond(uint256 indexed requestId, uint256 indexed responseId);
+    event Settle(uint256 indexed requestId);
 
     //Mapping from requestId to Request
     mapping(uint256 => Request) public request;
 
+    //Mapping from requestId to Request
+    mapping(uint256 => string) public settlement;
+
     //Mapping from requestId to responseId to Response
     mapping(uint256 => mapping(uint256 => Response)) public response;
+
+    modifier unsettled(uint256 requestId) {
+        require(bytes(settlement[requestId]).length == 0, "Request settled already");
+        _;
+    }
 
     function _mintRequest(
         uint256 id,
@@ -93,7 +103,7 @@ contract RequestBounty {
         uint256 requestId,
         uint256[] memory responses,
         uint256[] memory distribution
-    ) external {
+    ) external unsettled(requestId) {
         Request memory _request = request[requestId];
         IERC20 token = _request.token;
         uint256 length = responses.length;
@@ -101,14 +111,14 @@ contract RequestBounty {
             length == distribution.length,
             "Responses does not match distribution count"
         );
-        uint256 delegateAmount = (_request.amount * 20) / 100;
+        uint256 delegateAmount = (_request.amount * DELEGATE_SHARE) / 100;
         uint256 split = _request.amount - delegateAmount;
+        uint256 expense = split;
 
         for (uint i = 0; i < length; ) {
             uint256 amount = (split * distribution[i]) / 100;
             require(
-                token.transferFrom(
-                    address(this),
+                token.transfer(
                     response[requestId][responses[i]].sender,
                     amount
                 ),
@@ -116,23 +126,23 @@ contract RequestBounty {
             );
 
             unchecked {
-                split -= amount;
+                expense -= amount;
                 i++;
             }
         }
-        require(split >= 0, "Distribution overflow");
-        delegateAmount += split;
+        require(expense >= 0, "Distribution overflow");
+        delegateAmount += expense;
 
         require(
-            token.transferFrom(
-                address(this),
+            token.transfer(
                 delegateRegistry.ownerOf(
                     uint256(keccak256(abi.encodePacked(_request.delegate)))
                 ),
                 delegateAmount
             ),
-            "Token transfer failed"
+            "Delegate transfer failed"
         );
+        emit Settle(requestId);
     }
 
     function requestURI(uint256 requestId) public view returns (string memory) {
@@ -140,8 +150,8 @@ contract RequestBounty {
     }
 
     function publishResponse(uint256 requestId, string memory content)
-        external
-        returns (uint256 responseId)
+        external 
+        unsettled(requestId) returns (uint256 responseId) 
     {
         responseId = uint256(keccak256(abi.encodePacked(content)));
         require(

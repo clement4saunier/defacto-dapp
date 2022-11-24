@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from "react";
-import {  createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import Currency from "../content/Currency";
 import Icon from "../content/Icon";
@@ -16,24 +16,52 @@ import Respond from "./request/Respond";
 import Responses from "./request/Responses";
 import Choose from "./request/Choose";
 import Settle from "./request/Settle";
-
-export const SettleContext = createContext(null);
-
-export const useSettleContext = () => {
-  return useContext(SettleContext);
-};
+import useDelegateRegistryContract from "../hooks/useDelegateRegistryContract";
+import { ethers } from "ethers";
 
 export default function Request() {
-  const [publishing, setPublishing] = useState(false);
-  const { account } = useWeb3Context();
   let { requestId } = useParams();
   const { sourceSelector } = useOnChainContext();
   const { ipfsGateway, ipfsGatewaySelector, ipfsUploadGatewaySelector } =
     useIPFSGatewayContext();
 
-  const [confirmed, setConfirmed] = useState(false);
-  const step = useMemo(() => !confirmed ? <Choose /> : <Settle />, [confirmed]);
-  const [responseChoosen, setResponseChoosen] = useState([]);
+  const [publishing, setPublishing] = useState(false);
+  const [settling, setSettling] = useState(false);
+
+  const SettleButton = () => {
+    const { account } = useWeb3Context();
+    const { requestChainData } = useRequestSourceContext();
+    const [delegate, setDelegate] = useState();
+    const { instance } = useDelegateRegistryContract();
+    const [isOwner, setIsOwner] = useState(false);
+
+    useEffect(() => {
+      requestChainData && setDelegate(requestChainData[0].delegate);
+      requestChainData && console.log(requestChainData[0]);
+    }, [requestChainData]);
+
+    useEffect(() => {
+      async function checkOwnerOfDelegate() {
+        const owner = await instance.ownerOf(ethers.utils.id(delegate));
+
+        setIsOwner(owner === account);
+      }
+
+      delegate && checkOwnerOfDelegate();
+    }, [delegate, account]);
+
+    return (
+      <>
+        {isOwner && <button
+          onClick={() => {
+            setSettling((s) => !s);
+          }}
+        >
+          Settle
+        </button>}
+      </>
+    );
+  };
 
   return (
     <>
@@ -44,19 +72,32 @@ export default function Request() {
         <Content />
         <ChainData />
         {publishing ? (
-          <button onClick={() => setPublishing(false)}>
+          <button
+            onClick={() => {
+              setPublishing(false);
+              setSettling(false);
+            }}
+          >
             Show responses <Icon crypto="list" />
           </button>
         ) : (
-          <button onClick={() => setPublishing(true)}>
+          <button
+            onClick={() => {
+              setPublishing(true);
+              setSettling(false);
+            }}
+          >
             Publish a response <Icon crypto="receive" />
           </button>
         )}
-        <button onClick={() => {setConfirmed(true)}}>Settle</button>
-        <SettleContext.Provider value={{responseChoosen, setResponseChoosen}}>
-          {step}
-          {!publishing ? <Responses /> : <Respond requestId={requestId} />}
-        </SettleContext.Provider>
+        <SettleButton/>
+        {settling ? (
+          <Settle />
+        ) : !publishing ? (
+          <Responses />
+        ) : (
+          <Respond requestId={requestId} />
+        )}
       </BrowserWalletRequestProvider>
     </>
   );

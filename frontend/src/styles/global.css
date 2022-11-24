@@ -217,3 +217,7 @@ li {
 .success {
   background-color: var(--color-success) !important; 
 }
+
+.selected {
+  border-color: var(--color-background-secondary)
+}

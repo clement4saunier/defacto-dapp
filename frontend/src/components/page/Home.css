@@ -1,0 +1,24 @@
+.cardRole
+{
+    width: 30%;
+    display: flex;
+    border-color: var(--border-color);
+    border-style: solid;
+    flex-direction: column;
+    border-radius: 10px;
+}
+
+.titleCard
+{
+    display: flex;
+    justify-content: center;
+    font-size: large;
+    font-weight: bold;
+}
+
+.descriptionCard {
+    display: flex;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}

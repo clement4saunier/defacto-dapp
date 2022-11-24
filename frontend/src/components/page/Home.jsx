@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "../content/Icon";
+import style from "./Home.css"
 
 export default function Home() {
   let navigate = useNavigate();
@@ -33,17 +34,26 @@ export default function Home() {
       {text}
       <h2>How does it work ?</h2>
       <p> There are 3 different roles on the platform.</p>
-      <ul>
-        <li>The <strong>Requester</strong> will post a request detailing the information to be verified, the bounty offered as a reward for completing the task, the time required to do so, amongst other things. Anybody can be a Requester without any restictions. </li>
-        <li>The <strong>Fact-Checker</strong> does the research and investigative work. Bringing pertinent information as a response to an open Request is the mission. 
-        Any sources and records relevant to the subject should be brought to light in an attempt to claim part of the bounty. Time is of the essence, as open Requests have a timer running.
-        Anybody can be a Fact-Checker, without any restrictions, and get compensated for the work.</li>
-        <li>The <strong>Delegate</strong> provides a seal of approval to the response given by a Fact-Checker to a Requester, 
-        if the information gathered is relevant and understandeable. Anyone can be a Delegate, with restrictions, to claim part of the bounty.
+      <div className="roleCards" style={{display: 'flex', justifyContent: 'space-between'}}>
+        <div className="cardRole">
+          <p className="titleCard">The Requester</p>
+          <p className="descriptionCard">Will post a request detailing the information to be verified, the bounty offered as a reward for completing the task, the time required to do so, amongst other things. Anybody can be a Requester without any restictions.</p>
+        </div>
+        <div className="cardRole">
+          <p className="titleCard">The Fact-Checker</p>
+          <p className="descriptionCard"> Does the research and investigative work. Bringing pertinent information as a response to an open Request is the mission. 
+        Any sources and records relevant to the subject should be brought to light in an attempt to claim the bounty. Time is of the essence, as open Requests have a timer running.
+        Anybody can be a Fact-Checker, without any restrictions.</p>
+        </div>
+        <div className="cardRole">
+          <p className="titleCard">The Deleguate</p>
+          <p className="descriptionCard">Provides a seal of approval to the response given by a Fact-Checker to a Requester, 
+        if the information gathered is relevant and understandeable.
         The Delegate takes the role of the authority in this three-way transaction and bears the most responsibility, but does little work.
         To have authority, one must have expertise, credentials, or more generally quantifiable qualities relevant to a field.
-        </li>
-      </ul>
+        Anyone can be a Delegate, with restrictions, to claim part of the bounty.</p>
+        </div>
+      </div>
     </>
   );
 }
