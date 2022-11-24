@@ -1,0 +1,21 @@
+.test {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.parent {
+    display: inline-flex;
+    justify-content: space-between;
+    flex-direction: column;
+    border: solid 1px var(--border-color);
+    padding: 10px;
+    border-radius: var(--radius-m);
+    width: 100%;
+    margin-bottom: 40px;
+}
+
+.delegate {
+    display: inline-flex;
+}
