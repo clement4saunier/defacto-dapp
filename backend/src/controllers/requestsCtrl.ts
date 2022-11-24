@@ -1,9 +1,18 @@
 import { NextFunction, Request, Response } from 'express'
-import requestsService from '../services/requestsServices'
+import RequestDetails from '../interfaces/RequestDetails'
+import requestsServices from '../services/requestsServices'
 
-export async function listRequestsCtrl (req: Request, res: Response, next: NextFunction): Promise<void> {
+export async function getAllRequestsCtrl (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const requests = await requestsService.list()
+    let requests: string[]
+
+    switch (req.params.provider) {
+      case 'starton':
+        requests = await requestsServices.getAll.starton()
+        break
+      default:
+        throw new Error('Unknown provider.')
+    }
 
     res.send({
       success: true,
@@ -14,13 +23,22 @@ export async function listRequestsCtrl (req: Request, res: Response, next: NextF
   }
 }
 
-export async function postRequestCtrl (req: Request, res: Response, next: NextFunction): Promise <void> {
+export async function getRequestDetailsCtrl (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const cid: string = await requestsService.post(req.body.file)
+    let details: RequestDetails
+
+    switch (req.params.provider) {
+      case 'starton':
+        details = await requestsServices.details.starton(req.params.request_id)
+        break
+
+      default:
+        throw new Error('Unknown provider.')
+    }
 
     res.send({
       success: true,
-      cid
+      details
     })
   } catch (err: unknown) {
     next(err)
