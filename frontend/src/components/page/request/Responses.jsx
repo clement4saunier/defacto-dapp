@@ -11,10 +11,10 @@ export default function Responses() {
 
   return (
     <>
-    {responseChoosen}
+    {responseChoosen.map(data => <p>{data}</p>)}
       {" "}
       <h2>{responseChainData && responseChainData.length} Responses</h2>
-      <div className={styles.grid} onClick={(e) => {setResponseChoosen(e.target)}}>
+      <div className={styles.grid}>
         {responseChainData &&
           responseChainData.map((data, key) => {
             console.log(data);

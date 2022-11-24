@@ -33,7 +33,7 @@ export default function Request() {
 
   const [confirmed, setConfirmed] = useState(false);
   const step = useMemo(() => !confirmed ? <Choose /> : <Settle />, [confirmed]);
-  const [responseChoosen, setResponseChoosen] = useState();
+  const [responseChoosen, setResponseChoosen] = useState([]);
 
   return (
     <>
