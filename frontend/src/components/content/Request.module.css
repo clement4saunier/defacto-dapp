@@ -5,6 +5,7 @@
   grid-template-columns: auto auto;
   pointer-events: fill;
   padding: 0;
+  overflow: hidden;
 }
 
 .card > * > * {
@@ -12,8 +13,8 @@
 }
 
 .card:hover {
-    border-color: var(--color-background-secondary);
-    cursor: pointer;
+  border-color: var(--color-background-secondary);
+  cursor: pointer;
 }
 
 .card > *:nth-child(2) {
@@ -25,12 +26,37 @@
 .chain {
   border-left: var(--border-default);
   transition-duration: 500ms;
-  width: 20ch;
+  width: 12ch;
   overflow: hidden;
+  text-align: rights;
+}
+
+.slider {
+  border-left: var(--border-default);
+  display: flex;
+  align-items: center;
+}
+
+.slider:hover {
+  color: var(--color-background-secondary);
+}
+
+.slider > i {
+  transition-duration: var(--duration-slow);
+}
+
+.slider.show > i {
+  transform: rotateZ(-90deg);
+}
+
+.slider > i {
+  transform: rotateZ(90deg);
 }
 
 .chain:not(.show) {
   width: 0px;
+  border-left: 0px;
+  padding-inline: 0px;
   color: transparent;
   white-space: nowrap;
 }

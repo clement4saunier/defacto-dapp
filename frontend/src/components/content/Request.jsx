@@ -6,7 +6,16 @@ import Icon from "./Icon";
 import { useMemo } from "react";
 import Currency from "./Currency";
 
-export default function Request({ address, chainId, id, cid, fetchCid, owner, amount, symbol}) {
+export default function Request({
+  address,
+  chainId,
+  id,
+  cid,
+  fetchCid,
+  owner,
+  amount,
+  symbol
+}) {
   let navigate = useNavigate();
   const [metadata, setMetadata] = useState({});
   const [showDetails, setShowDetails] = useState(false);
@@ -52,19 +61,29 @@ export default function Request({ address, chainId, id, cid, fetchCid, owner, am
           )}
         </h3>
         <p>
-          Submitted by <a>{(owner && owner.substring(0, 7)) ?? "Loading..."}</a>
+          Submitted by <a>{(owner && owner.substring(0, 7)) ?? "Loading..."}</a>{" "}
+          for <a>{(amount && amount.toNumber()) ?? "..."} </a>
+          <Currency symbol={symbol} />
         </p>
       </div>
-      <div className={[styles.details, showDetails && "show"].join(' ')}>
+      <div className={[styles.details, showDetails && "show"].join(" ")}>
         <p>
-          active <br />{(amount && amount.toNumber()) ?? "..."} <Currency symbol={symbol}/>
+          <span className="highlight success">active</span>
           <br />
-          <button onClick={(e) => {setShowDetails(show => !show); e.stopPropagation()}}>
-            <Icon crypto="info" />
-          </button>
+          <br />
         </p>
+        <div
+          onClick={(e) => {
+            setShowDetails((show) => !show);
+            e.stopPropagation();
+          }}
+          style={{ width: "max-content" }}
+          className={[styles.slider, showDetails ? styles.show : ""].join(" ")}
+        >
+          <Icon crypto="receive" />
+        </div>
         <div className={[styles.chain, showDetails && styles.show].join(" ")}>
-          <p>contract: {address}</p>
+          <p>@<a>{address.substring(0, 8)}</a><br/>#<a>{id.substring(0, 8)}</a><br/>t<a>XX/XX/XX</a></p>
         </div>
       </div>
     </div>
