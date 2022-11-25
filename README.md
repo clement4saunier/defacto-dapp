@@ -17,7 +17,6 @@ The best way to counter fake news is to conduct your own research.
 Unfortunately, this requires learning  how to evaluate sources of information, where to find reputable information, and where to look for fact-checking tools. A process which can be time consuming.
 
 
-
 # Solution
 
 News is just information that is factually correct and accurately represents events. Gathering that information is part of the task, but evaluating if it is factually correct is another. And those two tasks can be "outsourced" for a fee.
@@ -43,14 +42,36 @@ Once the timer reaches its end, a Delegate assigned to the Request can verify th
 
 - The benefits :
 
-The protocol was designed with specific goals in mind : Personal Privacy. 
+The protocol was designed with specific goals in mind.
+
+Goal 1 : Personal Privacy 
 
 Requesters and Fact-Checkers have no restrictions when using the platform. They only need a wallet adress in order to connect to the service and interact with the blockchain.
 
 Delegates have a verification role, and act as "proof of validity". They are the only entity who must be registered and must provide relevant personal information used to assert their expertise level / relevance in a given field (medecine, mathematics, criminal law, religion, international trade, agriculture, modern culture, history.....).
 
+Goal 2 : Bias Resistance
 
+Anonymity of the Fact-Checkers and Requesters means no one can block, hide, delete information that they do not like or do not want to be shown. The bounty on the request acts as a beacon attracting information, disregarding human biases based on who or where the information came from. Only the validity of the data (evaluated by the Delegates) matter.
 
+Goal 3 : Censorship Resistance
+
+We use multiple IPFS endpoints, and we encourage end-user to take custody of their own files.
+
+Goal 4 : Include Financial Dynamics
+
+It is in the interest of all the parties involved in a bounty to do "honest" work because there is something to be gained by each.
+The Requester gains information.
+The Fact-Checker earns a compensation for work done.
+The Delegate earns a compensation for validating information and gains reputation as a trustable source of knowledge and expertise.
+
+Goal 5 : Global Inclusivity
+
+Thanks to blockchain technology, financial transactions can be made with anyone across world. The protocol will have a very wide and diverse net of participants who in turn provide information and knowledge on a global scale.
+
+Goal 6 : Traceability
+
+Blockchain technology provides us with an immutable ledger of information validation. Allowing anyone to trace back the source of mis-information or wrong assessments.
 
 
 # Mechanism Chart
@@ -78,6 +99,10 @@ Alexandre Schaffner, Clément Saunier, Mickael Riess, Maxime Noel
 ## What we learned
 
 # Features
+
+As an upgrde to this prototype :
+
+The web interface would provide a rating system of Fact-Checkers, allowing them to earn reputation points as they keep bringing good data.
 
 # Demo
 
