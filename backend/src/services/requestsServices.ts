@@ -4,11 +4,6 @@ import RequestDetails from '../interfaces/RequestDetails'
 import { ethers } from 'ethers'
 import MeganodeRequestBody from '../interfaces/MeganodeRequestBody'
 
-export async function getAllRequestsStarton (network: string, address: string): Promise<string[]> {
-  const allRequests: string[] = []
-  return allRequests
-}
-
 export async function getAllRequestsNodeReal (network: number, address: string): Promise<string[]> {
   const allRequests: string[] = []
   let response: Response
@@ -45,6 +40,7 @@ export async function getAllRequestsNodeReal (network: number, address: string):
       throw new Error('Unknown network.')
   }
 
+  console.log('response', data)
   for (const i of data.result) {
     allRequests.push(i.topics[1])
   }
@@ -102,7 +98,6 @@ export async function getRequestDetailsStarton (network: number, address: string
 
 export default {
   getAll: {
-    starton: getAllRequestsStarton,
     nodereal: getAllRequestsNodeReal
   },
   details: {

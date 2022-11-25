@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import IPFSServices from '../services/IPFSServices'
+import IPFSServices from '../services/IPFSServices.js'
 
 export async function postFileCtrl (req: Request, res: Response, next: NextFunction): Promise <void> {
   try {

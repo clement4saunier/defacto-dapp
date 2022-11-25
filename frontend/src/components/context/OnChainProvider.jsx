@@ -1,8 +1,8 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import { BrowserWalletRequestProvider } from "../context/on-chain/BrowserWalletRequestProvider";
 import { HardcodedRequestProvider } from "../context/on-chain/HardcodedRequestProvider";
-import { NodeRealRequestProvider } from "../context/on-chain/NodeRealRequestProvider";
-import { StartonRequestProvider } from "../context/on-chain/StartonRequestProvider";
+// import { NodeRealRequestProvider } from "../context/on-chain/NodeRealRequestProvider";
+import { StartonNodeRealRequestProvider } from "../context/on-chain/StartonNodeRealRequestProvider";
 
 export const OnChainContext = createContext(null);
 
@@ -23,13 +23,9 @@ export default function OnChainProvider({ children }) {
       requestProvider: <BrowserWalletRequestProvider />
     },
     {
-      name: "Starton API",
-      requestProvider: <StartonRequestProvider />
-    },
-    {
-      name: "NodeReal API",
-      requestProvider: <NodeRealRequestProvider />
-    },
+      name: "Starton x NodeReal",
+      requestProvider: <StartonNodeRealRequestProvider />
+    }
   ]);
 
   const [ipfsGateways] = useState([

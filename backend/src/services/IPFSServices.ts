@@ -1,5 +1,5 @@
 import axios from 'axios'
-import ipfsClient from 'ipfs-http-client'
+import { create } from 'ipfs-http-client'
 
 export async function postFileStarton (file: string): Promise<string> {
   const response = await axios.post('https://api.starton.io/v3/ipfs/json', {
@@ -16,7 +16,7 @@ export async function postFileStarton (file: string): Promise<string> {
 }
 
 export async function postFileInfura (file: string): Promise<string> {
-  const client = ipfsClient.create({
+  const client = create({
     host: 'ipfs.infura.io',
     port: 5001,
     protocol: 'https',

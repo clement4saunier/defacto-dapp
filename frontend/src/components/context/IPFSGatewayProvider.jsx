@@ -1,6 +1,4 @@
 import { createContext, useContext, useMemo, useState } from "react";
-import { create } from "ipfs-http-client";
-import { Buffer } from "buffer";
 import axios from "axios";
 
 export const IPFSGatewayContext = createContext(null);
@@ -43,37 +41,12 @@ export default function IPFSGatewayProvider({ children }) {
     {
       name: "Starton API",
       upload: async (file) =>
-        (await axios.post("http://localhost:8080/ipfs", { file })).data.cid
+        (await axios.post("http://localhost:8080/ipfs/starton", { file })).data.cid
     },
     {
       name: "Infura",
-      upload: async (file) => {
-        // /!\ Trash api secrets, these won't go beyond free package
-        const projectId = "2DKn2VvZwVq1UvT9fOSUIOatVXZ";
-        const infura = "a870dea9a4a3c50b9dc7021b671fbaed";
-
-        const client = create({
-          host: "ipfs.infura.io",
-          port: 5001,
-          protocol: "https",
-          headers: {
-            authorization:
-              "Basic " +
-              Buffer.from(projectId + ":" + infura).toString("base64")
-          }
-        });
-
-        if (!file) return undefined;
-
-        try {
-          const cid = await client.add(file);
-          console.log("UPLOAD", file, cid);
-          return cid.path;
-        } catch (error) {
-          console.log("Error uploading file: ", error);
-          return undefined;
-        }
-      }
+      upload: async (file) =>
+        (await axios.post("http://localhost:8080/ipfs/infura", { file })).data.cid
     }
   ]);
   const [selectedGatewayIndex, setSelectedGatewayIndex] = useState(0);

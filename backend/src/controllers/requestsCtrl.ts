@@ -1,17 +1,13 @@
 import { NextFunction, Request, Response } from 'express'
-import RequestDetails from '../interfaces/RequestDetails'
-import requestsServices from '../services/requestsServices'
+import RequestDetails from '../interfaces/RequestDetails.js'
+import requestsServices from '../services/requestsServices.js'
 
 export async function getAllRequestsCtrl (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     let requests: string[]
 
     switch (req.params.provider) {
-      case 'starton':
-        requests = await requestsServices.getAll.starton(req.params.network, req.params.address)
-        break
-
-      case 'nodereal':
+      case 'starton-nodereal':
         requests = await requestsServices.getAll.nodereal(Number(req.params.network), req.params.address)
         break
 
@@ -33,7 +29,7 @@ export async function getRequestDetailsCtrl (req: Request, res: Response, next: 
     let details: RequestDetails
 
     switch (req.params.provider) {
-      case 'starton':
+      case 'starton-nodereal':
         details = await requestsServices.details.starton(Number(req.params.network), req.params.address, req.params.request_id)
         break
 

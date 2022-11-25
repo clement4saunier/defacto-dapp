@@ -3,6 +3,8 @@
     "compilerOptions": {
         "outDir": "js/",
         "strict": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "target": "ES6",
+        "moduleResolution": "Node"
     }
 }
