@@ -32,6 +32,11 @@ ENTITY B : seeking to earn compensation by doing research work. Knowing how and 
 
 ENTITY C : seeking to put their qualifications at work and in the process earn compensation. Reviewing responses of bounties and officially approving them is the role of the Delegate.
 
+# Graphical Chart
+
+The link below redirects to a figma diagram detailing the protocol: 
+
+https://www.figma.com/file/FxWcivozp35j2cjz3n5dy9/DeFacto-protocol?node-id=0%3A1&t=x2ITp4sBNX8DzGNS-1
 
 
 
