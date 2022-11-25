@@ -13,11 +13,13 @@
 {
     display: flex;
     justify-content: center;
+    text-align: center;
     font-size: large;
     font-weight: bold;
-    color: white;
+    color: var(--color-text);
     font-size: 25px;
     border-bottom: solid var(--border-color);
+    padding-bottom: 20px;
 }
 
 .descriptionCard {
