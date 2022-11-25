@@ -3,11 +3,12 @@ Decentralized platform for incentivized journalism and fact-checking.
 
 # How to setup the project
 1) Clone [our repository][0]
-2) In the repository run the following commands:
+2) In the repository copy the .env file in backend
+3) In the repository run the following commands:
     ```
     docker compose up --build
     ```
-3) The frontend is served on http://localhost:3000/
+4) The frontend is served on http://localhost:3000/
 
 *The backend runs on http://localhost:8080/*
 
