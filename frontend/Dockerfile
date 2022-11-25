@@ -1,12 +1,13 @@
 FROM node:latest
 
 WORKDIR /app
-
-COPY package*.json ./
-RUN npm install
 RUN chown -R node.node /app
 
-COPY . .
+COPY --chown=node:node package.json ./
+RUN npm install
+
+
+COPY --chown=node:node . .
 
 EXPOSE 3000
 
