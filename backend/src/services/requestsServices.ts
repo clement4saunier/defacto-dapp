@@ -40,7 +40,6 @@ export async function getAllRequestsNodeReal (network: number, address: string):
       throw new Error('Unknown network.')
   }
 
-  console.log('response', data)
   for (const i of data.result) {
     allRequests.push(i.topics[1])
   }
