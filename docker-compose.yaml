@@ -7,6 +7,7 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
+      - /app/js
 
   client_web:
     build: frontend/
