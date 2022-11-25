@@ -69,7 +69,7 @@ export default function Request({
         </h3>
         <p>
           Submitted by <a>{(owner && owner.substring(0, 7)) ?? "Loading..."}</a>{" "}
-          for <a>{(amount && amount.toNumber()) ?? "..."} </a>
+          for <a>{amount ?? "..."} </a>
           <Currency symbol={symbol} />
         </p>
         <div className={styles.status}>

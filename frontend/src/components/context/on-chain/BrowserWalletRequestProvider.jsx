@@ -52,15 +52,13 @@ export function BrowserWalletRequestProvider({ children, onlyId }) {
     const txn = await getRequestTxn(id._isBigNumber ? id._hex : id);
     const symbol = await new Contract(token, erc20Abi, provider).symbol();
 
-    console.log("hash", txn);
-
     return {
       cid: content,
       owner,
       token,
-      amount,
-      origin: (await txn[0].getBlock()).timestamp,
-      hash: txn[0].transactionHash,
+      amount: amount.toNumber(),
+      origin: txn[0] ? (await txn[0].getBlock()).timestamp : 0,
+      hash: txn[0] ? txn[0].transactionHash : "unknown",
       deadline,
       id,
       symbol,

@@ -7,7 +7,7 @@ export default function Currency({ symbol, address }) {
 
   return (
     <span style={style} className="highlight">
-      {symbol}
+      {symbol ?? "???"}
     </span>
   );
 }

@@ -21,7 +21,7 @@ export default function ChainData() {
       <>
         <p>
           Submitted by <a>{owner && owner.substring(0, 7)}</a> for{" "}
-          {amount && amount.toNumber()} <Currency symbol={symbol} />
+          {amount} <Currency symbol={symbol} />
           <br />
           Available until {displayDate}
           <br/>
