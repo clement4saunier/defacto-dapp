@@ -24,15 +24,36 @@ News is just information that is factually correct and accurately represents eve
 
 The internet is an already established network that provides an vast amount of individual databases, skillsets and capabilities in each person.
 
-DeFacts allows the pairing of :
+- DeFacts allows the pairing of :
 
-ENTITY A : seeking to verify some kind of data and willing to pay a variable fee (the bounty) to get the job done. ENITITY A is a Requester.
+ ENTITY A : seeking to verify some kind of data and willing to pay a variable fee (the bounty) to get the job done : the Requester.
 
 ENTITY B : seeking to earn compensation by doing research work. Knowing how and where to find information is the process the Fact-Checker does.
 
 ENTITY C : seeking to put their qualifications at work and in the process earn compensation. Reviewing responses of bounties and officially approving them is the role of the Delegate.
 
-# Graphical Chart
+- How does it work : 
+
+DeFacts acts similar to an open marketplace, where a Requester can at any time post a Request in the open bounties list.
+The Request must include some details such as time allocated for the task, the field in question etc.
+
+There, any Fact-Checker can submit a response including all the information gathered during their research, while the timer of the request is still active.
+
+Once the timer reaches its end, a Delegate assigned to the Request can verify the information provided by the Fact-Checker and validate the response. This validation will distribute the funds locked in the bounty between himself and the Fact-Checker.
+
+- The benefits :
+
+The protocol was designed with specific goals in mind : Personal Privacy. 
+
+Requesters and Fact-Checkers have no restrictions when using the platform. They only need a wallet adress in order to connect to the service and interact with the blockchain.
+
+Delegates have a verification role, and act as "proof of validity". They are the only entity who must be registered and must provide relevant personal information used to assert their expertise level / relevance in a given field (medecine, mathematics, criminal law, religion, international trade, agriculture, modern culture, history.....).
+
+
+
+
+
+# Mechanism Chart
 
 The link below redirects to a figma diagram detailing the protocol: 
 
