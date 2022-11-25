@@ -3,9 +3,10 @@
   src: url(./fonts/Roboto_Mono/static/RobotoMono-Light.ttf);
 }
 
-/* * {
+* {
   color: var(--color-text);
-} */
+  font-family: "Roboto";
+}
 
 button,
 select,
