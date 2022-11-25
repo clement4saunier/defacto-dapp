@@ -108,7 +108,7 @@ export default function Fill() {
             <select
               name="delegate"
               value={delegate}
-              onChange={(e) => setDelegate(e.target.value)}
+              onChange={(e) => setDelegate('defacto')}
             >
               <option value='defacto'>DeFacto</option>
               <option value='afp'>AFP</option>

@@ -18,7 +18,7 @@ export default function Create() {
   const [token, setToken] = useState();
   const [symbol, setSymbol] = useState();
   const [timer, setTimer] = useState("72H");
-  const [delegate, setDelegate] = useState();
+  const [delegate, setDelegate] = useState('defacto');
   const [confirmed, setConfirmed] = useState(false);
   const step = useMemo(() => (!confirmed ? <Fill /> : <Mint />), [confirmed]);
 
