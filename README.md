@@ -5,8 +5,7 @@ Decentralized platform for incentivized journalism and fact-checking.
 1) Clone [our repository][0]
 2) In the repository run the following commands:
     ```
-    docker compose build
-    docker compose up
+    docker compose up --build
     ```
 3) The frontend is served on http://localhost:3000/
 
@@ -42,8 +41,7 @@ The project use docker. Make sure you have [Docker][1] installed on your machine
 
 To start the project do the following commands:
 ```
-docker compose build
-docker compose up
+docker compose up --build
 ``` 
 # The team
 We are DeFacts
