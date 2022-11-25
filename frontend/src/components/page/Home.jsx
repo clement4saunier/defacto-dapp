@@ -44,7 +44,7 @@ export default function Home() {
         Anybody can be a Fact-Checker, without any restrictions.</p>
         </div>
         <div className="cardRole">
-          <p className="titleCard">The Deleguate <br />👨🏻‍⚖️</p>
+          <p className="titleCard">The Delegate <br />👨🏻‍⚖️</p>
           <p className="descriptionCard">Provides a seal of approval to the response given by a Fact-Checker to a Requester, 
         if the information gathered is relevant and understandeable.
         The Delegate takes the role of the authority in this three-way transaction and bears the most responsibility, but does little work.
