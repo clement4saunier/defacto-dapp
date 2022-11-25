@@ -78,10 +78,10 @@ Blockchain technology provides us with an immutable ledger of information valida
 
 The link below redirects to a figma diagram detailing the protocol: 
 
-<img title="a title" alt="Alt text" src="./Diagram.png">
-
 
 https://www.figma.com/file/FxWcivozp35j2cjz3n5dy9/DeFacto-protocol?node-id=0%3A1&t=x2ITp4sBNX8DzGNS-1
+
+<img title="a title" alt="Alt text" src="./Diagram.png">
 
 
 
