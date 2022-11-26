@@ -62,8 +62,8 @@ export function StartonNodeRealRequestProvider({ children, onlyId }) {
       `${endpoint("request")}/${chain}/${address}/${id}`
     ).then(async (r) => r.json());
 
-    console.log(res);
-    const { owner, token, amount, deadline, cid, delegate } = res.details;
+    console.log("request", `${endpoint("request")}/${chain}/${address}/${id}`, res);
+    const { owner, token, amount, deadline, cid, delegate, symbol } = res.details;
 
     // const txn = await getRequestTxn(id._isBigNumber ? id._hex : id);
 
@@ -76,7 +76,7 @@ export function StartonNodeRealRequestProvider({ children, onlyId }) {
       // hash: txn[0].transactionHash,
       deadline,
       id,
-      // symbol,
+      symbol,
       address,
       delegate
     };
@@ -98,10 +98,12 @@ export function StartonNodeRealRequestProvider({ children, onlyId }) {
         await Promise.all(
           responseIds.map(async (responseId) => {
             const {
-              details: { owner, cid }
+              details
             } = await fetch(
               `${endpoint("response")}/${chain}/${address}/${onlyId}/${responseId}`
             ).then(async (r) => r.json());
+
+              const {owner, cid} = details;
 
             return { sender: owner, cid, id: responseId, origin: 0 };
           })

@@ -73,7 +73,7 @@ export function BrowserWalletRequestProvider({ children, onlyId }) {
         await Promise.all(requestIds.map(fetchRequestChainData))
       );
     }
-    requestIds && fetchAllRequestChainData();
+    requestIds && instance && fetchAllRequestChainData();
     requestIds === null && setRequestChainData(null);
   }, [requestIds]);
 

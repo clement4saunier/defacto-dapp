@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
 export const IPFSGatewayContext = createContext(null);
@@ -63,6 +63,49 @@ export default function IPFSGatewayProvider({ children }) {
     [selectedUploadGatewayIndex]
   );
 
+  const localStorageGatewayKey = "ipfsGatewayProvider";
+  const localStorageUploadKey = "ipfsUploadGatewayProvider";
+
+  function applyStoredGatewayProvider() {
+    const stored = window.localStorage.getItem(localStorageGatewayKey);
+
+    if (!stored || stored === "") return;
+    const provider = ipfsGateways.find(({ name }) => stored === name);
+
+    provider && setSelectedGatewayIndex(ipfsGateways.indexOf(provider));
+  }
+
+  function applyStoredUploadProvider() {
+    const stored = window.localStorage.getItem(localStorageUploadKey);
+
+    if (!stored || stored === "") return;
+    const provider = ipfsUploadGateways.find(({ name }) => stored === name);
+
+    provider && setSelectedUploadGatewayIndex(ipfsUploadGateways.indexOf(provider));
+  }
+
+  function setAndStoreGatewayProvider(index) {
+    const provider = ipfsGateways[index];
+
+    if (!provider) return;
+    setSelectedGatewayIndex(index);
+    window.localStorage.setItem(localStorageGatewayKey, provider.name);
+  }
+
+  function setAndStoreUploadProvider(index) {
+    const provider = ipfsUploadGateways[index];
+
+    console.log("setAndStore", provider);
+    if (!provider) return;
+    setSelectedUploadGatewayIndex(index);
+    window.localStorage.setItem(localStorageUploadKey, provider.name);
+  }
+
+  useEffect(() => {
+    applyStoredGatewayProvider();
+    applyStoredUploadProvider();
+  }, []);
+
   return (
     <IPFSGatewayContext.Provider
       value={{
@@ -72,7 +115,7 @@ export default function IPFSGatewayProvider({ children }) {
           <button
             className={index !== selectedGatewayIndex && "unselected"}
             key={index}
-            onClick={() => setSelectedGatewayIndex(index)}
+            onClick={() => setAndStoreGatewayProvider(index)}
           >
             {name}
           </button>
@@ -81,7 +124,7 @@ export default function IPFSGatewayProvider({ children }) {
           <button
             className={index !== selectedUploadGatewayIndex && "unselected"}
             key={index}
-            onClick={() => setSelectedUploadGatewayIndex(index)}
+            onClick={() => setAndStoreUploadProvider(index)}
           >
             {name}
           </button>

@@ -84,7 +84,7 @@ export default function Mint() {
         </button>
       </div>
       <p>
-        Will be subimitted by <a>{account.substring(0, 7)}</a> for {bounty}{" "}
+        Will be subimitted by <a>{account && account.substring(0, 7)}</a> for {bounty}{" "}
         <Currency symbol={symbol} />
       </p>
       <p>The request will end in {timer}</p>
