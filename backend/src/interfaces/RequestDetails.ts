@@ -7,4 +7,5 @@ export default interface RequestDetails {
   id: string
   symbol: string
   address: string
+  delegate: string
 }

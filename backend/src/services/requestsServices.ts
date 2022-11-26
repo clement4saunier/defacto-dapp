@@ -85,7 +85,8 @@ export async function getRequestDetailsStarton (network: number, address: string
         deadline: response[4],
         id,
         symbol,
-        address
+        address,
+        delegate: response[5]
       }
       break
 
