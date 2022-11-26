@@ -19,7 +19,6 @@ export default function Transaction({
   const [status, setStatus] = useState();
   const [txnHash, setTxnHash] = useState();
 
-  console.log("ARG", args, instance);
   useEffect(() => {
     async function updateGas() {
       if (!instance) return;

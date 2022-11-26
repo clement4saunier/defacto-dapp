@@ -33,22 +33,25 @@ export default function Request() {
     const { requestChainData } = useRequestSourceContext();
     const [delegate, setDelegate] = useState();
     const { instance } = useDelegateRegistryContract();
+    const { sourceSelector, source: src } = useOnChainContext();
     const [isOwner, setIsOwner] = useState(false);
 
     useEffect(() => {
+      console.log("chainData:", requestChainData);
       requestChainData && setDelegate(requestChainData[0].delegate);
-      requestChainData && console.log(requestChainData[0]);
     }, [requestChainData]);
 
     useEffect(() => {
       async function checkOwnerOfDelegate() {
         const owner = await instance.ownerOf(ethers.utils.id(delegate));
 
+        console.log("is Settler?", owner, account, owner === account);
         setIsOwner(owner === account);
       }
 
+      console.log("RECHECK", delegate);
       delegate && checkOwnerOfDelegate();
-    }, [delegate, account]);
+    }, [delegate, account, src]);
 
     return (
       <>
