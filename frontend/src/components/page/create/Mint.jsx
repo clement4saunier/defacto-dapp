@@ -8,6 +8,7 @@ import { Contract } from "ethers";
 import erc20abi from "../../../contracts/abi/erc20.json";
 import { useIPFSGatewayContext } from "../../context/IPFSGatewayProvider";
 import Transaction from "../../content/Transaction";
+import {utils} from "ethers";
 
 export default function Mint() {
   const {
@@ -29,6 +30,9 @@ export default function Mint() {
     [title, body]
   );
 
+  const erc20 = useMemo(() => new Contract(token, erc20abi, provider.getSigner()), [token, provider]);
+
+
   const { ipfsUploadGateway: gateway, ipfsUploadGatewaySelector } =
     useIPFSGatewayContext();
 
@@ -37,10 +41,10 @@ export default function Mint() {
     const currentAllowance = await erc20.allowance(account, instance.address);
 
     console.log("allowance", currentAllowance);
-    if (currentAllowance.toNumber() >= bounty) {
+    if (utils.formatEther(currentAllowance.toString()) >= bounty) {
       setApproved(true);
     } else {
-      const txn = await erc20.approve(instance.address, bounty);
+      const txn = await erc20.approve(instance.address, utils.parseEther(bounty.toString()));
       await txn.wait();
       setApproved(true);
     }
@@ -89,10 +93,10 @@ export default function Mint() {
       </p>
       <p>The request will end in {timer}</p>
       <button onClick={() => setConfirmed(false)}>Back</button>
-      <button onClick={onApproveButton}>
+      <Transaction instance={erc20} functionName="approve" args={[instance.address, utils.parseEther(bounty.toString())]}>
         Approve {bounty} {symbol}
-      </button>
-      <Transaction disabled={!cid || !approved} instance={instance} functionName="publishRequest" args={[cid, token, bounty, 1903123123, delegate]}>
+      </Transaction>
+      <Transaction disabled={!cid} instance={instance} functionName="publishRequest" args={[cid, token, utils.parseEther(bounty.toString()), 1903123123, delegate]}>
         Mint
       </Transaction>
     </>
