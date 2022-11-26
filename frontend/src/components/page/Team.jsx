@@ -18,7 +18,7 @@ export default function Team() {
     {
       name: <><Icon crypto="block"/> Mickael</>,
       title: "Blockend dev",
-      mail: "clement4saunier@gmail.com"
+      mail: "riessmickael@gmail.com"
     }
   ]);
 
