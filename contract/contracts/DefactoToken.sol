@@ -10,8 +10,4 @@ contract DefactoToken is ERC20 {
     function mint(uint256 amount) external {
         _mint(msg.sender, amount);
     }
-
-    function decimals() override {
-        return 9;
-    }
 }

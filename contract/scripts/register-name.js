@@ -8,10 +8,11 @@ const hre = require("hardhat");
 
 async function main(a) {
   const Registry = await hre.ethers.getContractFactory("DelegateRegistry");
-  const registry = Registry.attach("0xE445cb06267D788137062E767DDc030e9e47B570");
+  const registry = Registry.attach("0xCDcaaE4123132d7D5a788840dA3F12ea43F05bc1");
 
   console.log("Deployed Registry at", registry.address);
-  await registry.mint("0x45fBE88cd2DE3f9a829872B931CbB046FFd1475E", "defacto", "QmTU2V6dFvB4XoF3HacojF9EywG9xSqBxqxJd1HYEMseJf");
+  console.log("txn", await registry.mint("0x45fBE88cd2DE3f9a829872B931CbB046FFd1475E", "politifacts", "bafkreigtjmcppxtysh3djlfev5sq2w3wc67o4nlqdyr6fqnsvbrfgidpoe"));
+
 }
 
 // We recommend this pattern to be able to use async/await everywhere
