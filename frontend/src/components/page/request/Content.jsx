@@ -39,9 +39,7 @@ export default function Content() {
       </h1>
 
       <div className="divider" />
-      <p>
         <ReactMarkdown>{description ?? "..."}</ReactMarkdown>
-      </p>
     </div>
   );
 }

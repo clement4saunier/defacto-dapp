@@ -30,7 +30,7 @@ export default function useRequestBountyContract() {
     let publishTransaction = await inst.queryFilter({
       address,
       topics: [ethers.utils.id("Publish(uint256)"), id]
-    }, -4000);
+    });
 
     return publishTransaction;
   }
@@ -46,8 +46,7 @@ export default function useRequestBountyContract() {
         requestId,
         responseId
       ]
-    },
-    -4000
+    }
     );
 
     return publishTransaction;

@@ -62,18 +62,33 @@ export function StartonNodeRealRequestProvider({ children, onlyId }) {
       `${endpoint("request")}/${chain}/${address}/${id}`
     ).then(async (r) => r.json());
 
-    console.log("request", `${endpoint("request")}/${chain}/${address}/${id}`, res);
-    const { owner, token, amount, deadline, cid, delegate, symbol } = res.details;
+    console.log(
+      "request",
+      `${endpoint("request")}/${chain}/${address}/${id}`,
+      res
+    );
+    const { owner, token, amount, deadline, cid, delegate, symbol } =
+      res.details;
+    let origin;
+    let hash;
 
-    // const txn = await getRequestTxn(id._isBigNumber ? id._hex : id);
+    try {
+      const txn = await fetch(
+        `${endpoint("request-tx")}/${chain}/${address}/${id}`
+      ).then(async (r) => r.json());
+      console.log(txn);
+      const {txn: {txHash, timestamp}}  = txn
+      hash = txHash;
+      origin = timestamp;
+    } catch (err) {console.error("Could not load txn", err)}
 
     return {
       cid,
       owner,
       token,
       amount,
-      // origin: (await txn[0].getBlock()).timestamp,
-      // hash: txn[0].transactionHash,
+      origin,
+      hash,
       deadline,
       id,
       symbol,
@@ -97,13 +112,13 @@ export function StartonNodeRealRequestProvider({ children, onlyId }) {
       setResponseChainData(
         await Promise.all(
           responseIds.map(async (responseId) => {
-            const {
-              details
-            } = await fetch(
-              `${endpoint("response")}/${chain}/${address}/${onlyId}/${responseId}`
+            const { details } = await fetch(
+              `${endpoint(
+                "response"
+              )}/${chain}/${address}/${onlyId}/${responseId}`
             ).then(async (r) => r.json());
 
-              const {owner, cid} = details;
+            const { owner, cid } = details;
 
             return { sender: owner, cid, id: responseId, origin: 0 };
           })
