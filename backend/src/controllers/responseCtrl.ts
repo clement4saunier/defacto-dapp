@@ -46,3 +46,22 @@ export async function getResponseDetailsCtrl (req: Request, res: Response, next:
     next(err)
   }
 }
+
+export async function getResponseTxCtrl (req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    let tx: string = ''
+
+    switch (req.params.provider) {
+      case 'starton-nodereal':
+        tx = await responseServices.getTx.nodereal(Number(req.params.network), req.params.address, req.params.request_id, req.params.response_id)
+        break
+    }
+
+    res.send({
+      success: true,
+      tx
+    })
+  } catch (err: unknown) {
+    next(err)
+  }
+}

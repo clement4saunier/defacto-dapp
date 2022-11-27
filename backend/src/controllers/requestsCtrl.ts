@@ -45,3 +45,24 @@ export async function getRequestDetailsCtrl (req: Request, res: Response, next: 
     next(err)
   }
 }
+
+export async function getRequestTxCtrl (req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    let tx: string = ''
+
+    switch (req.params.provider) {
+      case 'starton-nodereal':
+        tx = await requestsServices.getTx.nodereal(Number(req.params.network), req.params.address, req.params.request_id)
+        break
+
+      default:
+        throw new Error('Unknown provider.')
+    }
+    res.send({
+      success: true,
+      tx
+    })
+  } catch (err: unknown) {
+    next(err)
+  }
+}
