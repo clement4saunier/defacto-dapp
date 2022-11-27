@@ -10,5 +10,5 @@ export default Router()
   .get('/request-tx/:provider/:network/:address/:request_id', getRequestTxCtrl) // get transaction of the request
   .get('/responses/:provider/:network/:address/:request_id', getAllResponsesCtrl) // List responseIds (on-chain)
   .get('/response/:provider/:network/:address/:request_id/:response_id', getResponseDetailsCtrl) // get response details (on-chain)
-  .get('/response-tx/:provider/:network/:address/:request_id', getResponseTxCtrl) // get transaction of the request
+  .get('/response-tx/:provider/:network/:address/:request_id/:response_id', getResponseTxCtrl) // get transaction of the request
   .post('/ipfs/:provider', postFileCtrl) // post a file (IPFS)
