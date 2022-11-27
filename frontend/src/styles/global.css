@@ -121,6 +121,10 @@ p {
   color: var(--color-text-light);
 }
 
+p > img {
+  max-width: 100%;
+}
+
 p > i {
   font-variant: unicase;
 }

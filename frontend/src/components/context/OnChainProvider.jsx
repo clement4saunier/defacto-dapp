@@ -13,7 +13,7 @@ export const useOnChainContext = () => {
 export default function OnChainProvider({ children }) {
   const [sources] = useState([
     {
-      name: "Wallet",
+      name: "Wallet RPC",
       requestProvider: <BrowserWalletRequestProvider />
     },
     {

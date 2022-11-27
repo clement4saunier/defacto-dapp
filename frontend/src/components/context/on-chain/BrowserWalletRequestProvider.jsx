@@ -3,7 +3,7 @@ import useRequestBountyContract from "../../hooks/useRequestBountyContract";
 import { RequestSourceContext } from "./RequestSourceContext";
 import erc20Abi from "../../../contracts/abi/erc20.json";
 import { useWeb3Context } from "../Web3Provider";
-import { Contract } from "ethers";
+import { Contract, utils} from "ethers";
 
 export function BrowserWalletRequestProvider({ children, onlyId }) {
   const { address, instance, getAllRequestIds, getAllResponseIds, getRequestTxn } =
@@ -56,7 +56,7 @@ export function BrowserWalletRequestProvider({ children, onlyId }) {
       cid: content,
       owner,
       token,
-      amount: amount.toNumber(),
+      amount: utils.formatEther(amount.toString()),
       origin: txn[0] ? (await txn[0].getBlock()).timestamp : 0,
       hash: txn[0] ? txn[0].transactionHash : "unknown",
       deadline,
