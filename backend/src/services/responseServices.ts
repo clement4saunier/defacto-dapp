@@ -4,6 +4,7 @@ import fetch, { Response } from 'node-fetch'
 
 import MeganodeRequestBody from '../interfaces/MeganodeRequestBody'
 import ResponseDetails from '../interfaces/ResponseDetails'
+import Tx from '../interfaces/Tx'
 
 export async function getAllResponsesNodeReal (network: number, address: string, requestID: string): Promise<string[]> {
   const allResponses: string[] = []
@@ -80,11 +81,21 @@ export async function getResponseDetailsStarton (network: number, address: strin
   return details
 }
 
-export async function getResponseTxNodeReal (network: number, address: string, requestID: string, responseID: string): Promise<string> {
-  let tx: string = ''
+export async function getResponseTxNodeReal (network: number, address: string, requestID: string, responseID: string): Promise<Tx> {
+  let txHash: string = ''
+  let timestamp: string = ''
   let body: MeganodeRequestBody
   let response: Response
   let data: any
+  const nodeRealAPIEndpoint: string = 'https://eth-goerli.nodereal.io/v1/' + String(process.env.MEGANODE_API_KEY_ETH)
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    body: ''
+  }
 
   switch (network) {
     case 5:
@@ -101,20 +112,23 @@ export async function getResponseTxNodeReal (network: number, address: string, r
           }
         ]
       }
-      response = await fetch('https://eth-goerli.nodereal.io/v1/' + String(process.env.MEGANODE_API_KEY_ETH), {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json;charset=UTF-8'
-        },
-        body: JSON.stringify(body)
-      })
+      requestOptions.body = JSON.stringify(body)
+      response = await fetch(nodeRealAPIEndpoint, requestOptions)
       data = JSON.parse(await response.text())
+      txHash = data.result[0].transactionHash
+      body.method = 'eth_getBlockByNumber'
+      body.params = [data.result[0].blockNumber, false]
+      requestOptions.body = JSON.stringify(body)
+      response = await fetch(nodeRealAPIEndpoint, requestOptions)
+      data = JSON.parse(await response.text())
+      timestamp = data.result.timestamp
       break
   }
-  console.log(data)
-  tx = data.result[0].topics[0]
-  return tx
+
+  return {
+    txHash,
+    timestamp
+  }
 }
 
 export default {

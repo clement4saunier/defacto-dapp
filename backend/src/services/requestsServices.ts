@@ -3,6 +3,7 @@ import fetch, { Response } from 'node-fetch'
 import RequestDetails from '../interfaces/RequestDetails'
 import { ethers } from 'ethers'
 import MeganodeRequestBody from '../interfaces/MeganodeRequestBody'
+import Tx from '../interfaces/Tx'
 
 export async function getAllRequestsNodeReal (network: number, address: string): Promise<string[]> {
   const allRequests: string[] = []
@@ -96,11 +97,21 @@ export async function getRequestDetailsStarton (network: number, address: string
   return details
 }
 
-export async function getRequestTxNodeReal (network: number, address: string, id: string): Promise<string> {
-  let tx: string = ''
+export async function getRequestTxNodeReal (network: number, address: string, requestID: string): Promise<Tx> {
+  let txHash: string = ''
+  let timestamp: string = ''
   let body: MeganodeRequestBody
-  let data: any
   let response: Response
+  let data: any
+  const nodeRealAPIEndpoint: string = 'https://eth-goerli.nodereal.io/v1/' + String(process.env.MEGANODE_API_KEY_ETH)
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    body: ''
+  }
 
   switch (network) {
     case 5:
@@ -111,26 +122,29 @@ export async function getRequestTxNodeReal (network: number, address: string, id
         params: [
           {
             address: [address],
-            topics: [ethers.utils.id('Publish(uint256)'), id], // ajouter id de la requete en argument au topic dans une nouvelle route /request/:network/:provider/:id_request/
+            topics: [ethers.utils.id('Respond(uint256,uint256)'), requestID, null],
             fromBlock: '0x7A2ECD',
             toBlock: 'latest'
           }
         ]
       }
-      response = await fetch('https://eth-goerli.nodereal.io/v1/' + String(process.env.MEGANODE_API_KEY_ETH), {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json;charset=UTF-8'
-        },
-        body: JSON.stringify(body)
-      })
+      requestOptions.body = JSON.stringify(body)
+      response = await fetch(nodeRealAPIEndpoint, requestOptions)
       data = JSON.parse(await response.text())
+      txHash = data.result[0].transactionHash
+      body.method = 'eth_getBlockByNumber'
+      body.params = [data.result[0].blockNumber, false]
+      requestOptions.body = JSON.stringify(body)
+      response = await fetch(nodeRealAPIEndpoint, requestOptions)
+      data = JSON.parse(await response.text())
+      timestamp = data.result.timestamp
       break
   }
-  console.log(data.result)
-  tx = data.result[0].topics[0]
-  return tx
+
+  return {
+    txHash,
+    timestamp
+  }
 }
 
 export default {

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import RequestDetails from '../interfaces/RequestDetails.js'
+import Tx from '../interfaces/Tx.js'
 import requestsServices from '../services/requestsServices.js'
 
 export async function getAllRequestsCtrl (req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -48,7 +49,7 @@ export async function getRequestDetailsCtrl (req: Request, res: Response, next: 
 
 export async function getRequestTxCtrl (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    let tx: string = ''
+    let tx: Tx = { txHash: '', timestamp: '' }
 
     switch (req.params.provider) {
       case 'starton-nodereal':
