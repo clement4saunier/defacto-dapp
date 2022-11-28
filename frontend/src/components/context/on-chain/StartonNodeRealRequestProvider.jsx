@@ -13,14 +13,12 @@ export function StartonNodeRealRequestProvider({ children, onlyId }) {
   const [responseIds, setResponseIds] = useState();
   const [responseChainData, setResponseChainData] = useState();
 
-  const chain = useMemo(
-    () => (chainId === undefined ? "5" : chainId),
-    [chainId]
-  );
+  const chain = useMemo(() => (chainId === undefined ? 5 : chainId), [chainId]);
   const address = useMemo(
-    () => (contracts.chain[chainId] ? contracts.chain[chainId].requests : null),
+    () => (contracts.chain[chain] ? contracts.chain[chain].requests : null),
     [chain, contracts]
   );
+
   const endpoint = (ressource) =>
     `http://localhost:8080/${ressource}/starton-nodereal`;
 
@@ -72,15 +70,22 @@ export function StartonNodeRealRequestProvider({ children, onlyId }) {
     let origin;
     let hash;
 
-    try {
+    const fetchTxn = async () => {
       const txn = await fetch(
         `${endpoint("request-tx")}/${chain}/${address}/${id}`
       ).then(async (r) => r.json());
-      console.log(txn);
-      const {txn: {txHash, timestamp}}  = txn
+      const {
+        txn: { txHash, timestamp }
+      } = txn;
       hash = txHash;
       origin = timestamp;
-    } catch (err) {console.error("Could not load txn", err)}
+    };
+
+    try {
+      await fetchTxn();
+    } catch (err) {
+      console.error("Could not load txn", err);
+    }
 
     return {
       cid,
