@@ -10,10 +10,10 @@
     justify-content: space-between;
     flex-direction: column;
     border: solid 1px var(--border-color);
-    padding: 10px;
+    padding: var(--space-xl);
     border-radius: var(--radius-m);
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: var(--space-xl);
 }
 
 .delegate {
