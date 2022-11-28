@@ -41,7 +41,7 @@ export default function Home() {
           marginTop: 100 + "px"
         }}
       >
-        Decentralized fact-checking and data verification platform
+        Decentralized Information sharing & verification protocol
       </h1>
       <p style={{ textAlign: "center" }}>
         Verify information in an unbiased and censorship-resistant manner.
