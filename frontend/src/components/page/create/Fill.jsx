@@ -229,11 +229,16 @@ export default function Fill() {
         </div>
         <div className="questionForm">
           <p>Enter the name of your delegate of choice</p>
-            <input
+            <select
               name="delegate"
               value={delegate}
               onChange={(e) => setDelegate(e.target.value)}
-            />
+            >
+              <option value='defacto'>DeFacto</option>
+              <option value='afp'>AFP</option>
+              <option value='amnesty'>Amnesty International</option>
+              <option value='politifacts'>Politifacts</option>
+            </select>
         </div>
         <div style={{ display: "flex", justifyContent: "right" }}>
           <button title="Submit" type="submit">

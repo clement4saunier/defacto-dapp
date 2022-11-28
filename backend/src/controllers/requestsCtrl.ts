@@ -1,17 +1,14 @@
 import { NextFunction, Request, Response } from 'express'
-import RequestDetails from '../interfaces/RequestDetails'
-import requestsServices from '../services/requestsServices'
+import RequestDetails from '../interfaces/RequestDetails.js'
+import Tx from '../interfaces/Tx.js'
+import requestsServices from '../services/requestsServices.js'
 
 export async function getAllRequestsCtrl (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     let requests: string[]
 
     switch (req.params.provider) {
-      case 'starton':
-        requests = await requestsServices.getAll.starton(req.params.network, req.params.address)
-        break
-
-      case 'nodereal':
+      case 'starton-nodereal':
         requests = await requestsServices.getAll.nodereal(Number(req.params.network), req.params.address)
         break
 
@@ -33,7 +30,7 @@ export async function getRequestDetailsCtrl (req: Request, res: Response, next: 
     let details: RequestDetails
 
     switch (req.params.provider) {
-      case 'starton':
+      case 'starton-nodereal':
         details = await requestsServices.details.starton(Number(req.params.network), req.params.address, req.params.request_id)
         break
 
@@ -44,6 +41,27 @@ export async function getRequestDetailsCtrl (req: Request, res: Response, next: 
     res.send({
       success: true,
       details
+    })
+  } catch (err: unknown) {
+    next(err)
+  }
+}
+
+export async function getRequestTxCtrl (req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    let tx: Tx = { txHash: '', timestamp: '' }
+
+    switch (req.params.provider) {
+      case 'starton-nodereal':
+        tx = await requestsServices.getTx.nodereal(Number(req.params.network), req.params.address, req.params.request_id)
+        break
+
+      default:
+        throw new Error('Unknown provider.')
+    }
+    res.send({
+      success: true,
+      tx
     })
   } catch (err: unknown) {
     next(err)

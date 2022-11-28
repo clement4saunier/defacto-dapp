@@ -1,17 +1,20 @@
 version: "3"
 services:
-  # server:
-  #   build: backend/
-  #   ports:
-  #     - "8080:8080"
-  #   volumes:
-  #     - ./backend:/app
+  server:
+    build: backend/
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - /app/js
+
   client_web:
     build: frontend/
-    # depends_on:
-    #   - server
+    depends_on:
+      - server
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/usr/app
-      - /usr/app/node_modules
+      - ./frontend:/app
+      - /app/node_modules

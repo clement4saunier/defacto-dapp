@@ -3,11 +3,8 @@ import fetch, { Response } from 'node-fetch'
 import RequestDetails from '../interfaces/RequestDetails'
 import { ethers } from 'ethers'
 import MeganodeRequestBody from '../interfaces/MeganodeRequestBody'
-
-export async function getAllRequestsStarton (network: string, address: string): Promise<string[]> {
-  const allRequests: string[] = []
-  return allRequests
-}
+import Tx from '../interfaces/Tx'
+import ExpressError from '../ExpressError.js'
 
 export async function getAllRequestsNodeReal (network: number, address: string): Promise<string[]> {
   const allRequests: string[] = []
@@ -24,7 +21,7 @@ export async function getAllRequestsNodeReal (network: number, address: string):
         params: [
           {
             address: [address],
-            topics: [ethers.utils.id('Publish(uint256)')],
+            topics: [ethers.utils.id('Publish(uint256)')], // ajouter id de la requete en argument au topic dans une nouvelle route /request/:network/:provider/:id_request/
             fromBlock: '0x7A2ECD',
             toBlock: 'latest'
           }
@@ -39,6 +36,9 @@ export async function getAllRequestsNodeReal (network: number, address: string):
         body: JSON.stringify(body)
       })
       data = JSON.parse(await response.text())
+      if (data.error !== undefined && data.error.code === -32005) {
+        throw new ExpressError(500, 'NodeReal API call rate exceeded.')
+      }
       break
 
     default:
@@ -90,7 +90,8 @@ export async function getRequestDetailsStarton (network: number, address: string
         deadline: response[4],
         id,
         symbol,
-        address
+        address,
+        delegate: response[5]
       }
       break
 
@@ -100,12 +101,70 @@ export async function getRequestDetailsStarton (network: number, address: string
   return details
 }
 
+export async function getRequestTxNodeReal (network: number, address: string, requestID: string): Promise<Tx> {
+  let txHash: string = ''
+  let timestamp: string = ''
+  let body: MeganodeRequestBody
+  let response: Response
+  let data: any
+  const nodeRealAPIEndpoint: string = 'https://eth-goerli.nodereal.io/v1/' + String(process.env.MEGANODE_API_KEY_ETH)
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    body: ''
+  }
+
+  switch (network) {
+    case 5:
+      body = {
+        id: network,
+        jsonrpc: '2.0',
+        method: 'eth_getLogs',
+        params: [
+          {
+            address: [address],
+            topics: [ethers.utils.id('Publish(uint256)'), requestID],
+            fromBlock: '0x7A2ECD',
+            toBlock: 'latest'
+          }
+        ]
+      }
+      requestOptions.body = JSON.stringify(body)
+      response = await fetch(nodeRealAPIEndpoint, requestOptions)
+      data = JSON.parse(await response.text())
+      if (data.error !== undefined && data.error.code === -32005) {
+        throw new ExpressError(500, 'NodeReal API call rate exceeded.')
+      }
+      txHash = data.result[0].transactionHash
+      body.method = 'eth_getBlockByNumber'
+      body.params = [data.result[0].blockNumber, false]
+      requestOptions.body = JSON.stringify(body)
+      response = await fetch(nodeRealAPIEndpoint, requestOptions)
+      data = JSON.parse(await response.text())
+      if (data.error !== undefined && data.error.code === -32005) {
+        throw new ExpressError(500, 'NodeReal API call rate exceeded.')
+      }
+      timestamp = data.result.timestamp
+      break
+  }
+
+  return {
+    txHash,
+    timestamp
+  }
+}
+
 export default {
   getAll: {
-    starton: getAllRequestsStarton,
     nodereal: getAllRequestsNodeReal
   },
   details: {
     starton: getRequestDetailsStarton
+  },
+  getTx: {
+    nodereal: getRequestTxNodeReal
   }
 }

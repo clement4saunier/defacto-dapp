@@ -19,7 +19,6 @@ export default function Transaction({
   const [status, setStatus] = useState();
   const [txnHash, setTxnHash] = useState();
 
-  console.log("ARG", args, instance);
   useEffect(() => {
     async function updateGas() {
       if (!instance) return;
@@ -50,11 +49,12 @@ export default function Transaction({
     setStatus(
       statusComponent("signature", "Waiting for your wallet's signature")
     );
+    console.log("gas", gasLimit);
     setTimeout(async () => {
       try {
         const { wait, hash } = await instance[functionName](
           ...args,
-          gasLimit !== 0 ? { gasLimit: wei } : {}
+          gasLimit !== 0 ? { gasLimit } : {gasLimit: 21000000}
         );
         setStatus(
           statusComponent(

@@ -1,12 +1,14 @@
 FROM node:latest
 
-WORKDIR /usr/app
+WORKDIR /app
+RUN chown -R node.node /app
 
-COPY package*.json ./
+COPY --chown=node:node package.json ./
 RUN npm install
 
-COPY . .
+
+COPY --chown=node:node . .
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD npm start

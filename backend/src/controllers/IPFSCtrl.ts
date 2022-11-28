@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import IPFSServices from '../services/IPFSServices'
+import IPFSServices from '../services/IPFSServices.js'
 
 export async function postFileCtrl (req: Request, res: Response, next: NextFunction): Promise <void> {
   try {
@@ -8,6 +8,10 @@ export async function postFileCtrl (req: Request, res: Response, next: NextFunct
     switch (req.params.provider) {
       case 'starton':
         cid = await IPFSServices.post.starton(req.body.file)
+        break
+
+      case 'infura':
+        cid = await IPFSServices.post.infura(req.body.file)
         break
 
       default:

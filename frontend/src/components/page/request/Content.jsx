@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Icon from "../../content/Icon";
 import { useIPFSGatewayContext } from "../../context/IPFSGatewayProvider";
 import { useRequestSourceContext } from "../../context/on-chain/RequestSourceContext";
+import ReactMarkdown from 'react-markdown'
 
 export default function Content() {
   const { requestChainData } = useRequestSourceContext();
@@ -38,7 +39,7 @@ export default function Content() {
       </h1>
 
       <div className="divider" />
-      <p>{description ?? "..."}</p>
+        <ReactMarkdown>{description ?? "..."}</ReactMarkdown>
     </div>
   );
 }

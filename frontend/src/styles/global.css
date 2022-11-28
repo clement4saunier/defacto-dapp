@@ -3,9 +3,10 @@
   src: url(./fonts/Roboto_Mono/static/RobotoMono-Light.ttf);
 }
 
-/* * {
+* {
   color: var(--color-text);
-} */
+  font-family: "Roboto";
+}
 
 button,
 select,
@@ -98,6 +99,10 @@ button {
   color: var(--color-text);
 }
 
+i {
+  color: inherit;
+}
+
 a {
   color: var(--color-text);
   text-decoration: none;
@@ -114,6 +119,10 @@ a:link:hover {
 
 p {
   color: var(--color-text-light);
+}
+
+p > img {
+  max-width: 100%;
 }
 
 p > i {

@@ -18,6 +18,7 @@ import Web3Provider from "./components/context/Web3Provider";
 import Listing from "./components/page/Listing";
 import OnChainProvider from "./components/context/OnChainProvider";
 import IPFSGatewayProvider from "./components/context/IPFSGatewayProvider";
+import Testing from "./components/page/Testing";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/list" element={<List />} />
                     <Route path="/listing" element={<Listing />} />
+                    <Route path="/testing" element={<Testing />} />
                     <Route path="/create" element={<Create />} />
                     <Route path="/team" element={<Team />} />
                     <Route path="/request/:requestId" element={<Request />} />

@@ -58,14 +58,12 @@
 
 .chain:not(.show) {
   width: 0px;
-  border-left: 0px;
+  border-left: 1px solid transparent;
   padding-inline: 0px;
-  color: transparent;
   white-space: nowrap;
 }
 
 .chain:not(.show) * {
-  color: transparent;
   white-space: nowrap;
 }
 

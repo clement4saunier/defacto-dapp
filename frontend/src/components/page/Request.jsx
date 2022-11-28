@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { createContext, useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import Currency from "../content/Currency";
@@ -21,7 +21,7 @@ import { ethers } from "ethers";
 
 export default function Request() {
   let { requestId } = useParams();
-  const { sourceSelector } = useOnChainContext();
+  const { sourceSelector, source } = useOnChainContext();
   const { ipfsGateway, ipfsGatewaySelector, ipfsUploadGatewaySelector } =
     useIPFSGatewayContext();
 
@@ -33,32 +33,37 @@ export default function Request() {
     const { requestChainData } = useRequestSourceContext();
     const [delegate, setDelegate] = useState();
     const { instance } = useDelegateRegistryContract();
+    const { sourceSelector, source: src } = useOnChainContext();
     const [isOwner, setIsOwner] = useState(false);
 
     useEffect(() => {
+      console.log("chainData:", requestChainData);
       requestChainData && setDelegate(requestChainData[0].delegate);
-      requestChainData && console.log(requestChainData[0]);
     }, [requestChainData]);
 
     useEffect(() => {
       async function checkOwnerOfDelegate() {
         const owner = await instance.ownerOf(ethers.utils.id(delegate));
 
+        console.log("is Settler?", owner, account, owner === account);
         setIsOwner(owner === account);
       }
 
+      console.log("RECHECK", delegate);
       delegate && checkOwnerOfDelegate();
-    }, [delegate, account]);
+    }, [delegate, account, src]);
 
     return (
       <>
-        {isOwner && <button
-          onClick={() => {
-            setSettling((s) => !s);
-          }}
-        >
-          Settle
-        </button>}
+        {isOwner && (
+          <button
+            onClick={() => {
+              setSettling((s) => !s);
+            }}
+          >
+            Settle
+          </button>
+        )}
       </>
     );
   };
@@ -68,37 +73,42 @@ export default function Request() {
       use {sourceSelector} and {ipfsGatewaySelector}
       <br />
       <br />
-      <BrowserWalletRequestProvider onlyId={requestId}>
-        <Content />
-        <ChainData />
-        {publishing ? (
-          <button
-            onClick={() => {
-              setPublishing(false);
-              setSettling(false);
-            }}
-          >
-            Show responses <Icon crypto="list" />
-          </button>
-        ) : (
-          <button
-            onClick={() => {
-              setPublishing(true);
-              setSettling(false);
-            }}
-          >
-            Publish a response <Icon crypto="receive" />
-          </button>
-        )}
-        <SettleButton/>
-        {settling ? (
-          <Settle />
-        ) : !publishing ? (
-          <Responses />
-        ) : (
-          <Respond requestId={requestId} />
-        )}
-      </BrowserWalletRequestProvider>
+      {React.cloneElement(source.requestProvider, {
+        onlyId: requestId,
+        children: (
+          <>
+            <Content />
+            <ChainData />
+            {publishing ? (
+              <button
+                onClick={() => {
+                  setPublishing(false);
+                  setSettling(false);
+                }}
+              >
+                Show responses <Icon crypto="list" />
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  setPublishing(true);
+                  setSettling(false);
+                }}
+              >
+                Publish a response <Icon crypto="receive" />
+              </button>
+            )}
+            <SettleButton />
+            {settling ? (
+              <Settle />
+            ) : !publishing ? (
+              <Responses />
+            ) : (
+              <Respond requestId={requestId} />
+            )}
+          </>
+        )
+      })}
     </>
   );
 }

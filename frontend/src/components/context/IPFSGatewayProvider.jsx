@@ -1,6 +1,4 @@
-import { createContext, useContext, useMemo, useState } from "react";
-import { create } from "ipfs-http-client";
-import { Buffer } from "buffer";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
 export const IPFSGatewayContext = createContext(null);
@@ -43,37 +41,12 @@ export default function IPFSGatewayProvider({ children }) {
     {
       name: "Starton API",
       upload: async (file) =>
-        (await axios.post("http://localhost:8080/ipfs", { file })).data.cid
+        (await axios.post("http://localhost:8080/ipfs/starton", { file })).data.cid
     },
     {
       name: "Infura",
-      upload: async (file) => {
-        // /!\ Trash api secrets, these won't go beyond free package
-        const projectId = "2DKn2VvZwVq1UvT9fOSUIOatVXZ";
-        const infura = "a870dea9a4a3c50b9dc7021b671fbaed";
-
-        const client = create({
-          host: "ipfs.infura.io",
-          port: 5001,
-          protocol: "https",
-          headers: {
-            authorization:
-              "Basic " +
-              Buffer.from(projectId + ":" + infura).toString("base64")
-          }
-        });
-
-        if (!file) return undefined;
-
-        try {
-          const cid = await client.add(file);
-          console.log("UPLOAD", file, cid);
-          return cid.path;
-        } catch (error) {
-          console.log("Error uploading file: ", error);
-          return undefined;
-        }
-      }
+      upload: async (file) =>
+        (await axios.post("http://localhost:8080/ipfs/infura", { file })).data.cid
     }
   ]);
   const [selectedGatewayIndex, setSelectedGatewayIndex] = useState(0);
@@ -90,6 +63,49 @@ export default function IPFSGatewayProvider({ children }) {
     [selectedUploadGatewayIndex]
   );
 
+  const localStorageGatewayKey = "ipfsGatewayProvider";
+  const localStorageUploadKey = "ipfsUploadGatewayProvider";
+
+  function applyStoredGatewayProvider() {
+    const stored = window.localStorage.getItem(localStorageGatewayKey);
+
+    if (!stored || stored === "") return;
+    const provider = ipfsGateways.find(({ name }) => stored === name);
+
+    provider && setSelectedGatewayIndex(ipfsGateways.indexOf(provider));
+  }
+
+  function applyStoredUploadProvider() {
+    const stored = window.localStorage.getItem(localStorageUploadKey);
+
+    if (!stored || stored === "") return;
+    const provider = ipfsUploadGateways.find(({ name }) => stored === name);
+
+    provider && setSelectedUploadGatewayIndex(ipfsUploadGateways.indexOf(provider));
+  }
+
+  function setAndStoreGatewayProvider(index) {
+    const provider = ipfsGateways[index];
+
+    if (!provider) return;
+    setSelectedGatewayIndex(index);
+    window.localStorage.setItem(localStorageGatewayKey, provider.name);
+  }
+
+  function setAndStoreUploadProvider(index) {
+    const provider = ipfsUploadGateways[index];
+
+    console.log("setAndStore", provider);
+    if (!provider) return;
+    setSelectedUploadGatewayIndex(index);
+    window.localStorage.setItem(localStorageUploadKey, provider.name);
+  }
+
+  useEffect(() => {
+    applyStoredGatewayProvider();
+    applyStoredUploadProvider();
+  }, []);
+
   return (
     <IPFSGatewayContext.Provider
       value={{
@@ -99,7 +115,7 @@ export default function IPFSGatewayProvider({ children }) {
           <button
             className={index !== selectedGatewayIndex && "unselected"}
             key={index}
-            onClick={() => setSelectedGatewayIndex(index)}
+            onClick={() => setAndStoreGatewayProvider(index)}
           >
             {name}
           </button>
@@ -108,7 +124,7 @@ export default function IPFSGatewayProvider({ children }) {
           <button
             className={index !== selectedUploadGatewayIndex && "unselected"}
             key={index}
-            onClick={() => setSelectedUploadGatewayIndex(index)}
+            onClick={() => setAndStoreUploadProvider(index)}
           >
             {name}
           </button>

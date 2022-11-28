@@ -4,19 +4,19 @@
     "5": [
       {
         "name": "BTC",
-        "address": "0xB6807A4cbF7efd7dBcA026651f90f950A3D7dA90"
+        "address": "0x0a7b71059d8b99B48CF23B785009d954709F1F10"
       },
       {
         "name": "wETH",
-        "address": "0xFb8BdfAD2C8EDD6dDD01Cb56B812b83f76D69dB7"
+        "address": "0x7b74A62FD2b206fC8626C33d74fE1f0a8eABc419"
       },
       {
         "name": "USDC",
-        "address": "0x0E8AeBFBE9E5a2a33337C670b5aE18C715E12D80"
+        "address": "0xeaC13E35fB7A56298BD6aa14088471810964116F"
       },
       {
         "name": "USDT",
-        "address": "0x1724bD63D859F45ba2a49Ebc91104b07385c9cd0"
+        "address": "0x7b4eDFBEfB631f4653A0C9402837B62356274fdD"
       }
     ],
     "97": [
