@@ -122,7 +122,7 @@ export async function getRequestTxNodeReal (network: number, address: string, re
         params: [
           {
             address: [address],
-            topics: [ethers.utils.id('Respond(uint256,uint256)'), requestID, null],
+            topics: [ethers.utils.id('Publish(uint256)'), requestID],
             fromBlock: '0x7A2ECD',
             toBlock: 'latest'
           }
