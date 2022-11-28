@@ -4,6 +4,7 @@ import RequestDetails from '../interfaces/RequestDetails'
 import { ethers } from 'ethers'
 import MeganodeRequestBody from '../interfaces/MeganodeRequestBody'
 import Tx from '../interfaces/Tx'
+import ExpressError from '../ExpressError.js'
 
 export async function getAllRequestsNodeReal (network: number, address: string): Promise<string[]> {
   const allRequests: string[] = []
@@ -35,6 +36,9 @@ export async function getAllRequestsNodeReal (network: number, address: string):
         body: JSON.stringify(body)
       })
       data = JSON.parse(await response.text())
+      if (data.error !== undefined && data.error.code === -32005) {
+        throw new ExpressError(500, 'NodeReal API call rate exceeded.')
+      }
       break
 
     default:
@@ -131,12 +135,18 @@ export async function getRequestTxNodeReal (network: number, address: string, re
       requestOptions.body = JSON.stringify(body)
       response = await fetch(nodeRealAPIEndpoint, requestOptions)
       data = JSON.parse(await response.text())
+      if (data.error !== undefined && data.error.code === -32005) {
+        throw new ExpressError(500, 'NodeReal API call rate exceeded.')
+      }
       txHash = data.result[0].transactionHash
       body.method = 'eth_getBlockByNumber'
       body.params = [data.result[0].blockNumber, false]
       requestOptions.body = JSON.stringify(body)
       response = await fetch(nodeRealAPIEndpoint, requestOptions)
       data = JSON.parse(await response.text())
+      if (data.error !== undefined && data.error.code === -32005) {
+        throw new ExpressError(500, 'NodeReal API call rate exceeded.')
+      }
       timestamp = data.result.timestamp
       break
   }
