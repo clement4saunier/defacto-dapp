@@ -64,7 +64,7 @@ export default function Mint() {
   return (
     <>
       <h1>Mint your request</h1>
-      <p>Lorem ipsum</p>
+      <p>Your request will be hosted on IPFS to resist censorship</p>
       <div className="divider" />
       <h3>{title}</h3>
       <p>{body}</p>

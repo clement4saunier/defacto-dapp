@@ -30,7 +30,7 @@ export default function IPFSGatewayProvider({ children }) {
         )
     },
     {
-      name: "Starton API",
+      name: "Starton",
       fetch: async (cid) =>
         await fetch("https://ipfs.eu.starton.io/ipfs/" + cid).then(
           async (file) => file.json()
