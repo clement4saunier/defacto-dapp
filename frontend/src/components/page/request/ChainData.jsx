@@ -8,10 +8,17 @@ export default function ChainData() {
     const { requestChainData } = useRequestSourceContext();
     const [{ address, amount, owner, deadline, symbol, token, delegate }, setData] =
       useState({});
-    const displayDate = useMemo(
-      () => (deadline ? new Date(deadline * 1000).toLocaleDateString() : "..."),
-      [deadline]
-    );
+
+      console.log(deadline);
+    const displayDate = useMemo(() => {
+      const date = new Date(parseInt(deadline));
+      return deadline
+        ? `${date.getDate()}/${date.getMonth() + 1}/${date
+            .getFullYear()
+            .toString()
+            .substring(2, 4)}`
+        : "...";
+    }, [deadline]);
 
     useEffect(() => {
       requestChainData && setData(requestChainData[0]);

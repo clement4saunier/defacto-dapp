@@ -96,11 +96,11 @@ export default function Fill() {
             onChange={(e) => setTimer(e.target.value)}
             required
           >
-            <option value="24h">24H</option>
-            <option value="48H">48H</option>
-            <option value="72H">72H</option>
-            <option value="one week">1 week</option>
-            <option value="one month">1 month</option>
+            <option value="24">24H</option>
+            <option value="48">48H</option>
+            <option value="72">72H</option>
+            <option value="168">1 week</option>
+            <option value="720">1 month</option>
           </select>
         </div>
         <div className="questionForm">
@@ -118,7 +118,7 @@ export default function Fill() {
         </div>
         <div style={{ display: "flex", justifyContent: "right" }}>
           <button title="Submit" type="submit">
-            Add to verify
+            Upload & Mint
           </button>
         </div>
         <br />

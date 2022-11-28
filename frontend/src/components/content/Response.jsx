@@ -4,8 +4,9 @@ import { useIPFSGatewayContext } from "../context/IPFSGatewayProvider";
 export default function Response({ sender, id, cid, origin, highlight, onClick, ...props}) {
   const { ipfsGateway } = useIPFSGatewayContext();
   const [{ name, description }, setContent] = useState({});
+  console.log("origin", origin);
   const originDate = useMemo(() => {
-    const date = new Date(origin * 1000);
+    const date = new Date(parseInt(origin * 1000));
     return origin
       ? `${date.getDate()}/${date.getMonth() + 1}/${date
           .getFullYear()

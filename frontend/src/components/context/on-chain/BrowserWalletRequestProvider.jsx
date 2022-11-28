@@ -59,7 +59,7 @@ export function BrowserWalletRequestProvider({ children, onlyId }) {
       amount: utils.formatEther(amount.toString()),
       origin: txn[0] ? (await txn[0].getBlock()).timestamp : 0,
       hash: txn[0] ? txn[0].transactionHash : "unknown",
-      deadline,
+      deadline: deadline.toNumber(),
       id,
       symbol,
       address,
